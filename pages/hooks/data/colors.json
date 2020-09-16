@@ -1,0 +1,1242 @@
+[
+	{
+		"fallbacks": [],
+		"defaultValue": "#ffffff",
+		"customProperty": "--now-color--neutral-0",
+		"scssVariable": "$now-color--neutral-0",
+		"string": "now-fn-color2rgb(#ffffff)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#f6f7f7",
+		"customProperty": "--now-color--neutral-1",
+		"scssVariable": "$now-color--neutral-1",
+		"string": "now-fn-color2rgb(#f6f7f7)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#e4e6e7",
+		"customProperty": "--now-color--neutral-2",
+		"scssVariable": "$now-color--neutral-2",
+		"string": "now-fn-color2rgb(#e4e6e7)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#d1d6d6",
+		"customProperty": "--now-color--neutral-3",
+		"scssVariable": "$now-color--neutral-3",
+		"string": "now-fn-color2rgb(#d1d6d6)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#bfc5c6",
+		"customProperty": "--now-color--neutral-4",
+		"scssVariable": "$now-color--neutral-4",
+		"string": "now-fn-color2rgb(#bfc5c6)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#acb4b5",
+		"customProperty": "--now-color--neutral-5",
+		"scssVariable": "$now-color--neutral-5",
+		"string": "now-fn-color2rgb(#acb4b5)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#9aa4a5",
+		"customProperty": "--now-color--neutral-6",
+		"scssVariable": "$now-color--neutral-6",
+		"string": "now-fn-color2rgb(#9aa4a5)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#879394",
+		"customProperty": "--now-color--neutral-7",
+		"scssVariable": "$now-color--neutral-7",
+		"string": "now-fn-color2rgb(#879394)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#758284",
+		"customProperty": "--now-color--neutral-8",
+		"scssVariable": "$now-color--neutral-8",
+		"string": "now-fn-color2rgb(#758284)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#637274",
+		"customProperty": "--now-color--neutral-9",
+		"scssVariable": "$now-color--neutral-9",
+		"string": "now-fn-color2rgb(#637274)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#506163",
+		"customProperty": "--now-color--neutral-10",
+		"scssVariable": "$now-color--neutral-10",
+		"string": "now-fn-color2rgb(#506163)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#49585a",
+		"customProperty": "--now-color--neutral-11",
+		"scssVariable": "$now-color--neutral-11",
+		"string": "now-fn-color2rgb(#49585a)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#425051",
+		"customProperty": "--now-color--neutral-12",
+		"scssVariable": "$now-color--neutral-12",
+		"string": "now-fn-color2rgb(#425051)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#3a4748",
+		"customProperty": "--now-color--neutral-13",
+		"scssVariable": "$now-color--neutral-13",
+		"string": "now-fn-color2rgb(#3a4748)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#333e3f",
+		"customProperty": "--now-color--neutral-14",
+		"scssVariable": "$now-color--neutral-14",
+		"string": "now-fn-color2rgb(#333e3f)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#2c3537",
+		"customProperty": "--now-color--neutral-15",
+		"scssVariable": "$now-color--neutral-15",
+		"string": "now-fn-color2rgb(#2c3537)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#252d2e",
+		"customProperty": "--now-color--neutral-16",
+		"scssVariable": "$now-color--neutral-16",
+		"string": "now-fn-color2rgb(#252d2e)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#1e2425",
+		"customProperty": "--now-color--neutral-17",
+		"scssVariable": "$now-color--neutral-17",
+		"string": "now-fn-color2rgb(#1e2425)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#161b1c",
+		"customProperty": "--now-color--neutral-18",
+		"scssVariable": "$now-color--neutral-18",
+		"string": "now-fn-color2rgb(#161b1c)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#0f1213",
+		"customProperty": "--now-color--neutral-19",
+		"scssVariable": "$now-color--neutral-19",
+		"string": "now-fn-color2rgb(#0f1213)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#080a0a",
+		"customProperty": "--now-color--neutral-20",
+		"scssVariable": "$now-color--neutral-20",
+		"string": "now-fn-color2rgb(#080a0a)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#000000",
+		"customProperty": "--now-color--neutral-21",
+		"scssVariable": "$now-color--neutral-21",
+		"string": "now-fn-color2rgb(#000000)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#ddede9",
+		"customProperty": "--now-color--primary-0",
+		"scssVariable": "$now-color--primary-0",
+		"string": "now-fn-color2rgb(#ddede9)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#1e856d",
+		"customProperty": "--now-color--primary-1",
+		"scssVariable": "$now-color--primary-1",
+		"string": "now-fn-color2rgb(#1e856d)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#176452",
+		"customProperty": "--now-color--primary-2",
+		"scssVariable": "$now-color--primary-2",
+		"string": "now-fn-color2rgb(#176452)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#0f4337",
+		"customProperty": "--now-color--primary-3",
+		"scssVariable": "$now-color--primary-3",
+		"string": "now-fn-color2rgb(#0f4337)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#d9ebee",
+		"customProperty": "--now-color--secondary-0",
+		"scssVariable": "$now-color--secondary-0",
+		"string": "now-fn-color2rgb(#d9ebee)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01778e",
+		"customProperty": "--now-color--secondary-1",
+		"scssVariable": "$now-color--secondary-1",
+		"string": "now-fn-color2rgb(#01778e)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01596b",
+		"customProperty": "--now-color--secondary-2",
+		"scssVariable": "$now-color--secondary-2",
+		"string": "now-fn-color2rgb(#01596b)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#013c47",
+		"customProperty": "--now-color--secondary-3",
+		"scssVariable": "$now-color--secondary-3",
+		"string": "now-fn-color2rgb(#013c47)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#4ba66b",
+		"customProperty": "--now-color--presence-available",
+		"scssVariable": "$now-color--presence-available",
+		"string": "now-fn-color2rgb(#4ba66b)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#ea3c10",
+		"customProperty": "--now-color--presence-busy",
+		"scssVariable": "$now-color--presence-busy",
+		"string": "now-fn-color2rgb(#ea3c10)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#e27918",
+		"customProperty": "--now-color--presence-away",
+		"scssVariable": "$now-color--presence-away",
+		"string": "now-fn-color2rgb(#e27918)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#879394",
+		"customProperty": "--now-color--presence-offline",
+		"scssVariable": "$now-color--presence-offline",
+		"string": "now-fn-color2rgb(#879394)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#f1cecd",
+		"customProperty": "--now-color--alert-critical-0",
+		"scssVariable": "$now-color--alert-critical-0",
+		"string": "now-fn-color2rgb(#f1cecd)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#dd8581",
+		"customProperty": "--now-color--alert-critical-1",
+		"scssVariable": "$now-color--alert-critical-1",
+		"string": "now-fn-color2rgb(#dd8581)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#c83c36",
+		"customProperty": "--now-color--alert-critical-2",
+		"scssVariable": "$now-color--alert-critical-2",
+		"string": "now-fn-color2rgb(#c83c36)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#a0302b",
+		"customProperty": "--now-color--alert-critical-3",
+		"scssVariable": "$now-color--alert-critical-3",
+		"string": "now-fn-color2rgb(#a0302b)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#782420",
+		"customProperty": "--now-color--alert-critical-4",
+		"scssVariable": "$now-color--alert-critical-4",
+		"string": "now-fn-color2rgb(#782420)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#501816",
+		"customProperty": "--now-color--alert-critical-5",
+		"scssVariable": "$now-color--alert-critical-5",
+		"string": "now-fn-color2rgb(#501816)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#f5debd",
+		"customProperty": "--now-color--alert-high-0",
+		"scssVariable": "$now-color--alert-high-0",
+		"string": "now-fn-color2rgb(#f5debd)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#e9b86f",
+		"customProperty": "--now-color--alert-high-1",
+		"scssVariable": "$now-color--alert-high-1",
+		"string": "now-fn-color2rgb(#e9b86f)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#dd9122",
+		"customProperty": "--now-color--alert-high-2",
+		"scssVariable": "$now-color--alert-high-2",
+		"string": "now-fn-color2rgb(#dd9122)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#b87514",
+		"customProperty": "--now-color--alert-high-3",
+		"scssVariable": "$now-color--alert-high-3",
+		"string": "now-fn-color2rgb(#b87514)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#905909",
+		"customProperty": "--now-color--alert-high-4",
+		"scssVariable": "$now-color--alert-high-4",
+		"string": "now-fn-color2rgb(#905909)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#643c02",
+		"customProperty": "--now-color--alert-high-5",
+		"scssVariable": "$now-color--alert-high-5",
+		"string": "now-fn-color2rgb(#643c02)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#f2edb3",
+		"customProperty": "--now-color--alert-warning-0",
+		"scssVariable": "$now-color--alert-warning-0",
+		"string": "now-fn-color2rgb(#f2edb3)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#e2d859",
+		"customProperty": "--now-color--alert-warning-1",
+		"scssVariable": "$now-color--alert-warning-1",
+		"string": "now-fn-color2rgb(#e2d859)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#d2c300",
+		"customProperty": "--now-color--alert-warning-2",
+		"scssVariable": "$now-color--alert-warning-2",
+		"string": "now-fn-color2rgb(#d2c300)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#b1a300",
+		"customProperty": "--now-color--alert-warning-3",
+		"scssVariable": "$now-color--alert-warning-3",
+		"string": "now-fn-color2rgb(#b1a300)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#807800",
+		"customProperty": "--now-color--alert-warning-4",
+		"scssVariable": "$now-color--alert-warning-4",
+		"string": "now-fn-color2rgb(#807800)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#404000",
+		"customProperty": "--now-color--alert-warning-5",
+		"scssVariable": "$now-color--alert-warning-5",
+		"string": "now-fn-color2rgb(#404000)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#d4d5f3",
+		"customProperty": "--now-color--alert-moderate-0",
+		"scssVariable": "$now-color--alert-moderate-0",
+		"string": "now-fn-color2rgb(#d4d5f3)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#9495e1",
+		"customProperty": "--now-color--alert-moderate-1",
+		"scssVariable": "$now-color--alert-moderate-1",
+		"string": "now-fn-color2rgb(#9495e1)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#5456cf",
+		"customProperty": "--now-color--alert-moderate-2",
+		"scssVariable": "$now-color--alert-moderate-2",
+		"string": "now-fn-color2rgb(#5456cf)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#4345a6",
+		"customProperty": "--now-color--alert-moderate-3",
+		"scssVariable": "$now-color--alert-moderate-3",
+		"string": "now-fn-color2rgb(#4345a6)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#32347c",
+		"customProperty": "--now-color--alert-moderate-4",
+		"scssVariable": "$now-color--alert-moderate-4",
+		"string": "now-fn-color2rgb(#32347c)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#222253",
+		"customProperty": "--now-color--alert-moderate-5",
+		"scssVariable": "$now-color--alert-moderate-5",
+		"string": "now-fn-color2rgb(#222253)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#c3ddf0",
+		"customProperty": "--now-color--alert-info-0",
+		"scssVariable": "$now-color--alert-info-0",
+		"string": "now-fn-color2rgb(#c3ddf0)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#68abda",
+		"customProperty": "--now-color--alert-info-1",
+		"scssVariable": "$now-color--alert-info-1",
+		"string": "now-fn-color2rgb(#68abda)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#0e78c4",
+		"customProperty": "--now-color--alert-info-2",
+		"scssVariable": "$now-color--alert-info-2",
+		"string": "now-fn-color2rgb(#0e78c4)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#0b609d",
+		"customProperty": "--now-color--alert-info-3",
+		"scssVariable": "$now-color--alert-info-3",
+		"string": "now-fn-color2rgb(#0b609d)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#084876",
+		"customProperty": "--now-color--alert-info-4",
+		"scssVariable": "$now-color--alert-info-4",
+		"string": "now-fn-color2rgb(#084876)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#06304e",
+		"customProperty": "--now-color--alert-info-5",
+		"scssVariable": "$now-color--alert-info-5",
+		"string": "now-fn-color2rgb(#06304e)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#c9e0ca",
+		"customProperty": "--now-color--alert-positive-0",
+		"scssVariable": "$now-color--alert-positive-0",
+		"string": "now-fn-color2rgb(#c9e0ca)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#77b27b",
+		"customProperty": "--now-color--alert-positive-1",
+		"scssVariable": "$now-color--alert-positive-1",
+		"string": "now-fn-color2rgb(#77b27b)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#25832b",
+		"customProperty": "--now-color--alert-positive-2",
+		"scssVariable": "$now-color--alert-positive-2",
+		"string": "now-fn-color2rgb(#25832b)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#1e6922",
+		"customProperty": "--now-color--alert-positive-3",
+		"scssVariable": "$now-color--alert-positive-3",
+		"string": "now-fn-color2rgb(#1e6922)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#164f1a",
+		"customProperty": "--now-color--alert-positive-4",
+		"scssVariable": "$now-color--alert-positive-4",
+		"string": "now-fn-color2rgb(#164f1a)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#0f3411",
+		"customProperty": "--now-color--alert-positive-5",
+		"scssVariable": "$now-color--alert-positive-5",
+		"string": "now-fn-color2rgb(#0f3411)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#d9d9d9",
+		"customProperty": "--now-color--alert-low-0",
+		"scssVariable": "$now-color--alert-low-0",
+		"string": "now-fn-color2rgb(#d9d9d9)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#9f9f9f",
+		"customProperty": "--now-color--alert-low-1",
+		"scssVariable": "$now-color--alert-low-1",
+		"string": "now-fn-color2rgb(#9f9f9f)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#666666",
+		"customProperty": "--now-color--alert-low-2",
+		"scssVariable": "$now-color--alert-low-2",
+		"string": "now-fn-color2rgb(#666666)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#525252",
+		"customProperty": "--now-color--alert-low-3",
+		"scssVariable": "$now-color--alert-low-3",
+		"string": "now-fn-color2rgb(#525252)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#3d3d3d",
+		"customProperty": "--now-color--alert-low-4",
+		"scssVariable": "$now-color--alert-low-4",
+		"string": "now-fn-color2rgb(#3d3d3d)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#292929",
+		"customProperty": "--now-color--alert-low-5",
+		"scssVariable": "$now-color--alert-low-5",
+		"string": "now-fn-color2rgb(#292929)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#ffffff",
+		"customProperty": "--now-color--brand-0",
+		"scssVariable": "$now-color--brand-0",
+		"string": "now-fn-color2rgb(#ffffff)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#293e40",
+		"customProperty": "--now-color--brand-1",
+		"scssVariable": "$now-color--brand-1",
+		"string": "now-fn-color2rgb(#293e40)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#81b5a1",
+		"customProperty": "--now-color--brand-2",
+		"scssVariable": "$now-color--brand-2",
+		"string": "now-fn-color2rgb(#81b5a1)",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-0"],
+		"defaultValue": "#ffffff",
+		"customProperty": "--now-color--background-primary",
+		"scssVariable": "$now-color--background-primary",
+		"string": "$now-color--neutral-0",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-1"],
+		"defaultValue": "#f6f7f7",
+		"customProperty": "--now-color--background-secondary",
+		"scssVariable": "$now-color--background-secondary",
+		"string": "$now-color--neutral-1",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-2"],
+		"defaultValue": "#e4e6e7",
+		"customProperty": "--now-color--background-tertiary",
+		"scssVariable": "$now-color--background-tertiary",
+		"string": "$now-color--neutral-2",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-7"],
+		"defaultValue": "#879394",
+		"customProperty": "--now-color--divider-primary",
+		"scssVariable": "$now-color--divider-primary",
+		"string": "$now-color--neutral-7",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-5"],
+		"defaultValue": "#acb4b5",
+		"customProperty": "--now-color--divider-secondary",
+		"scssVariable": "$now-color--divider-secondary",
+		"string": "$now-color--neutral-5",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-3"],
+		"defaultValue": "#d1d6d6",
+		"customProperty": "--now-color--divider-tertiary",
+		"scssVariable": "$now-color--divider-tertiary",
+		"string": "$now-color--neutral-3",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-18"],
+		"defaultValue": "#161b1c",
+		"customProperty": "--now-color--text-primary",
+		"scssVariable": "$now-color--text-primary",
+		"string": "$now-color--neutral-18",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-12"],
+		"defaultValue": "#425051",
+		"customProperty": "--now-color--text-secondary",
+		"scssVariable": "$now-color--text-secondary",
+		"string": "$now-color--neutral-12",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-9"],
+		"defaultValue": "#637274",
+		"customProperty": "--now-color--text-tertiary",
+		"scssVariable": "$now-color--text-tertiary",
+		"string": "$now-color--neutral-9",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-7"],
+		"defaultValue": "#879394",
+		"customProperty": "--now-color--border-primary",
+		"scssVariable": "$now-color--border-primary",
+		"string": "$now-color--neutral-7",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-5"],
+		"defaultValue": "#acb4b5",
+		"customProperty": "--now-color--border-secondary",
+		"scssVariable": "$now-color--border-secondary",
+		"string": "$now-color--neutral-5",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-3"],
+		"defaultValue": "#d1d6d6",
+		"customProperty": "--now-color--border-tertiary",
+		"scssVariable": "$now-color--border-tertiary",
+		"string": "$now-color--neutral-3",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--secondary-1"],
+		"defaultValue": "#01778e",
+		"customProperty": "--now-color--focus-ring",
+		"scssVariable": "$now-color--focus-ring",
+		"string": "$now-color--secondary-1",
+		"class": "system"
+	},
+	{
+		"fallbacks": ["--now-color--neutral-0"],
+		"defaultValue": "#ffffff",
+		"customProperty": "--now-color--focus-ring-shadow",
+		"scssVariable": "$now-color--focus-ring-shadow",
+		"string": "$now-color--neutral-0",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#ddede9",
+		"customProperty": "--now-color--selection-primary-0",
+		"scssVariable": "$now-color--selection-primary-0",
+		"string": "now-fn-color2rgb(#ddede9)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#7eb9ab",
+		"customProperty": "--now-color--selection-primary-1",
+		"scssVariable": "$now-color--selection-primary-1",
+		"string": "now-fn-color2rgb(#7eb9ab)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#1e856d",
+		"customProperty": "--now-color--selection-primary-2",
+		"scssVariable": "$now-color--selection-primary-2",
+		"string": "now-fn-color2rgb(#1e856d)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#176452",
+		"customProperty": "--now-color--selection-primary-3",
+		"scssVariable": "$now-color--selection-primary-3",
+		"string": "now-fn-color2rgb(#176452)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#0f4337",
+		"customProperty": "--now-color--selection-primary-4",
+		"scssVariable": "$now-color--selection-primary-4",
+		"string": "now-fn-color2rgb(#0f4337)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#f5f8f9",
+		"customProperty": "--now-color--selection-secondary-0",
+		"scssVariable": "$now-color--selection-secondary-0",
+		"string": "now-fn-color2rgb(#f5f8f9)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#edf3f5",
+		"customProperty": "--now-color--selection-secondary-1",
+		"scssVariable": "$now-color--selection-secondary-1",
+		"string": "now-fn-color2rgb(#edf3f5)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#e5eef0",
+		"customProperty": "--now-color--selection-secondary-2",
+		"scssVariable": "$now-color--selection-secondary-2",
+		"string": "now-fn-color2rgb(#e5eef0)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#dae2e4",
+		"customProperty": "--now-color--selection-secondary-3",
+		"scssVariable": "$now-color--selection-secondary-3",
+		"string": "now-fn-color2rgb(#dae2e4)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#ced6d8",
+		"customProperty": "--now-color--selection-secondary-4",
+		"scssVariable": "$now-color--selection-secondary-4",
+		"string": "now-fn-color2rgb(#ced6d8)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#d9ebee",
+		"customProperty": "--now-color--interactive-0",
+		"scssVariable": "$now-color--interactive-0",
+		"string": "now-fn-color2rgb(#d9ebee)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#6db1be",
+		"customProperty": "--now-color--interactive-1",
+		"scssVariable": "$now-color--interactive-1",
+		"string": "now-fn-color2rgb(#6db1be)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01778e",
+		"customProperty": "--now-color--interactive-2",
+		"scssVariable": "$now-color--interactive-2",
+		"string": "now-fn-color2rgb(#01778e)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01596b",
+		"customProperty": "--now-color--interactive-3",
+		"scssVariable": "$now-color--interactive-3",
+		"string": "now-fn-color2rgb(#01596b)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#013c47",
+		"customProperty": "--now-color--interactive-4",
+		"scssVariable": "$now-color--interactive-4",
+		"string": "now-fn-color2rgb(#013c47)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#4da0b0",
+		"customProperty": "--now-color--link-1",
+		"scssVariable": "$now-color--link-1",
+		"string": "now-fn-color2rgb(#4da0b0)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01778e",
+		"customProperty": "--now-color--link-2",
+		"scssVariable": "$now-color--link-2",
+		"string": "now-fn-color2rgb(#01778e)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01687c",
+		"customProperty": "--now-color--link-3",
+		"scssVariable": "$now-color--link-3",
+		"string": "now-fn-color2rgb(#01687c)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01596b",
+		"customProperty": "--now-color--link-4",
+		"scssVariable": "$now-color--link-4",
+		"string": "now-fn-color2rgb(#01596b)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#4da0b0",
+		"customProperty": "--now-color--focus-1",
+		"scssVariable": "$now-color--focus-1",
+		"string": "now-fn-color2rgb(#4da0b0)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01778e",
+		"customProperty": "--now-color--focus-2",
+		"scssVariable": "$now-color--focus-2",
+		"string": "now-fn-color2rgb(#01778e)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#01596b",
+		"customProperty": "--now-color--focus-3",
+		"scssVariable": "$now-color--focus-3",
+		"string": "now-fn-color2rgb(#01596b)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#fcfcfc",
+		"customProperty": "--now-color--surface-1",
+		"scssVariable": "$now-color--surface-1",
+		"string": "now-fn-color2rgb(#fcfcfc)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#f2f3f3",
+		"customProperty": "--now-color--surface-2",
+		"scssVariable": "$now-color--surface-2",
+		"string": "now-fn-color2rgb(#f2f3f3)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#e8eaea",
+		"customProperty": "--now-color--surface-3",
+		"scssVariable": "$now-color--surface-3",
+		"string": "now-fn-color2rgb(#e8eaea)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#dde1e1",
+		"customProperty": "--now-color--surface-4",
+		"scssVariable": "$now-color--surface-4",
+		"string": "now-fn-color2rgb(#dde1e1)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#d3d7d8",
+		"customProperty": "--now-color--surface-5",
+		"scssVariable": "$now-color--surface-5",
+		"string": "now-fn-color2rgb(#d3d7d8)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#c9cecf",
+		"customProperty": "--now-color--surface-6",
+		"scssVariable": "$now-color--surface-6",
+		"string": "now-fn-color2rgb(#c9cecf)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#ecf4f1",
+		"customProperty": "--now-color--surface-brand-1",
+		"scssVariable": "$now-color--surface-brand-1",
+		"string": "now-fn-color2rgb(#ecf4f1)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#dae9e4",
+		"customProperty": "--now-color--surface-brand-2",
+		"scssVariable": "$now-color--surface-brand-2",
+		"string": "now-fn-color2rgb(#dae9e4)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#c8dfd6",
+		"customProperty": "--now-color--surface-brand-3",
+		"scssVariable": "$now-color--surface-brand-3",
+		"string": "now-fn-color2rgb(#c8dfd6)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#b7d4c9",
+		"customProperty": "--now-color--surface-brand-4",
+		"scssVariable": "$now-color--surface-brand-4",
+		"string": "now-fn-color2rgb(#b7d4c9)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#a5cabc",
+		"customProperty": "--now-color--surface-brand-5",
+		"scssVariable": "$now-color--surface-brand-5",
+		"string": "now-fn-color2rgb(#a5cabc)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#93c0ae",
+		"customProperty": "--now-color--surface-brand-6",
+		"scssVariable": "$now-color--surface-brand-6",
+		"string": "now-fn-color2rgb(#93c0ae)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#f1f3f3",
+		"customProperty": "--now-color--surface-divider-1",
+		"scssVariable": "$now-color--surface-divider-1",
+		"string": "now-fn-color2rgb(#f1f3f3)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#dde0e0",
+		"customProperty": "--now-color--surface-divider-2",
+		"scssVariable": "$now-color--surface-divider-2",
+		"string": "now-fn-color2rgb(#dde0e0)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#c8cdce",
+		"customProperty": "--now-color--surface-divider-3",
+		"scssVariable": "$now-color--surface-divider-3",
+		"string": "now-fn-color2rgb(#c8cdce)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#b3babb",
+		"customProperty": "--now-color--surface-divider-4",
+		"scssVariable": "$now-color--surface-divider-4",
+		"string": "now-fn-color2rgb(#b3babb)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#9ea8a9",
+		"customProperty": "--now-color--surface-divider-5",
+		"scssVariable": "$now-color--surface-divider-5",
+		"string": "now-fn-color2rgb(#9ea8a9)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#8a9597",
+		"customProperty": "--now-color--surface-divider-6",
+		"scssVariable": "$now-color--surface-divider-6",
+		"string": "now-fn-color2rgb(#8a9597)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#dfe2e2",
+		"customProperty": "--now-color--chrome-0",
+		"scssVariable": "$now-color--chrome-0",
+		"string": "now-fn-color2rgb(#dfe2e2)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#bbc2c2",
+		"customProperty": "--now-color--chrome-1",
+		"scssVariable": "$now-color--chrome-1",
+		"string": "now-fn-color2rgb(#bbc2c2)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#96a1a1",
+		"customProperty": "--now-color--chrome-2",
+		"scssVariable": "$now-color--chrome-2",
+		"string": "now-fn-color2rgb(#96a1a1)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#728081",
+		"customProperty": "--now-color--chrome-3",
+		"scssVariable": "$now-color--chrome-3",
+		"string": "now-fn-color2rgb(#728081)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#4d6061",
+		"customProperty": "--now-color--chrome-4",
+		"scssVariable": "$now-color--chrome-4",
+		"string": "now-fn-color2rgb(#4d6061)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#293f40",
+		"customProperty": "--now-color--chrome-5",
+		"scssVariable": "$now-color--chrome-5",
+		"string": "now-fn-color2rgb(#293f40)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#25393a",
+		"customProperty": "--now-color--chrome-6",
+		"scssVariable": "$now-color--chrome-6",
+		"string": "now-fn-color2rgb(#25393a)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#213233",
+		"customProperty": "--now-color--chrome-7",
+		"scssVariable": "$now-color--chrome-7",
+		"string": "now-fn-color2rgb(#213233)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#1d2c2d",
+		"customProperty": "--now-color--chrome-8",
+		"scssVariable": "$now-color--chrome-8",
+		"string": "now-fn-color2rgb(#1d2c2d)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#192626",
+		"customProperty": "--now-color--chrome-9",
+		"scssVariable": "$now-color--chrome-9",
+		"string": "now-fn-color2rgb(#192626)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#152020",
+		"customProperty": "--now-color--chrome-10",
+		"scssVariable": "$now-color--chrome-10",
+		"string": "now-fn-color2rgb(#152020)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#a9b2b3",
+		"customProperty": "--now-color--chrome-divider-0",
+		"scssVariable": "$now-color--chrome-divider-0",
+		"string": "now-fn-color2rgb(#a9b2b3)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#909b9c",
+		"customProperty": "--now-color--chrome-divider-1",
+		"scssVariable": "$now-color--chrome-divider-1",
+		"string": "now-fn-color2rgb(#909b9c)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#768485",
+		"customProperty": "--now-color--chrome-divider-2",
+		"scssVariable": "$now-color--chrome-divider-2",
+		"string": "now-fn-color2rgb(#768485)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#5c6d6e",
+		"customProperty": "--now-color--chrome-divider-3",
+		"scssVariable": "$now-color--chrome-divider-3",
+		"string": "now-fn-color2rgb(#5c6d6e)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#435657",
+		"customProperty": "--now-color--chrome-divider-4",
+		"scssVariable": "$now-color--chrome-divider-4",
+		"string": "now-fn-color2rgb(#435657)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#243738",
+		"customProperty": "--now-color--chrome-divider-5",
+		"scssVariable": "$now-color--chrome-divider-5",
+		"string": "now-fn-color2rgb(#243738)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#1e2e2f",
+		"customProperty": "--now-color--chrome-divider-6",
+		"scssVariable": "$now-color--chrome-divider-6",
+		"string": "now-fn-color2rgb(#1e2e2f)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#192626",
+		"customProperty": "--now-color--chrome-divider-7",
+		"scssVariable": "$now-color--chrome-divider-7",
+		"string": "now-fn-color2rgb(#192626)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#131d1e",
+		"customProperty": "--now-color--chrome-divider-8",
+		"scssVariable": "$now-color--chrome-divider-8",
+		"string": "now-fn-color2rgb(#131d1e)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#0e1515",
+		"customProperty": "--now-color--chrome-divider-9",
+		"scssVariable": "$now-color--chrome-divider-9",
+		"string": "now-fn-color2rgb(#0e1515)",
+		"class": "system"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "#080d0d",
+		"customProperty": "--now-color--chrome-divider-10",
+		"scssVariable": "$now-color--chrome-divider-10",
+		"string": "now-fn-color2rgb(#080d0d)",
+		"class": "system"
+	}
+]

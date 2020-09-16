@@ -1,0 +1,958 @@
+[
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-actionable--font-style",
+		"scssVariable": "$now-actionable--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-actionable--font-weight",
+		"scssVariable": "$now-actionable--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-actionable--font-family",
+		"scssVariable": "$now-actionable--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-actionable--text-transform",
+		"scssVariable": "$now-actionable--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-actionable--border-width",
+		"scssVariable": "$now-actionable--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-actionable--border-radius",
+		"scssVariable": "$now-actionable--border-radius",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-container--font-style",
+		"scssVariable": "$now-container--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-container--font-weight",
+		"scssVariable": "$now-container--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-container--font-family",
+		"scssVariable": "$now-container--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-container--text-transform",
+		"scssVariable": "$now-container--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-container--border-width",
+		"scssVariable": "$now-container--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--border-tertiary",
+		"customProperty": "--now-container--border-color",
+		"scssVariable": "$now-container--border-color",
+		"string": "$now-color--border-tertiary",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-container--border-radius",
+		"scssVariable": "$now-container--border-radius",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--background-primary",
+		"customProperty": "--now-container--color",
+		"scssVariable": "$now-container--color",
+		"string": "$now-color--background-primary",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type--font-style",
+		"scssVariable": "$now-display-type--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type--font-weight",
+		"scssVariable": "$now-display-type--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-display-type--font-family",
+		"scssVariable": "$now-display-type--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-display-type--text-transform",
+		"scssVariable": "$now-display-type--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--text-primary",
+		"customProperty": "--now-display-type--color",
+		"scssVariable": "$now-display-type--color",
+		"string": "$now-color--text-primary",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-style"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type-label--font-style",
+		"scssVariable": "$now-display-type-label--font-style",
+		"string": "$now-display-type--font-style",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-weight"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type-label--font-weight",
+		"scssVariable": "$now-display-type-label--font-weight",
+		"string": "$now-display-type--font-weight",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-family", "--now-font-family"],
+		"customProperty": "--now-display-type-label--font-family",
+		"scssVariable": "$now-display-type-label--font-family",
+		"string": "$now-display-type--font-family",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--text-transform"],
+		"defaultValue": "none",
+		"customProperty": "--now-display-type-label--text-transform",
+		"scssVariable": "$now-display-type-label--text-transform",
+		"string": "$now-display-type--text-transform",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--text-tertiary",
+		"customProperty": "--now-display-type-label--color",
+		"scssVariable": "$now-display-type-label--color",
+		"string": "$now-color--text-tertiary",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-style"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type-value--font-style",
+		"scssVariable": "$now-display-type-value--font-style",
+		"string": "$now-display-type--font-style",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-weight"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type-value--font-weight",
+		"scssVariable": "$now-display-type-value--font-weight",
+		"string": "$now-display-type--font-weight",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-family", "--now-font-family"],
+		"customProperty": "--now-display-type-value--font-family",
+		"scssVariable": "$now-display-type-value--font-family",
+		"string": "$now-display-type--font-family",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--text-transform"],
+		"defaultValue": "none",
+		"customProperty": "--now-display-type-value--text-transform",
+		"scssVariable": "$now-display-type-value--text-transform",
+		"string": "$now-display-type--text-transform",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--color"],
+		"defaultValue": "$now-color--text-primary",
+		"customProperty": "--now-display-type-value--color",
+		"scssVariable": "$now-display-type-value--color",
+		"string": "$now-display-type--color",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-style"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type--primary--font-style",
+		"scssVariable": "$now-display-type--primary--font-style",
+		"string": "$now-display-type--font-style",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "600",
+		"customProperty": "--now-display-type--primary--font-weight",
+		"scssVariable": "$now-display-type--primary--font-weight",
+		"string": "600",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-family", "--now-font-family"],
+		"customProperty": "--now-display-type--primary--font-family",
+		"scssVariable": "$now-display-type--primary--font-family",
+		"string": "$now-display-type--font-family",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--text-transform"],
+		"defaultValue": "none",
+		"customProperty": "--now-display-type--primary--text-transform",
+		"scssVariable": "$now-display-type--primary--text-transform",
+		"string": "$now-display-type--text-transform",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--color"],
+		"defaultValue": "$now-color--text-primary",
+		"customProperty": "--now-display-type--primary--color",
+		"scssVariable": "$now-display-type--primary--color",
+		"string": "$now-display-type--color",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-style"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type--secondary--font-style",
+		"scssVariable": "$now-display-type--secondary--font-style",
+		"string": "$now-display-type--font-style",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-weight"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type--secondary--font-weight",
+		"scssVariable": "$now-display-type--secondary--font-weight",
+		"string": "$now-display-type--font-weight",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-family", "--now-font-family"],
+		"customProperty": "--now-display-type--secondary--font-family",
+		"scssVariable": "$now-display-type--secondary--font-family",
+		"string": "$now-display-type--font-family",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--text-transform"],
+		"defaultValue": "none",
+		"customProperty": "--now-display-type--secondary--text-transform",
+		"scssVariable": "$now-display-type--secondary--text-transform",
+		"string": "$now-display-type--text-transform",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--text-secondary",
+		"customProperty": "--now-display-type--secondary--color",
+		"scssVariable": "$now-display-type--secondary--color",
+		"string": "$now-color--text-secondary",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-style"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type--tertiary--font-style",
+		"scssVariable": "$now-display-type--tertiary--font-style",
+		"string": "$now-display-type--font-style",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-weight"],
+		"defaultValue": "normal",
+		"customProperty": "--now-display-type--tertiary--font-weight",
+		"scssVariable": "$now-display-type--tertiary--font-weight",
+		"string": "$now-display-type--font-weight",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--font-family", "--now-font-family"],
+		"customProperty": "--now-display-type--tertiary--font-family",
+		"scssVariable": "$now-display-type--tertiary--font-family",
+		"string": "$now-display-type--font-family",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-display-type--text-transform"],
+		"defaultValue": "none",
+		"customProperty": "--now-display-type--tertiary--text-transform",
+		"scssVariable": "$now-display-type--tertiary--text-transform",
+		"string": "$now-display-type--text-transform",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--text-tertiary",
+		"customProperty": "--now-display-type--tertiary--color",
+		"scssVariable": "$now-display-type--tertiary--color",
+		"string": "$now-color--text-tertiary",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-form-control--font-style",
+		"scssVariable": "$now-form-control--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-form-control--font-weight",
+		"scssVariable": "$now-form-control--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-form-control--font-family",
+		"scssVariable": "$now-form-control--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-form-control--text-transform",
+		"scssVariable": "$now-form-control--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-form-control--border-width",
+		"scssVariable": "$now-form-control--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-form-control--border-radius",
+		"scssVariable": "$now-form-control--border-radius",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-form-control-handle--border-width",
+		"scssVariable": "$now-form-control-handle--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-global-border-radius--sm",
+		"customProperty": "--now-form-control-handle--border-radius",
+		"scssVariable": "$now-form-control-handle--border-radius",
+		"string": "$now-global-border-radius--sm",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-form-control-track--border-width",
+		"scssVariable": "$now-form-control-track--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-global-border-radius--sm",
+		"customProperty": "--now-form-control-track--border-radius",
+		"scssVariable": "$now-form-control-track--border-radius",
+		"string": "$now-global-border-radius--sm",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-identifier--font-style",
+		"scssVariable": "$now-identifier--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-identifier--font-weight",
+		"scssVariable": "$now-identifier--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-identifier--font-family",
+		"scssVariable": "$now-identifier--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-identifier--text-transform",
+		"scssVariable": "$now-identifier--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-identifier--border-width",
+		"scssVariable": "$now-identifier--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-identifier--border-radius",
+		"scssVariable": "$now-identifier--border-radius",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-indicator--font-style",
+		"scssVariable": "$now-indicator--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-indicator--font-weight",
+		"scssVariable": "$now-indicator--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-indicator--font-family",
+		"scssVariable": "$now-indicator--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-indicator--text-transform",
+		"scssVariable": "$now-indicator--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-indicator--border-width",
+		"scssVariable": "$now-indicator--border-width",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-global-border-radius--sm",
+		"customProperty": "--now-indicator--border-radius",
+		"scssVariable": "$now-indicator--border-radius",
+		"string": "$now-global-border-radius--sm",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-loading--font-style",
+		"scssVariable": "$now-loading--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-loading--font-weight",
+		"scssVariable": "$now-loading--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-loading--font-family",
+		"scssVariable": "$now-loading--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-loading--text-transform",
+		"scssVariable": "$now-loading--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-loading--border-width",
+		"scssVariable": "$now-loading--border-width",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-loading--border-radius",
+		"scssVariable": "$now-loading--border-radius",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--primary-2",
+		"customProperty": "--now-loading--initial--border-color",
+		"scssVariable": "$now-loading--initial--border-color",
+		"string": "$now-color--primary-2",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--primary-1",
+		"customProperty": "--now-loading--initial--background-color",
+		"scssVariable": "$now-loading--initial--background-color",
+		"string": "$now-color--primary-1",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-menu--font-style",
+		"scssVariable": "$now-menu--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-menu--font-weight",
+		"scssVariable": "$now-menu--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-menu--font-family",
+		"scssVariable": "$now-menu--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-menu--text-transform",
+		"scssVariable": "$now-menu--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-menu--border-width",
+		"scssVariable": "$now-menu--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--border-secondary",
+		"customProperty": "--now-menu--border-color",
+		"scssVariable": "$now-menu--border-color",
+		"string": "$now-color--border-secondary",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-global-border-radius--sm",
+		"customProperty": "--now-menu--border-radius",
+		"scssVariable": "$now-menu--border-radius",
+		"string": "$now-global-border-radius--sm",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-menu--divider-width",
+		"scssVariable": "$now-menu--divider-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--divider-tertiary",
+		"customProperty": "--now-menu--divider-color",
+		"scssVariable": "$now-menu--divider-color",
+		"string": "$now-color--divider-tertiary",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--background-primary",
+		"customProperty": "--now-menu--background-color",
+		"scssVariable": "$now-menu--background-color",
+		"string": "$now-color--background-primary",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-style"],
+		"defaultValue": "normal",
+		"customProperty": "--now-menu-header--font-style",
+		"scssVariable": "$now-menu-header--font-style",
+		"string": "$now-menu--font-style",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-weight"],
+		"defaultValue": "normal",
+		"customProperty": "--now-menu-header--font-weight",
+		"scssVariable": "$now-menu-header--font-weight",
+		"string": "$now-menu--font-weight",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-family", "--now-font-family"],
+		"customProperty": "--now-menu-header--font-family",
+		"scssVariable": "$now-menu-header--font-family",
+		"string": "$now-menu--font-family",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--text-transform"],
+		"defaultValue": "none",
+		"customProperty": "--now-menu-header--text-transform",
+		"scssVariable": "$now-menu-header--text-transform",
+		"string": "$now-menu--text-transform",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-style"],
+		"defaultValue": "normal",
+		"customProperty": "--now-menu-sublabel--font-style",
+		"scssVariable": "$now-menu-sublabel--font-style",
+		"string": "$now-menu--font-style",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-weight"],
+		"defaultValue": "normal",
+		"customProperty": "--now-menu-sublabel--font-weight",
+		"scssVariable": "$now-menu-sublabel--font-weight",
+		"string": "$now-menu--font-weight",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-family", "--now-font-family"],
+		"customProperty": "--now-menu-sublabel--font-family",
+		"scssVariable": "$now-menu-sublabel--font-family",
+		"string": "$now-menu--font-family",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--text-transform"],
+		"defaultValue": "none",
+		"customProperty": "--now-menu-sublabel--text-transform",
+		"scssVariable": "$now-menu-sublabel--text-transform",
+		"string": "$now-menu--text-transform",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-style"],
+		"defaultValue": "normal",
+		"customProperty": "--now-menu-search--font-style",
+		"scssVariable": "$now-menu-search--font-style",
+		"string": "$now-menu--font-style",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-weight"],
+		"defaultValue": "normal",
+		"customProperty": "--now-menu-search--font-weight",
+		"scssVariable": "$now-menu-search--font-weight",
+		"string": "$now-menu--font-weight",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--font-family", "--now-font-family"],
+		"customProperty": "--now-menu-search--font-family",
+		"scssVariable": "$now-menu-search--font-family",
+		"string": "$now-menu--font-family",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-menu--text-transform"],
+		"defaultValue": "none",
+		"customProperty": "--now-menu-search--text-transform",
+		"scssVariable": "$now-menu-search--text-transform",
+		"string": "$now-menu--text-transform",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-messaging--font-style",
+		"scssVariable": "$now-messaging--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-messaging--font-weight",
+		"scssVariable": "$now-messaging--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-messaging--font-family",
+		"scssVariable": "$now-messaging--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-messaging--text-transform",
+		"scssVariable": "$now-messaging--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-messaging--border-width",
+		"scssVariable": "$now-messaging--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--border-secondary",
+		"customProperty": "--now-messaging--border-color",
+		"scssVariable": "$now-messaging--border-color",
+		"string": "$now-color--border-secondary",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-global-border-radius--md",
+		"customProperty": "--now-messaging--border-radius",
+		"scssVariable": "$now-messaging--border-radius",
+		"string": "$now-global-border-radius--md",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--background-primary",
+		"customProperty": "--now-messaging--background-color",
+		"scssVariable": "$now-messaging--background-color",
+		"string": "$now-color--background-primary",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-navigation--font-style",
+		"scssVariable": "$now-navigation--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-navigation--font-weight",
+		"scssVariable": "$now-navigation--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-navigation--font-family",
+		"scssVariable": "$now-navigation--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-navigation--text-transform",
+		"scssVariable": "$now-navigation--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-view-control--font-style",
+		"scssVariable": "$now-view-control--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-view-control--font-weight",
+		"scssVariable": "$now-view-control--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-view-control--font-family",
+		"scssVariable": "$now-view-control--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-view-control--text-transform",
+		"scssVariable": "$now-view-control--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-view-control--border-width",
+		"scssVariable": "$now-view-control--border-width",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "0",
+		"customProperty": "--now-view-control--border-radius",
+		"scssVariable": "$now-view-control--border-radius",
+		"string": "0",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-window--font-style",
+		"scssVariable": "$now-window--font-style",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "normal",
+		"customProperty": "--now-window--font-weight",
+		"scssVariable": "$now-window--font-weight",
+		"string": "normal",
+		"class": "category"
+	},
+	{
+		"fallbacks": ["--now-font-family"],
+		"customProperty": "--now-window--font-family",
+		"scssVariable": "$now-window--font-family",
+		"string": "var(--now-font-family)",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "none",
+		"customProperty": "--now-window--text-transform",
+		"scssVariable": "$now-window--text-transform",
+		"string": "none",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "1px",
+		"customProperty": "--now-window--border-width",
+		"scssVariable": "$now-window--border-width",
+		"string": "1px",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--divider-secondary",
+		"customProperty": "--now-window--border-color",
+		"scssVariable": "$now-window--border-color",
+		"string": "$now-color--divider-secondary",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-global-border-radius--md",
+		"customProperty": "--now-window--border-radius",
+		"scssVariable": "$now-window--border-radius",
+		"string": "$now-global-border-radius--md",
+		"class": "category"
+	},
+	{
+		"fallbacks": [],
+		"defaultValue": "$now-color--background-primary",
+		"customProperty": "--now-window--background-color",
+		"scssVariable": "$now-window--background-color",
+		"string": "$now-color--background-primary",
+		"class": "category"
+	}
+]
