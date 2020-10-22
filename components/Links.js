@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export function HookLink({uid, id, children}) {
 	return (
-		<Link href={`/hooks/${uid}`}>
+		<Link href={`/hook/${uid}`}>
 			<a>{children ? children : id}</a>
 		</Link>
 	);
@@ -11,7 +11,7 @@ export function HookLink({uid, id, children}) {
 
 export function ReleaseLink({id}) {
 	return (
-		<Link href={`/releases/${id}`}>
+		<Link href={`/release/${id}`}>
 			<a>{id}</a>
 		</Link>
 	);
