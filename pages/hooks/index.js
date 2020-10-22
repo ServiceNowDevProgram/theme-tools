@@ -3,6 +3,7 @@ import Head from 'next/head';
 import {useRouter} from 'next/router';
 import {useTable, useFilters, useGlobalFilter} from 'react-table';
 import {isValidHexColor} from '../../lib/color';
+import {HookLink} from '../../components/Links';
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';
@@ -11,6 +12,7 @@ import dynamic from 'next/dynamic';
 import rawColors from './data/colors.json';
 import rawCategories from './data/categories.json';
 import rawComponents from './data/components.json';
+import exportData from '../../data/hooks.json';
 
 const colors = rawColors.map((x) => {
 	if (x.fallbacks.length) {
@@ -30,7 +32,8 @@ const components = rawComponents.map((x) => {
 	return {...x, subclass: `component_${component}`};
 });
 
-const data = [...colors, ...categories, ...components];
+// const data = [...colors, ...categories, ...components];
+const rawData = {...exportData};
 
 const NoSsr = (props) => <React.Fragment>{props.children}</React.Fragment>;
 
@@ -67,6 +70,7 @@ function getOptions(column, data) {
 		const value = getValue(column, item);
 		if (!options.includes(value)) options.push(value);
 	}
+	options.sort();
 	return options;
 }
 
@@ -74,7 +78,7 @@ function getColumn(columns, id) {
 	return columns.find((x) => x.id === id);
 }
 
-function SelectFilter({label, value, setValue, options}) {
+function SelectFilter({label, value, setValue, options, hideAll = false}) {
 	return (
 		<div className="relative flex items-center">
 			<label className="mr-2">{label}</label>
@@ -84,7 +88,7 @@ function SelectFilter({label, value, setValue, options}) {
 				onChange={(e) => {
 					setValue(e.target.value || undefined);
 				}}>
-				<option value="">All</option>
+				{hideAll ? undefined : <option value="">All</option>}
 				{options.map((option, i) => (
 					<option key={i} value={option}>
 						{option}
@@ -187,7 +191,72 @@ function Table({columns, data, onFilterChange, filters: controlledFilters}) {
 	);
 }
 
-function filterData(filterDefs, filters, rows, columns) {
+function getClass(def) {
+	const {namespace: ns, subnamespace: subns, variant: variants} = def;
+	if (ns === 'color') {
+		if (subns[0] === 'presence') {
+			return ['System', 'Color', 'Presence'];
+		}
+
+		if (subns[0] === 'alert') {
+			return ['System', 'Color', 'Alert'];
+		}
+
+		if (subns[0] === 'grouped') {
+			return ['System', 'Color', 'Grouped'];
+		}
+
+		const DERIVED = ['background', 'divider', 'text', 'border', 'focus-ring'];
+		if (DERIVED.includes(subns[0])) {
+			return ['System', 'Color', 'Derived'];
+		}
+
+		const FRAMEWORK = ['surface', 'chrome', 'brand'];
+		if (
+			FRAMEWORK.includes(subns[0]) ||
+			(subns[0] === undefined &&
+				isString(variants[0]) &&
+				variants[0].startsWith('brand-'))
+		) {
+			return ['System', 'Color', 'Framework'];
+		}
+
+		const BASE = [
+			'neutral',
+			'primary',
+			'secondary',
+			'interactive',
+			'link',
+			'focus',
+		];
+		if (
+			subns[0] === 'selection' ||
+			(subns[0] === undefined &&
+				isString(variants[0]) &&
+				BASE.includes(variants[0].split('-')[0]))
+		) {
+			return ['System', 'Color', 'Base'];
+		}
+	}
+
+	if (ns === 'color-datavis') {
+		return ['System', 'Color', 'Datavis'];
+	}
+
+	return ['-'];
+}
+
+function getHooksByRelease(data, release) {
+	const hooks = [];
+	for (const [id, uid] of Object.entries(data.hooksByRelease[release])) {
+		const def = data.hooks[uid].definitions[id];
+		const cl = getClass(def);
+		hooks.push({...def, class: cl[0], subclass: cl.join('_')});
+	}
+	return hooks;
+}
+
+function filterData(filterDefs, filters, rows, columns, selectedRelease) {
 	const filteredData = [];
 	for (const row of rows) {
 		let remove = false;
@@ -209,32 +278,63 @@ function filterData(filterDefs, filters, rows, columns) {
 const FILTER_DEFS = {
 	search: {
 		filter: ({columns, row, filterValue}) => {
-			const scssVariable = getValue(getColumn(columns, 'scssVariable'), row);
-			const customProperty = getValue(
-				getColumn(columns, 'customProperty'),
-				row
-			);
+			const scssVariable =
+				getValue(getColumn(columns, 'scssVariable'), row) || '';
+			const customProperty =
+				getValue(getColumn(columns, 'customProperty'), row) || '';
 			return (
 				scssVariable.indexOf(filterValue) !== -1 ||
 				customProperty.indexOf(filterValue) !== -1
 			);
 		},
 	},
-	class: {
+	namespace: {
 		filter: ({columns, row, filterValue}) => {
-			const value = getValue(getColumn(columns, 'class'), row);
+			const value = getValue(getColumn(columns, 'namespace'), row);
 			return value === filterValue;
 		},
 	},
-	subclass: {
-		filter: ({columns, row, filterValue}) => {
-			const value = getValue(getColumn(columns, 'subclass'), row);
-			return value === filterValue;
-		},
-	},
+	// class: {
+	// 	filter: ({columns, row, filterValue}) => {
+	// 		const value = getValue(getColumn(columns, 'class'), row);
+	// 		return value === filterValue;
+	// 	},
+	// },
+	// subclass: {
+	// 	filter: ({columns, row, filterValue}) => {
+	// 		const value = getValue(getColumn(columns, 'subclass'), row);
+	// 		return value === filterValue;
+	// 	},
+	// },
 };
 
 export default function HooksPage() {
+	const router = useRouter();
+	const [filters, setFilters] = useState({});
+	const [selectedRelease, setSelectedRelease] = useState(
+		exportData.releases.slice(-1)[0]
+	);
+
+	useEffect(() => {
+		if (!isShallowEqual(router.query, filters)) {
+			setFilters(router.query);
+		}
+	}, [router.query]);
+
+	useEffect(() => {
+		if (!isShallowEqual(router.query, filters)) {
+			router.push({
+				pathname: router.pathname,
+				query: defined(filters),
+			});
+		}
+	}, [filters]);
+
+	const data = React.useMemo(
+		() => getHooksByRelease(rawData, selectedRelease),
+		[rawData, selectedRelease]
+	);
+
 	const columns = React.useMemo(
 		() => [
 			{
@@ -248,16 +348,21 @@ export default function HooksPage() {
 				accessor: 'customProperty',
 			},
 			{
-				// ("generic"|"category"|"specific")
-				id: 'class',
-				Header: 'Class',
-				accessor: 'class',
+				id: 'namespace',
+				Header: 'Namespace',
+				accessor: 'namespace',
 			},
-			{
-				id: 'subclass',
-				Header: 'Subclass',
-				accessor: 'subclass',
-			},
+			// {
+			// 	// ("generic"|"category"|"specific")
+			// 	id: 'class',
+			// 	Header: 'Class',
+			// 	accessor: 'class',
+			// },
+			// {
+			// 	id: 'subclass',
+			// 	Header: 'Subclass',
+			// 	accessor: 'subclass',
+			// },
 			{
 				id: 'fallbacks',
 				Header: 'Fallbacks',
@@ -288,41 +393,31 @@ export default function HooksPage() {
 		[]
 	);
 
-	const router = useRouter();
-	const [filters, setFilters] = useState({});
+	// const classOptions = React.useMemo(
+	// 	() => getOptions(getColumn(columns, 'class'), data),
+	// 	[columns, data]
+	// );
 
-	useEffect(() => {
-		if (!isShallowEqual(router.query, filters)) {
-			setFilters(router.query);
-		}
-	}, [router.query]);
+	// const subclassOptions = React.useMemo(
+	// 	() => getOptions(getColumn(columns, 'subclass'), data),
+	// 	[columns, data]
+	// );
 
-	useEffect(() => {
-		if (!isShallowEqual(router.query, filters)) {
-			router.push({
-				pathname: router.pathname,
-				query: defined(filters),
-			});
-		}
-	}, [filters]);
-
-	const classOptions = React.useMemo(
-		() => getOptions(getColumn(columns, 'class'), data),
-		[columns, data]
-	);
-
-	const subclassOptions = React.useMemo(
-		() => getOptions(getColumn(columns, 'subclass'), data),
+	const namespaceOptions = React.useMemo(
+		() => getOptions(getColumn(columns, 'namespace'), data),
 		[columns, data]
 	);
 
 	const filteredData = React.useMemo(
-		() => filterData(FILTER_DEFS, filters, data, columns),
-		[filters, data, columns]
+		() => filterData(FILTER_DEFS, filters, data, columns, selectedRelease),
+		[filters, data, columns, selectedRelease]
 	);
+
+	const releaseOptions = React.useMemo(() => [...exportData.releases], []);
 
 	console.log(filters);
 	console.log(filteredData);
+	console.log(selectedRelease);
 
 	return (
 		<NoSsr>
@@ -332,12 +427,25 @@ export default function HooksPage() {
 				</Head>
 				<h1 className="text-3xl mb-6">Theme Variables Search</h1>
 				<div className="mb-6 flex space-x-4">
+					<SelectFilter
+						label="Release"
+						value={selectedRelease}
+						setValue={(value) => setSelectedRelease(value)}
+						options={releaseOptions}
+						hideAll
+					/>
 					<TextFilter
 						label="Name"
 						value={filters.search}
 						setValue={(value) => setFilters({...filters, search: value})}
 					/>
 					<SelectFilter
+						label="Namespace"
+						value={filters.namespace}
+						setValue={(value) => setFilters({...filters, namespace: value})}
+						options={namespaceOptions}
+					/>
+					{/* <SelectFilter
 						label="Class"
 						value={filters.class}
 						setValue={(value) => setFilters({...filters, class: value})}
@@ -348,7 +456,7 @@ export default function HooksPage() {
 						value={filters.subclass}
 						setValue={(value) => setFilters({...filters, subclass: value})}
 						options={subclassOptions}
-					/>
+					/> */}
 				</div>
 				<Table columns={columns} data={filteredData} />
 			</div>
