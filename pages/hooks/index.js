@@ -251,7 +251,7 @@ function getHooksByRelease(data, release) {
 	for (const [id, uid] of Object.entries(data.hooksByRelease[release])) {
 		const def = data.hooks[uid].definitions[id];
 		const cl = getClass(def);
-		hooks.push({...def, class: cl[0], subclass: cl.join('_')});
+		hooks.push({...def, id, uid, class: cl[0], subclass: cl.join('_')});
 	}
 	return hooks;
 }
@@ -341,6 +341,9 @@ export default function HooksPage() {
 				id: 'scssVariable',
 				Header: 'SCSS Variable',
 				accessor: 'scssVariable',
+				Cell: ({row}) => {
+					return row.original.scssVariable;
+				},
 			},
 			{
 				id: 'customProperty',
