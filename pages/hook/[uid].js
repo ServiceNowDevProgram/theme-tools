@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import SimpleTable from '../../components/SimpleTable';
+import cx from '../../lib/cx';
 import {ReleaseLink, HookLink} from '../../components/Links';
 
 function LabelValue({items}) {
@@ -11,13 +12,58 @@ function LabelValue({items}) {
 			{items.map((x) => (
 				<div key={x.id} className="sm:grid sm:grid-cols-4 sm:gap-4 mb-3">
 					<dt className="leading-7 font-medium text-gray-500">{x.label}</dt>
-					<dd className="mt-1 leading-7 text-gray-900 sm:mt-0 sm:col-span-3">
+					<dd
+						className={cx({
+							'mt-1': true,
+							'leading-7': true,
+							'sm:mt-0': true,
+							'sm:col-span-3': true,
+							'text-gray-900': true,
+							['text-' + x.color]: !!x.color,
+							['font-' + x.weight]: !!x.weight,
+						})}>
 						{x.value}
 					</dd>
 				</div>
 			))}
 		</Fragment>
 	);
+}
+
+function ColorDef({namespace, subnamespace, variant, cssProperty, modifier}) {
+	const output = [];
+	output.push(<span className="text-gray-500">now-</span>);
+	output.push(<span className="text-teal-700 font-semibold">{namespace}</span>);
+	if (subnamespace.length) {
+		output.push(<span className="text-gray-500">_</span>);
+		output.push(
+			<span className="text-pink-700 font-semibold">
+				{subnamespace.join('_')}
+			</span>
+		);
+	}
+	if (variant.length) {
+		output.push(<span className="text-gray-500">--</span>);
+		output.push(
+			<span className="text-orange-700 font-semibold">{variant.join('_')}</span>
+		);
+	}
+	if (cssProperty.length) {
+		output.push(<span className="text-gray-500">--</span>);
+		output.push(
+			<span className="text-green-700 font-semibold">
+				{cssProperty.join('_')}
+			</span>
+		);
+	}
+	if (modifier.length) {
+		output.push(<span className="text-gray-500">--</span>);
+		output.push(
+			<span className="text-blue-700 font-semibold">{modifier.join('_')}</span>
+		);
+	}
+
+	return <div className="inline-block p-4 bg-gray-200 mt-2 mb-4">{output}</div>;
 }
 
 export default function HooksPage({uid, releases, definitions, metadata}) {
@@ -92,12 +138,17 @@ export default function HooksPage({uid, releases, definitions, metadata}) {
 
 				<div className="mb-10">
 					<h2 className="text-xl mb-4">Definition</h2>
+					<div>
+						<ColorDef {...latestDef} />
+					</div>
 					<LabelValue
 						items={[
 							{
 								id: 'namespace',
 								label: 'Namespace',
 								value: latestDef.namespace,
+								color: 'teal-700',
+								weight: 'semibold',
 							},
 							{
 								id: 'subnamespace',
@@ -105,6 +156,8 @@ export default function HooksPage({uid, releases, definitions, metadata}) {
 								value: latestDef.subnamespace.length
 									? latestDef.subnamespace.join(' > ')
 									: '-',
+								color: 'pink-700',
+								weight: 'semibold',
 							},
 							{
 								id: 'variant',
@@ -112,6 +165,8 @@ export default function HooksPage({uid, releases, definitions, metadata}) {
 								value: latestDef.variant.length
 									? latestDef.variant.join(' + ')
 									: '-',
+								color: 'orange-700',
+								weight: 'semibold',
 							},
 							{
 								id: 'cssProperty',
@@ -119,6 +174,8 @@ export default function HooksPage({uid, releases, definitions, metadata}) {
 								value: latestDef.cssProperty.length
 									? latestDef.cssProperty.join(' + ')
 									: '-',
+								color: 'green-700',
+								weight: 'semibold',
 							},
 							{
 								id: 'modifier',
@@ -126,6 +183,8 @@ export default function HooksPage({uid, releases, definitions, metadata}) {
 								value: latestDef.modifier.length
 									? latestDef.modifier.join(' + ')
 									: '-',
+								color: 'blue-700',
+								weight: 'semibold',
 							},
 						]}
 					/>
