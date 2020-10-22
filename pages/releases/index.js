@@ -1,25 +1,28 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import PageHeader from '../../components/PageHeader';
+import Page from '../../components/Page';
 
 export default function ReleasesIndex({releases}) {
-	return (
-		<div className="p-8 max-w-screen-lg m-auto">
-			<Head>
-				<title>Releases | Theme Tools</title>
-			</Head>
+	const path = [{id: 'releases', href: '/releases', label: 'Releases'}];
+	const selectedPath = 'releases';
 
-			<h1 className="text-3xl mb-6">Releases</h1>
-			<ul className="list-disc">
-				{releases.map((x) => (
-					<li key={x}>
-						<Link href={`/releases/${x}`}>
-							<a>{x}</a>
-						</Link>
-					</li>
-				))}
-			</ul>
-		</div>
+	return (
+		<Fragment>
+			<PageHeader label="Releases" path={path} selectedPath={selectedPath} />
+			<Page>
+				<ul className="list-disc">
+					{releases.map((x) => (
+						<li key={x}>
+							<Link href={`/releases/${x}`}>
+								<a>{x}</a>
+							</Link>
+						</li>
+					))}
+				</ul>
+			</Page>
+		</Fragment>
 	);
 }
 

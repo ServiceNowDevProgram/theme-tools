@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
+import Page from '../../components/Page';
 
 function printHookLink({uid, id}) {
 	return (
@@ -55,47 +56,49 @@ export default function ReleasesPage({id, added, removed, renamed}) {
 	const selectedPath = id;
 
 	return (
-		<div className="p-8 max-w-screen-lg m-auto">
+		<Fragment>
 			<PageHeader
 				label={`Release ${id}`}
 				path={path}
 				selectedPath={selectedPath}
 			/>
 
-			<div className="mb-6">
-				<h2 className="text-xl mb-3">Added</h2>
-				<ul className="list-disc">
-					{added.map((hook) => (
-						<li key={hook.id}>{printHookLink(hook)}</li>
-					))}
-				</ul>
-				{!added.length && <p>No hooks were added in this release</p>}
-			</div>
+			<Page>
+				<div className="mb-6">
+					<h2 className="text-xl mb-3">Added</h2>
+					<ul className="list-disc">
+						{added.map((hook) => (
+							<li key={hook.id}>{printHookLink(hook)}</li>
+						))}
+					</ul>
+					{!added.length && <p>No hooks were added in this release</p>}
+				</div>
 
-			<div className="mb-6">
-				<h2 className="text-xl mb-3">Removed</h2>
-				<ul className="list-disc">
-					{removed.map((hook) => (
-						<li key={hook.id}>{printHookLink(hook)}</li>
-					))}
-				</ul>
-				{!removed.length && <p>No hooks were removed in this release</p>}
-			</div>
+				<div className="mb-6">
+					<h2 className="text-xl mb-3">Removed</h2>
+					<ul className="list-disc">
+						{removed.map((hook) => (
+							<li key={hook.id}>{printHookLink(hook)}</li>
+						))}
+					</ul>
+					{!removed.length && <p>No hooks were removed in this release</p>}
+				</div>
 
-			<div className="mb-6">
-				<h2 className="text-xl mb-3">Renamed</h2>
-				{!!renamed.length && (
-					<SimpleTable
-						columns={[
-							{label: 'Previous Name', key: 'previousId'},
-							{label: 'New Name', renderer: (row) => printHookLink(row)},
-						]}
-						data={renamed}
-					/>
-				)}
-				{!renamed.length && <p>No hooks were renamed in this release</p>}
-			</div>
-		</div>
+				<div className="mb-6">
+					<h2 className="text-xl mb-3">Renamed</h2>
+					{!!renamed.length && (
+						<SimpleTable
+							columns={[
+								{label: 'Previous Name', key: 'previousId'},
+								{label: 'New Name', renderer: (row) => printHookLink(row)},
+							]}
+							data={renamed}
+						/>
+					)}
+					{!renamed.length && <p>No hooks were renamed in this release</p>}
+				</div>
+			</Page>
+		</Fragment>
 	);
 }
 

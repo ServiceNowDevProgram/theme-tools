@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-	@apply p-12;
+	/* @apply p-12; */
 }
 
 a {

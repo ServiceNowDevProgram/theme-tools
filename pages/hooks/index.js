@@ -1,39 +1,39 @@
-import React, {useState, useEffect} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
 import {useTable, useFilters, useGlobalFilter} from 'react-table';
 import {isValidHexColor} from '../../lib/color';
 import {HookLink} from '../../components/Links';
+import PageHeader from '../../components/PageHeader';
+import Page from '../../components/Page';
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';
 import dynamic from 'next/dynamic';
 
-import rawColors from './data/colors.json';
-import rawCategories from './data/categories.json';
-import rawComponents from './data/components.json';
 import exportData from '../../data/hooks.json';
-
-const colors = rawColors.map((x) => {
-	if (x.fallbacks.length) {
-		return {...x, subclass: 'system_color_derived'};
-	} else {
-		return {...x, subclass: 'system_color_generic'};
-	}
-});
-
-const categories = rawCategories.map((x) => {
-	const category = x.scssVariable.replace(/^\$now\-/, '').split('--')[0];
-	return {...x, subclass: `category_${category}`};
-});
-
-const components = rawComponents.map((x) => {
-	const component = x.scssVariable.replace(/^\$now\-/, '').split('--')[0];
-	return {...x, subclass: `component_${component}`};
-});
-
-// const data = [...colors, ...categories, ...components];
 const rawData = {...exportData};
+
+// import rawColors from './data/colors.json';
+// import rawCategories from './data/categories.json';
+// import rawComponents from './data/components.json';
+
+// const colors = rawColors.map((x) => {
+// 	if (x.fallbacks.length) {
+// 		return {...x, subclass: 'system_color_derived'};
+// 	} else {
+// 		return {...x, subclass: 'system_color_generic'};
+// 	}
+// });
+// const categories = rawCategories.map((x) => {
+// 	const category = x.scssVariable.replace(/^\$now\-/, '').split('--')[0];
+// 	return {...x, subclass: `category_${category}`};
+// });
+// const components = rawComponents.map((x) => {
+// 	const component = x.scssVariable.replace(/^\$now\-/, '').split('--')[0];
+// 	return {...x, subclass: `component_${component}`};
+// });
+// const data = [...colors, ...categories, ...components];
 
 const NoSsr = (props) => <React.Fragment>{props.children}</React.Fragment>;
 
@@ -342,13 +342,24 @@ export default function HooksPage() {
 				Header: 'SCSS Variable',
 				accessor: 'scssVariable',
 				Cell: ({row}) => {
-					return row.original.scssVariable;
+					return (
+						<HookLink uid={row.original.uid} id={row.original.id}>
+							{row.original.scssVariable}
+						</HookLink>
+					);
 				},
 			},
 			{
 				id: 'customProperty',
 				Header: 'CSS Custom Property',
 				accessor: 'customProperty',
+				Cell: ({row}) => {
+					return (
+						<HookLink uid={row.original.uid} id={row.original.id}>
+							{row.original.customProperty}
+						</HookLink>
+					);
+				},
 			},
 			{
 				id: 'namespace',
@@ -418,37 +429,44 @@ export default function HooksPage() {
 
 	const releaseOptions = React.useMemo(() => [...exportData.releases], []);
 
-	console.log(filters);
-	console.log(filteredData);
-	console.log(selectedRelease);
+	// console.log(filters);
+	// console.log(filteredData);
+	// console.log(selectedRelease);
+
+	const path = [{id: 'hooks', href: '/hooks', label: 'Hooks'}];
+	const selectedPath = 'hooks';
 
 	return (
 		<NoSsr>
-			<div>
-				<Head>
-					<title>Variables | Theme Tools</title>
-				</Head>
-				<h1 className="text-3xl mb-6">Theme Variables Search</h1>
-				<div className="mb-6 flex space-x-4">
-					<SelectFilter
-						label="Release"
-						value={selectedRelease}
-						setValue={(value) => setSelectedRelease(value)}
-						options={releaseOptions}
-						hideAll
-					/>
-					<TextFilter
-						label="Name"
-						value={filters.search}
-						setValue={(value) => setFilters({...filters, search: value})}
-					/>
-					<SelectFilter
-						label="Namespace"
-						value={filters.namespace}
-						setValue={(value) => setFilters({...filters, namespace: value})}
-						options={namespaceOptions}
-					/>
-					{/* <SelectFilter
+			<Fragment>
+				<PageHeader
+					wide
+					label="Hooks"
+					path={path}
+					selectedPath={selectedPath}
+				/>
+
+				<Page wide>
+					<div className="mb-6 flex space-x-4">
+						<SelectFilter
+							label="Release"
+							value={selectedRelease}
+							setValue={(value) => setSelectedRelease(value)}
+							options={releaseOptions}
+							hideAll
+						/>
+						<TextFilter
+							label="Name"
+							value={filters.search}
+							setValue={(value) => setFilters({...filters, search: value})}
+						/>
+						<SelectFilter
+							label="Namespace"
+							value={filters.namespace}
+							setValue={(value) => setFilters({...filters, namespace: value})}
+							options={namespaceOptions}
+						/>
+						{/* <SelectFilter
 						label="Class"
 						value={filters.class}
 						setValue={(value) => setFilters({...filters, class: value})}
@@ -460,9 +478,10 @@ export default function HooksPage() {
 						setValue={(value) => setFilters({...filters, subclass: value})}
 						options={subclassOptions}
 					/> */}
-				</div>
-				<Table columns={columns} data={filteredData} />
-			</div>
+					</div>
+					<Table columns={columns} data={filteredData} />
+				</Page>
+			</Fragment>
 		</NoSsr>
 	);
 }
