@@ -116,6 +116,11 @@ export default function HooksPage({uid, releases, definitions, metadata}) {
 								value: latestDef.scssVariable || '-',
 							},
 							{
+								id: 'path',
+								label: 'Theme Behavior Path',
+								value: latestDef.path || '-',
+							},
+							{
 								id: 'fallbacks',
 								label: 'Fallbacks',
 								value: latestDef.fallbacks.length
