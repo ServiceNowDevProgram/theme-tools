@@ -1,6 +1,7 @@
 import React from 'react';
+import cx from '../lib/cx';
 
-export default function SimpleTable({columns, data}) {
+export default function SimpleTable({columns, data, textSize}) {
 	const rows = data.map((x) => {
 		const cells = columns.map((c) => {
 			if (c.renderer) {
@@ -28,7 +29,16 @@ export default function SimpleTable({columns, data}) {
 				{rows.map((row) => (
 					<tr>
 						{row.cells.map((cell) => (
-							<td className="py-4 px-6 border-b border-grey-light">{cell}</td>
+							<td
+								className={cx({
+									'py-4': true,
+									'px-6': true,
+									'border-b': true,
+									'border-grey-light': true,
+									[`text-${textSize}`]: !!textSize,
+								})}>
+								{cell}
+							</td>
 						))}
 					</tr>
 				))}

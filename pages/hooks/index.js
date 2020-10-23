@@ -1,17 +1,19 @@
 import React, {Fragment, useState, useEffect} from 'react';
-import Head from 'next/head';
 import {useRouter} from 'next/router';
-import {useTable, useFilters, useGlobalFilter} from 'react-table';
-import {isValidHexColor} from '../../lib/color';
-import {HookLink} from '../../components/Links';
-import PageHeader from '../../components/PageHeader';
-import Page from '../../components/Page';
+import dynamic from 'next/dynamic'; // don't delete this, its needed for no ssr
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';
-import dynamic from 'next/dynamic';
+
+import {isValidHexString, isValidRgbString} from '../../lib/color';
+
+import PageHeader from '../../components/PageHeader';
+import Page from '../../components/Page';
+import {HookLink} from '../../components/Links';
+import SimpleTable from '../../components/SimpleTable';
 
 import exportData from '../../data/hooks.json';
+
 const rawData = {...exportData};
 
 // import rawColors from './data/colors.json';
@@ -114,7 +116,7 @@ function TextFilter({label, value, setValue, placeholder}) {
 			<input
 				className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
 				type="text"
-				value={value || ''}
+				defaultValue={value || ''}
 				onChange={(e) => {
 					setValue(e.target.value || undefined);
 				}}
@@ -139,57 +141,6 @@ function TextFilter({label, value, setValue, placeholder}) {
 // 		</label>
 // 	);
 // }
-
-function Table({columns, data, onFilterChange, filters: controlledFilters}) {
-	const {
-		getTableProps,
-		getTableBodyProps,
-		headerGroups,
-		rows,
-		prepareRow,
-	} = useTable({
-		columns,
-		data,
-	});
-
-	return (
-		<table
-			className="text-left table-fixed w-full border border-collapse"
-			{...getTableProps()}>
-			<thead>
-				{headerGroups.map((headerGroup) => (
-					<tr {...headerGroup.getHeaderGroupProps()}>
-						{headerGroup.headers.map((column) => (
-							<th
-								className="align-bottom py-4 px-6 bg-grey-lightest font-bold uppercase text-xs text-grey-dark border-b border-grey-light"
-								{...column.getHeaderProps()}>
-								{column.render('Header')}
-							</th>
-						))}
-					</tr>
-				))}
-			</thead>
-			<tbody {...getTableBodyProps()}>
-				{rows.map((row, i) => {
-					prepareRow(row);
-					return (
-						<tr {...row.getRowProps()}>
-							{row.cells.map((cell) => {
-								return (
-									<td
-										className="text-xs py-4 px-6 border-b border-grey-light"
-										{...cell.getCellProps()}>
-										{cell.render('Cell')}
-									</td>
-								);
-							})}
-						</tr>
-					);
-				})}
-			</tbody>
-		</table>
-	);
-}
 
 function getClass(def) {
 	const {namespace: ns, subnamespace: subns, variant: variants} = def;
@@ -308,16 +259,45 @@ const FILTER_DEFS = {
 	// },
 };
 
+function useDebounce(value, delay) {
+	// State and setters for debounced value
+	const [debouncedValue, setDebouncedValue] = useState(value);
+
+	useEffect(
+		() => {
+			// Update debounced value after delay
+			const handler = setTimeout(() => {
+				setDebouncedValue(value);
+			}, delay);
+
+			// Cancel the timeout if value changes (also on delay change or unmount)
+			// This is how we prevent debounced value from updating if value is changed ...
+			// .. within the delay period. Timeout gets cleared and restarted.
+			return () => {
+				clearTimeout(handler);
+			};
+		},
+		[value, delay] // Only re-call effect if value or delay changes
+	);
+
+	return debouncedValue;
+}
+
 export default function HooksPage() {
 	const router = useRouter();
 	const [filters, setFilters] = useState({});
 	const [selectedRelease, setSelectedRelease] = useState(
 		exportData.releases.slice(-1)[0]
 	);
+	const debouncedSearchTerm = useDebounce(filters.search, 500);
 
+	const [queryExtracted, setQueryExtracted] = useState(false);
 	useEffect(() => {
 		if (!isShallowEqual(router.query, filters)) {
 			setFilters(router.query);
+			if (!setQueryExtracted) {
+				setQueryExtracted(true);
+			}
 		}
 	}, [router.query]);
 
@@ -328,7 +308,7 @@ export default function HooksPage() {
 				query: defined(filters),
 			});
 		}
-	}, [filters]);
+	}, [filters.namespace, debouncedSearchTerm]);
 
 	const data = React.useMemo(
 		() => getHooksByRelease(rawData, selectedRelease),
@@ -340,7 +320,9 @@ export default function HooksPage() {
 			{
 				id: 'scssVariable',
 				Header: 'SCSS Variable',
+				label: 'SCSS Variable',
 				accessor: 'scssVariable',
+				key: 'scssVariable',
 				Cell: ({row}) => {
 					return (
 						<HookLink uid={row.original.uid} id={row.original.id}>
@@ -348,11 +330,23 @@ export default function HooksPage() {
 						</HookLink>
 					);
 				},
+				renderer: (row) => {
+					if (!row.scssVariable) {
+						return '-';
+					}
+					return (
+						<HookLink uid={row.uid} id={row.id}>
+							{row.scssVariable}
+						</HookLink>
+					);
+				},
 			},
 			{
 				id: 'customProperty',
 				Header: 'CSS Custom Property',
+				label: 'CSS Custom Property',
 				accessor: 'customProperty',
+				key: 'customProperty',
 				Cell: ({row}) => {
 					return (
 						<HookLink uid={row.original.uid} id={row.original.id}>
@@ -360,11 +354,23 @@ export default function HooksPage() {
 						</HookLink>
 					);
 				},
+				renderer: (row) => {
+					if (!row.customProperty) {
+						return '-';
+					}
+					return (
+						<HookLink uid={row.uid} id={row.id}>
+							{row.customProperty}
+						</HookLink>
+					);
+				},
 			},
 			{
 				id: 'namespace',
 				Header: 'Namespace',
+				label: 'Namespace',
 				accessor: 'namespace',
+				key: 'namespace',
 			},
 			// {
 			// 	// ("generic"|"category"|"specific")
@@ -380,16 +386,20 @@ export default function HooksPage() {
 			{
 				id: 'fallbacks',
 				Header: 'Fallbacks',
+				label: 'Fallbacks',
 				accessor: (row) => row.fallbacks.join(', '),
+				renderer: (row) => row.fallbacks.join(', '),
 				// Filter: ExistsColumnFilter,
 				// filter: 'exists',
 			},
 			{
 				id: 'defaultValue',
 				Header: 'Default Value',
+				label: 'Default Value',
 				accessor: 'defaultValue',
+				key: 'defaultValue',
 				Cell: ({value}) => {
-					if (!isValidHexColor(value)) {
+					if (!isValidHexString(value)) {
 						return String(value);
 					}
 
@@ -398,6 +408,26 @@ export default function HooksPage() {
 							<div
 								className="w-4 h-4 rounded-full inline-block border border-gray-600 mr-1"
 								style={{backgroundColor: value}}></div>
+							{value}
+						</div>
+					);
+				},
+				renderer: (row) => {
+					const value = row.defaultValue;
+
+					if (!isValidHexString(value) && !isValidRgbString(value)) {
+						return String(value);
+					}
+
+					const backgroundColor = isValidHexString(value)
+						? value
+						: `rgb(${value})`;
+
+					return (
+						<div className="flex items-center">
+							<div
+								className="w-4 h-4 rounded-full inline-block border border-gray-600 mr-1"
+								style={{backgroundColor}}></div>
 							{value}
 						</div>
 					);
@@ -424,7 +454,14 @@ export default function HooksPage() {
 
 	const filteredData = React.useMemo(
 		() => filterData(FILTER_DEFS, filters, data, columns, selectedRelease),
-		[filters, data, columns, selectedRelease]
+		[
+			data,
+			columns,
+			selectedRelease,
+			filters.namespace,
+			debouncedSearchTerm,
+			queryExtracted,
+		]
 	);
 
 	const releaseOptions = React.useMemo(() => [...exportData.releases], []);
@@ -447,7 +484,7 @@ export default function HooksPage() {
 				/>
 
 				<Page wide>
-					<div className="mb-6 flex space-x-4">
+					<div className="mb-6 flex items-center space-x-4">
 						<SelectFilter
 							label="Release"
 							value={selectedRelease}
@@ -466,6 +503,10 @@ export default function HooksPage() {
 							setValue={(value) => setFilters({...filters, namespace: value})}
 							options={namespaceOptions}
 						/>
+						<span className="ml-auto">
+							Matches:{' '}
+							<span className="text-teal-800">{filteredData.length}</span>
+						</span>
 						{/* <SelectFilter
 						label="Class"
 						value={filters.class}
@@ -479,7 +520,7 @@ export default function HooksPage() {
 						options={subclassOptions}
 					/> */}
 					</div>
-					<Table columns={columns} data={filteredData} />
+					<SimpleTable columns={columns} data={filteredData} textSize="sm" />
 				</Page>
 			</Fragment>
 		</NoSsr>
