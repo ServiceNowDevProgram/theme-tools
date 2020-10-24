@@ -8,10 +8,15 @@
 		"start": "next start"
 	},
 	"dependencies": {
+		"codemirror": "5.58.2",
+		"json-to-ast": "2.1.0",
+		"jsonlint": "1.6.3",
+		"lodash": "4.17.20",
 		"next": "9.5.3",
 		"react": "16.13.1",
+		"react-codemirror2": "7.2.1",
 		"react-dom": "16.13.1",
-		"lodash": "4.17.20"
+		"tippy.js": "6.2.7"
 	},
 	"devDependencies": {
 		"postcss-preset-env": "^6.7.0",

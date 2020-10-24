@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic'; // don't delete this, its needed for no ssr
 import React, {Fragment, useState, useEffect} from 'react';
 import {useRouter} from 'next/router';
-import dynamic from 'next/dynamic'; // don't delete this, its needed for no ssr
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';

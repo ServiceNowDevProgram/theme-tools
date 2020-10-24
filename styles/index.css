@@ -9,3 +9,11 @@ body {
 a {
 	@apply underline;
 }
+
+.codelinemarkers {
+	width: 24px;
+}
+
+.CodeMirror-line {
+	padding-left: 10px;
+}

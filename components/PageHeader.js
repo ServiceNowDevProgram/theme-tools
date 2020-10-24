@@ -4,6 +4,16 @@ import Link from 'next/link';
 import Breadcrumbs from './Breadcrumbs';
 import cx from '../lib/cx';
 
+function NavLink({label, href}) {
+	return (
+		<Link href={href}>
+			<a className="no-underline text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out mr-4">
+				{label}
+			</a>
+		</Link>
+	);
+}
+
 export default function PageHeader({label, path, selectedPath, wide = false}) {
 	return (
 		<Fragment>
@@ -12,16 +22,9 @@ export default function PageHeader({label, path, selectedPath, wide = false}) {
 			</Head>
 
 			<div className="bg-gray-900 p-4 text-sm uppercase">
-				<Link href="/hooks">
-					<a className="no-underline text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out mr-4">
-						Hooks
-					</a>
-				</Link>
-				<Link href="/releases">
-					<a className="no-underline text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">
-						Releases
-					</a>
-				</Link>
+				<NavLink href="/hooks" label="Hooks" />
+				<NavLink href="/releases" label="Releases" />
+				<NavLink href="/validator" label="Validator" />
 			</div>
 
 			<div className="mb-6 bg-gray-300 p-4 text-sm">
