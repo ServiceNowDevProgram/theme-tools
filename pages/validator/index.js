@@ -4,7 +4,8 @@ import dynamic from 'next/dynamic';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import jsonAst from '../../lib/jsonAst';
-import {isValidHexString, hexToRgb} from '../../lib/color';
+import cx from '../../lib/cx';
+import {isValidHexString, hexToRgb, isValidRgbString} from '../../lib/color';
 import tippy from 'tippy.js';
 import data from '../../data/hooks.json';
 import {values} from 'lodash';
@@ -58,6 +59,22 @@ function validate(source) {
 			);
 			continue;
 		}
+		if (value.value.startsWith('var(') && value.value.endsWith(')')) {
+			const fixed = value.value.replace(/^var\(/, '').replace(/\)$/, '');
+			err(
+				`Reference values should not be wrapped in "var(...)" statement, update to "${fixed}"`
+			);
+			continue;
+		}
+		if (value.value.startsWith('--')) {
+			const parent = ast.children.find((x) => x.key.value === value.value);
+			if (!parent) {
+				err(
+					`Reference value must be defined in theme, "${value.value}" is not defined`
+				);
+				continue;
+			}
+		}
 		const def = findDefinition(name.value);
 		if (def) {
 			if (def.schema === 'color' && isValidHexString(value.value)) {
@@ -66,7 +83,7 @@ function validate(source) {
 				);
 				continue;
 			}
-			if (def.schema === 'color' && !isValidHexString(value.value)) {
+			if (def.schema === 'color' && !isValidRgbString(value.value)) {
 				err(
 					`Hook expects a color value in RGB format (e.g. "1,2,3") but received "${value.value}"`
 				);
@@ -134,20 +151,28 @@ export default function ValidatorPage({releases}) {
 			<PageHeader label="Validator" path={path} selectedPath={selectedPath} />
 			<Page>
 				{CodeMirror && (
-					<CodeMirror
-						value={code}
-						options={{
-							mode: 'application/json',
-							theme: 'material',
-							lineNumbers: true,
-							gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
-						}}
-						onBeforeChange={(editor, data, value) => {
-							setCode(value);
-						}}
-						onChange={(editor, data, value) => {}}
-						editorDidMount={(instance) => setEditor(instance)}
-					/>
+					<div
+						className={cx({
+							'border-2': true,
+							'p-1': true,
+							'border-white': true,
+							'border-red-500': syntaxError || lintErrors.length > 0,
+						})}>
+						<CodeMirror
+							value={code}
+							options={{
+								mode: 'application/json',
+								theme: 'material',
+								lineNumbers: true,
+								gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
+							}}
+							onBeforeChange={(editor, data, value) => {
+								setCode(value);
+							}}
+							onChange={(editor, data, value) => {}}
+							editorDidMount={(instance) => setEditor(instance)}
+						/>
+					</div>
 				)}
 				<div className="mt-4">
 					<button
