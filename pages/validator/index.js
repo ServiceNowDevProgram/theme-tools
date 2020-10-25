@@ -143,13 +143,18 @@ export default function ValidatorPage({releases}) {
 			return;
 		}
 
-		const errors = validate(code);
-		errors.forEach(({node, message}) => {
-			const line = node.loc.start.line - 1;
-			editor.setGutterMarker(line, 'codelinemarkers', makeMarker(message));
+		const formattedCode = JSON.stringify(JSON.parse(code), null, '  ');
+		setCode(formattedCode);
+
+		setTimeout(() => {
+			const errors = validate(formattedCode);
+			errors.forEach(({node, message}) => {
+				const line = node.loc.start.line - 1;
+				editor.setGutterMarker(line, 'codelinemarkers', makeMarker(message));
+			});
+			setSyntaxError(null);
+			setLintErrors(errors);
 		});
-		setSyntaxError(null);
-		setLintErrors(errors);
 	}
 
 	return (
