@@ -48,7 +48,13 @@ function validate(source) {
 		const name = node.key;
 		const value = node.value;
 		if (name.value.startsWith('now')) {
-			err(`Hook names should start with "--now", update to "--${name.value}"`);
+			err(`Hook names should start with "--", update to "--${name.value}"`);
+			continue;
+		}
+		if (value.value.startsWith('now-')) {
+			err(
+				`Reference values should start with "--", update to "--${value.value}"`
+			);
 			continue;
 		}
 		if (value.value.startsWith('$now')) {
