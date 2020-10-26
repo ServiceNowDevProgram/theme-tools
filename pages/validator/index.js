@@ -3,12 +3,11 @@ import {renderToString} from 'react-dom/server';
 import dynamic from 'next/dynamic';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
+import Select from '../../components/Select';
 import jsonAst from '../../lib/jsonAst';
 import cx from '../../lib/cx';
-import {isValidHexString, hexToRgb, isValidRgbString} from '../../lib/color';
 import tippy from 'tippy.js';
-import data from '../../data/hooks.json';
-import {values} from 'lodash';
+import {runRules} from '../../lib/validateRules';
 
 const CodeMirror = dynamic(
 	async () => {
@@ -19,86 +18,13 @@ const CodeMirror = dynamic(
 	{ssr: false}
 );
 
-if (typeof window !== 'undefined') {
-	window.jsonAst = jsonAst;
-}
-
 const fakeData = JSON.stringify(
 	{
 		'--now-color--primary-0': '1,1,1',
-		'--now-color--foo': '1,1,1',
 	},
 	null,
 	'  '
 );
-
-function findDefinition(id) {
-	if (id.startsWith('--now')) {
-		id = id.replace(/^--/, '');
-	}
-	const hook = Object.values(data.hooks).find((x) => x.definitions[id]);
-	return hook ? hook.definitions[id] : null;
-}
-
-function validate(source) {
-	const ast = jsonAst.parse(source);
-	const errors = [];
-	for (const node of ast.children) {
-		const err = (message) => errors.push({node, message});
-		const name = node.key;
-		const value = node.value;
-		if (name.value.startsWith('now')) {
-			err(`Hook names should start with "--", update to "--${name.value}"`);
-			continue;
-		}
-		if (value.value.startsWith('now-')) {
-			err(
-				`Reference values should start with "--", update to "--${value.value}"`
-			);
-			continue;
-		}
-		if (value.value.startsWith('$now')) {
-			err(
-				`Reference values should start with "--" not "$", update to "--${value.value.slice(
-					1
-				)}"`
-			);
-			continue;
-		}
-		if (value.value.startsWith('var(') && value.value.endsWith(')')) {
-			const fixed = value.value.replace(/^var\(/, '').replace(/\)$/, '');
-			err(
-				`Reference values should not be wrapped in "var(...)" statement, update to "${fixed}"`
-			);
-			continue;
-		}
-		if (value.value.startsWith('--')) {
-			const parent = ast.children.find((x) => x.key.value === value.value);
-			if (!parent) {
-				err(
-					`Reference value must be defined in theme, "${value.value}" is not defined`
-				);
-				continue;
-			}
-		}
-		const def = findDefinition(name.value);
-		if (def) {
-			if (def.schema === 'color' && isValidHexString(value.value)) {
-				err(
-					`Colors should be in RGB format, update to "${hexToRgb(value.value)}"`
-				);
-				continue;
-			}
-			if (def.schema === 'color' && !isValidRgbString(value.value)) {
-				err(
-					`Hook expects a color value in RGB format (e.g. "1,2,3") but received "${value.value}"`
-				);
-				continue;
-			}
-		}
-	}
-	return errors;
-}
 
 function toElement(jsx) {
 	const string = renderToString(jsx);
@@ -118,7 +44,7 @@ function makeMarker(message) {
 	return el;
 }
 
-export default function ValidatorPage({releases}) {
+export default function ValidatorPage({data}) {
 	const path = [{id: 'validator', href: '/validator', label: 'Validator'}];
 	const selectedPath = 'validator';
 
@@ -126,12 +52,20 @@ export default function ValidatorPage({releases}) {
 	const [syntaxError, setSyntaxError] = useState(null);
 	const [lintErrors, setLintErrors] = useState([]);
 	const [editor, setEditor] = useState(null);
+	const [selectedRelease, setSelectedRelease] = useState(
+		data.releases.slice(-1)[0]
+	);
 
 	useEffect(() => {
 		if (editor) {
 			window.editor = editor;
 		}
 	}, [editor]);
+
+	const releaseItems = React.useMemo(
+		() => data.releases.map((id) => ({id, label: id})).reverse(),
+		[]
+	);
 
 	function runValidation() {
 		editor.clearGutter('codelinemarkers');
@@ -147,13 +81,13 @@ export default function ValidatorPage({releases}) {
 		setCode(formattedCode);
 
 		setTimeout(() => {
-			const errors = validate(formattedCode);
-			errors.forEach(({node, message}) => {
+			const result = runRules(formattedCode, {release: selectedRelease}, data);
+			result.errors.forEach(({node, message}) => {
 				const line = node.loc.start.line - 1;
 				editor.setGutterMarker(line, 'codelinemarkers', makeMarker(message));
 			});
 			setSyntaxError(null);
-			setLintErrors(errors);
+			setLintErrors(result.errors);
 		});
 	}
 
@@ -161,6 +95,21 @@ export default function ValidatorPage({releases}) {
 		<Fragment>
 			<PageHeader label="Validator" path={path} selectedPath={selectedPath} />
 			<Page>
+				<div className="mb-4">
+					<div className="flex items-center">
+						<Select
+							label="Release"
+							items={releaseItems}
+							selected={selectedRelease}
+							onSelect={(id) => setSelectedRelease(id)}
+						/>
+						<button
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto"
+							onClick={runValidation}>
+							Validate
+						</button>
+					</div>
+				</div>
 				{CodeMirror && (
 					<div
 						className={cx({
@@ -186,13 +135,6 @@ export default function ValidatorPage({releases}) {
 					</div>
 				)}
 				<div className="mt-4">
-					<button
-						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-						onClick={runValidation}>
-						Validate
-					</button>
-				</div>
-				<div className="mt-4">
 					{syntaxError && (
 						<div className="text-red-800">
 							<p className="font-semibold">
@@ -216,15 +158,19 @@ export default function ValidatorPage({releases}) {
 								❌ Found {lintErrors.length}{' '}
 								{lintErrors.length === 1 ? 'error' : 'errors'}:
 							</p>
-							{lintErrors.map(({node, message}) => {
+							{lintErrors.map(({node, message, part, fix}) => {
 								return (
 									<div className="bg-gray-400 text-xs p-4 mt-2">
 										<code>
-											{'>'} {node.key.raw}: {node.value.raw}
+											{node.loc.start.line}: {node.key.raw}: {node.value.raw}
 											<br />
-											Line: {node.loc.start.line}
-											<br />
-											Error: {message}
+											ERROR IN {part.toUpperCase()}: {message}
+											{fix && (
+												<Fragment>
+													<br />
+													SUGGESTED FIX: "{node[part].value}" {'>'} "{fix}"
+												</Fragment>
+											)}
 										</code>
 									</div>
 								);
@@ -240,4 +186,9 @@ export default function ValidatorPage({releases}) {
 			</Page>
 		</Fragment>
 	);
+}
+
+export function getStaticProps() {
+	const data = require('../../data/hooks.json');
+	return {props: {data}};
 }
