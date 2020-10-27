@@ -9,6 +9,33 @@ import cx from '../../lib/cx';
 import tippy from 'tippy.js';
 import {runRules} from '../../lib/validateRules';
 
+/**
+ * @param {Object} props
+ * @param {"positive"|"negative"} props.status
+ */
+function StatusDot({status}) {
+	return (
+		<span
+			className={cx({
+				'inline-block': true,
+				'w-2': true,
+				'h-2': true,
+				'rounded-full': true,
+				'bg-green-600': status === 'positive',
+				'bg-red-600': status === 'negative',
+			})}></span>
+	);
+}
+
+function StatusFlag({label, status}) {
+	return (
+		<div className="flex items-center mr-2">
+			<StatusDot status={status} />
+			<span className="text-xs ml-1 leading-none">{label}</span>
+		</div>
+	);
+}
+
 const CodeMirror = dynamic(
 	async () => {
 		const mod = await import('react-codemirror2');
@@ -44,13 +71,20 @@ function makeMarker(message) {
 	return el;
 }
 
+function pad(string, n, char = ' ') {
+	return string + Array(n).fill(char).join('');
+}
+
 export default function ValidatorPage({data}) {
 	const path = [{id: 'validator', href: '/validator', label: 'Validator'}];
 	const selectedPath = 'validator';
 
-	const [code, setCode] = useState(fakeData);
-	const [syntaxError, setSyntaxError] = useState(null);
-	const [lintErrors, setLintErrors] = useState([]);
+	const [state, setState] = useState({
+		currentCode: fakeData,
+		committedCode: fakeData,
+		syntaxError: null,
+		lintErrors: [],
+	});
 	const [editor, setEditor] = useState(null);
 	const [selectedRelease, setSelectedRelease] = useState(
 		data.releases.slice(-1)[0]
@@ -62,32 +96,111 @@ export default function ValidatorPage({data}) {
 		}
 	}, [editor]);
 
+	useEffect(() => {
+		// First check if new code is valid JSON, aka if we can even parse it
+		const syntaxError = jsonAst.invalid(state.committedCode);
+		if (syntaxError) {
+			setState({
+				currentCode: state.currentCode,
+				committedCode: state.currentCode,
+				syntaxError,
+				lintErrors: [],
+			});
+			return;
+		}
+		// Then pretty print the JSON
+		const formattedCode = JSON.stringify(
+			JSON.parse(state.committedCode),
+			null,
+			'  '
+		);
+		// Finally run the lint rules
+		const result = runRules(formattedCode, {release: selectedRelease}, data);
+		setState({
+			currentCode: state.currentCode,
+			committedCode: state.committedCode,
+			syntaxError: null,
+			lintErrors: result.errors,
+		});
+	}, [state.committedCode]);
+
+	useEffect(() => {
+		if (!editor) return;
+		editor.clearGutter('codelinemarkers');
+		state.lintErrors.forEach(({node, message}) => {
+			const line = node.loc.start.line - 1;
+			editor.setGutterMarker(line, 'codelinemarkers', makeMarker(message));
+		});
+	}, [editor, state.lintErrors]);
+
 	const releaseItems = React.useMemo(
 		() => data.releases.map((id) => ({id, label: id})).reverse(),
 		[]
 	);
 
-	function runValidation() {
-		editor.clearGutter('codelinemarkers');
+	function commitCode(value) {
+		setState({
+			currentCode: value,
+			committedCode: value,
+			syntaxError: null,
+			lintErrors: [],
+		});
+	}
 
-		const syntax = jsonAst.invalid(code);
-		if (syntax) {
-			setSyntaxError(syntax);
-			setLintErrors([]);
+	// function runValidation() {
+	// 	editor.clearGutter('codelinemarkers');
+
+	// 	const syntax = jsonAst.invalid(code);
+	// 	if (syntax) {
+	// 		setSyntaxError(syntax);
+	// 		setLintErrors([]);
+	// 		if (!validationRun) setValidationRun(true);
+	// 		return;
+	// 	}
+
+	// 	const formattedCode = JSON.stringify(JSON.parse(code), null, '  ');
+	// 	setCode(formattedCode);
+
+	// 	setTimeout(() => {
+	// 		const result = runRules(formattedCode, {release: selectedRelease}, data);
+	// 		result.errors.forEach(({node, message}) => {
+	// 			const line = node.loc.start.line - 1;
+	// 			editor.setGutterMarker(line, 'codelinemarkers', makeMarker(message));
+	// 		});
+	// 		setSyntaxError(null);
+	// 		setLintErrors(result.errors);
+	// 		if (!validationRun) setValidationRun(true);
+	// 	});
+	// }
+
+	function applyFix(entry) {
+		if (jsonAst.invalid(state.currentCode)) {
+			window.alert(
+				'JSON syntax invalid, fix and re-run validation before continuing'
+			);
 			return;
 		}
 
-		const formattedCode = JSON.stringify(JSON.parse(code), null, '  ');
-		setCode(formattedCode);
-
-		setTimeout(() => {
-			const result = runRules(formattedCode, {release: selectedRelease}, data);
-			result.errors.forEach(({node, message}) => {
-				const line = node.loc.start.line - 1;
-				editor.setGutterMarker(line, 'codelinemarkers', makeMarker(message));
-			});
-			setSyntaxError(null);
-			setLintErrors(result.errors);
+		const {node, part, fix} = entry;
+		const oldCode = JSON.parse(state.currentCode);
+		const newCode = {};
+		for (const [k, v] of Object.entries(oldCode)) {
+			if (node.key.value === k && node.value.value === v) {
+				if (part === 'key') {
+					newCode[fix] = v;
+				} else {
+					newCode[k] = fix;
+				}
+			} else {
+				newCode[k] = v;
+			}
+		}
+		const printedNewCode = JSON.stringify(newCode, null, '  ');
+		setState({
+			currentCode: printedNewCode,
+			committedCode: printedNewCode,
+			syntaxError: null,
+			lintErrors: [],
 		});
 	}
 
@@ -103,11 +216,33 @@ export default function ValidatorPage({data}) {
 							selected={selectedRelease}
 							onSelect={(id) => setSelectedRelease(id)}
 						/>
-						<button
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto"
-							onClick={runValidation}>
-							Validate
-						</button>
+						<div className="flex items-center ml-auto">
+							<div className="mr-2">
+								<StatusFlag
+									status={!state.syntaxError ? 'positive' : 'negative'}
+									label={!state.syntaxError ? 'Valid JSON' : 'Invalid JSON'}
+								/>
+							</div>
+							<div className="mr-2">
+								<StatusFlag
+									status={
+										state.lintErrors.length === 0 ? 'positive' : 'negative'
+									}
+									label={
+										state.lintErrors.length === 0
+											? 'No Errors'
+											: `${state.lintErrors.length} Error(s)`
+									}
+								/>
+							</div>
+
+							<button
+								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+								disabled={state.currentCode === state.committedCode}
+								onClick={() => commitCode(state.currentCode)}>
+								Validate
+							</button>
+						</div>
 					</div>
 				</div>
 				{CodeMirror && (
@@ -116,10 +251,11 @@ export default function ValidatorPage({data}) {
 							'border-2': true,
 							'p-1': true,
 							'border-white': true,
-							'border-red-500': syntaxError || lintErrors.length > 0,
+							'border-red-500':
+								state.syntaxError || state.lintErrors.length > 0,
 						})}>
 						<CodeMirror
-							value={code}
+							value={state.currentCode}
 							options={{
 								mode: 'application/json',
 								theme: 'material',
@@ -127,7 +263,7 @@ export default function ValidatorPage({data}) {
 								gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
 							}}
 							onBeforeChange={(editor, data, value) => {
-								setCode(value);
+								setState({...state, currentCode: value});
 							}}
 							onChange={(editor, data, value) => {}}
 							editorDidMount={(instance) => setEditor(instance)}
@@ -135,51 +271,82 @@ export default function ValidatorPage({data}) {
 					</div>
 				)}
 				<div className="mt-4">
-					{syntaxError && (
+					{state.syntaxError && (
 						<div className="text-red-800">
 							<p className="font-semibold">
-								❌ Invalid JSON, fix the problems identified below:
+								Invalid JSON, fix the problems identified below:
 							</p>
 							<div className="bg-gray-400 text-xs p-4 mt-2">
 								<pre>
-									<code>{syntaxError.message}</code>
+									<code>{state.syntaxError.message}</code>
 								</pre>
 							</div>
 						</div>
 					)}
-					{!syntaxError && (
-						<div className="text-green-600">
-							<p className="font-semibold">✅ JSON syntax is valid</p>
-						</div>
-					)}
-					{lintErrors.length > 0 && (
+					{state.lintErrors.length > 0 && (
 						<div className="text-red-800">
-							<p className="font-semibold">
-								❌ Found {lintErrors.length}{' '}
-								{lintErrors.length === 1 ? 'error' : 'errors'}:
-							</p>
-							{lintErrors.map(({node, message, part, fix}) => {
+							<p className="text-xl font-semibold">Errors</p>
+							{state.lintErrors.map((entry, i) => {
+								const {node, message, part, fix = ''} = entry;
+								const lineNum = String(node.loc.start.line);
+								let underline = '';
+								let fixUnderline = '';
+								underline = pad(underline, lineNum.length + 2, ' ');
+								fixUnderline = pad(underline, lineNum.length + 2, ' ');
+								if (part === 'key') {
+									underline = pad(underline, node.key.raw.length, '^');
+									fixUnderline = pad(underline, fix.length, '^');
+								} else {
+									underline = pad(underline, node.key.raw.length + 2, ' ');
+									underline = pad(underline, node.value.raw.length, '^');
+									fixUnderline = pad(underline, node.key.raw.length + 2, ' ');
+									fixUnderline = pad(underline, fix.length + 2, ' ');
+								}
 								return (
-									<div className="bg-gray-400 text-xs p-4 mt-2">
-										<code>
-											{node.loc.start.line}: {node.key.raw}: {node.value.raw}
-											<br />
-											ERROR IN {part.toUpperCase()}: {message}
-											{fix && (
-												<Fragment>
+									<div className="mt-3">
+										<p className="mb-2">
+											{i + 1}.) {message}
+										</p>
+										<div className="text-xs bg-red-800 text-white pt-1 pb-1 pl-2 pr-2 uppercase font-semibold">
+											Current Code
+										</div>
+										<div className="bg-gray-400 text-xs p-4 pb-1 text-black">
+											<pre>
+												<code>
+													{node.loc.start.line}: {node.key.raw}:{' '}
+													{node.value.raw}
 													<br />
-													SUGGESTED FIX: "{node[part].value}" {'>'} "{fix}"
-												</Fragment>
-											)}
-										</code>
+													{underline}
+												</code>
+											</pre>
+										</div>
+
+										{fix !== '' && (
+											<Fragment>
+												<div className="text-xs bg-green-800 text-white pt-1 pb-1 pl-2 pr-2 uppercase font-semibold flex">
+													<span className="mr-auto">Suggested Fix</span>
+													<button
+														className="bg-black hover:bg-gray-800 text-white font-bold py-0 px-1 rounded"
+														onClick={() => applyFix(entry)}>
+														Apply Fix
+													</button>
+												</div>
+												<div className="bg-gray-400 text-xs p-4 pb-1 text-black">
+													<pre>
+														<code>
+															{part === 'key'
+																? `${lineNum}: "${fix}": ${node.value.raw}`
+																: `${lineNum}: ${node.key.raw}: "${fix}"`}
+															<br />
+															{underline}
+														</code>
+													</pre>
+												</div>
+											</Fragment>
+										)}
 									</div>
 								);
 							})}
-						</div>
-					)}
-					{!syntaxError && lintErrors.length === 0 && (
-						<div className="text-green-600">
-							<p className="font-semibold">✅ Found no errors</p>
 						</div>
 					)}
 				</div>
