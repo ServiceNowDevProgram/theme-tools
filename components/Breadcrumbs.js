@@ -6,7 +6,7 @@ export default function Breadcrumbs({items, selected}) {
 	return (
 		<div className="text-sm text-gray-600">
 			{items.map((x, i) => (
-				<Fragment>
+				<Fragment key={x.id}>
 					<Link key={x.id} href={x.href}>
 						<a
 							className={cx({
