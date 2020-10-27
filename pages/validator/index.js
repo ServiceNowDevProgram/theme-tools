@@ -138,6 +138,26 @@ export default function ValidatorPage({data}) {
 		[]
 	);
 
+	const autoFixes = React.useMemo(() => {
+		const fixesByNode = new Map();
+		for (const entry of state.lintErrors) {
+			if (typeof entry.fix !== 'string') {
+				continue;
+			}
+			if (!fixesByNode.has(entry.node)) {
+				fixesByNode.set(entry.node, []);
+			}
+			fixesByNode.get(entry.node).push(entry);
+		}
+		const result = [];
+		for (const entries of fixesByNode.values()) {
+			if (entries.length === 1) {
+				result.push(entries[0]);
+			}
+		}
+		return result;
+	}, [state.lintErrors]);
+
 	function commitCode(value) {
 		setState({
 			currentCode: value,
@@ -146,32 +166,6 @@ export default function ValidatorPage({data}) {
 			lintErrors: [],
 		});
 	}
-
-	// function runValidation() {
-	// 	editor.clearGutter('codelinemarkers');
-
-	// 	const syntax = jsonAst.invalid(code);
-	// 	if (syntax) {
-	// 		setSyntaxError(syntax);
-	// 		setLintErrors([]);
-	// 		if (!validationRun) setValidationRun(true);
-	// 		return;
-	// 	}
-
-	// 	const formattedCode = JSON.stringify(JSON.parse(code), null, '  ');
-	// 	setCode(formattedCode);
-
-	// 	setTimeout(() => {
-	// 		const result = runRules(formattedCode, {release: selectedRelease}, data);
-	// 		result.errors.forEach(({node, message}) => {
-	// 			const line = node.loc.start.line - 1;
-	// 			editor.setGutterMarker(line, 'codelinemarkers', makeMarker(message));
-	// 		});
-	// 		setSyntaxError(null);
-	// 		setLintErrors(result.errors);
-	// 		if (!validationRun) setValidationRun(true);
-	// 	});
-	// }
 
 	function applyFix(entry) {
 		if (jsonAst.invalid(state.currentCode)) {
@@ -193,6 +187,37 @@ export default function ValidatorPage({data}) {
 				}
 			} else {
 				newCode[k] = v;
+			}
+		}
+		const printedNewCode = JSON.stringify(newCode, null, '  ');
+		setState({
+			currentCode: printedNewCode,
+			committedCode: printedNewCode,
+			syntaxError: null,
+			lintErrors: [],
+		});
+	}
+
+	function applyAutoFixes() {
+		if (jsonAst.invalid(state.currentCode)) {
+			window.alert(
+				'JSON syntax invalid, fix and re-run validation before continuing'
+			);
+			return;
+		}
+
+		const oldCode = JSON.parse(state.currentCode);
+		const newCode = {};
+		for (const [k, v] of Object.entries(oldCode)) {
+			const entry = autoFixes.find(
+				(entry) => entry.node.key.value === k && entry.node.value.value === v
+			);
+			if (!entry) continue;
+			const {node, part, fix} = entry;
+			if (part === 'key') {
+				newCode[fix] = v;
+			} else {
+				newCode[k] = fix;
 			}
 		}
 		const printedNewCode = JSON.stringify(newCode, null, '  ');
@@ -238,7 +263,6 @@ export default function ValidatorPage({data}) {
 
 							<button
 								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-								disabled={state.currentCode === state.committedCode}
 								onClick={() => commitCode(state.currentCode)}>
 								Validate
 							</button>
@@ -285,7 +309,19 @@ export default function ValidatorPage({data}) {
 					)}
 					{state.lintErrors.length > 0 && (
 						<div className="text-red-800">
-							<p className="text-xl font-semibold">Errors</p>
+							<div className="flex items-center">
+								<p className="text-xl font-semibold">Errors</p>
+								<div className="ml-auto">
+									{autoFixes.length > 0 && (
+										<button
+											className="bg-black hover:bg-gray-800 text-white font-bold py-0 px-1 rounded text-xs"
+											onClick={() => applyAutoFixes()}>
+											Apply {autoFixes.length} Auto{' '}
+											{autoFixes.length === 1 ? 'Fix' : 'Fixes'}
+										</button>
+									)}
+								</div>
+							</div>
 							{state.lintErrors.map((entry, i) => {
 								const {node, message, part, fix = ''} = entry;
 								const lineNum = String(node.loc.start.line);
