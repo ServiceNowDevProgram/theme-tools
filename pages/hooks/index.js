@@ -7,6 +7,7 @@ import isUndefined from 'lodash/isUndefined';
 import kebabCase from 'lodash/kebabCase';
 
 import {isValidHexString, isValidRgbString} from '../../lib/color';
+import shallowEqual from '../../lib/common/shallowEqual';
 
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
@@ -41,16 +42,6 @@ const rawData = {...exportData};
 // const data = [...colors, ...categories, ...components];
 
 const NoSsr = (props) => <React.Fragment>{props.children}</React.Fragment>;
-
-function isShallowEqual(a, b) {
-	for (const k in a) {
-		if (a[k] !== b[k]) return false;
-	}
-	for (const k in b) {
-		if (a[k] !== b[k]) return false;
-	}
-	return true;
-}
 
 function defined(object) {
 	const newObject = {};
@@ -277,7 +268,7 @@ export default function HooksPage() {
 
 	const [queryExtracted, setQueryExtracted] = useState(false);
 	useEffect(() => {
-		if (!isShallowEqual(router.query, filters)) {
+		if (!shallowEqual(router.query, filters)) {
 			setFilters(router.query);
 			if (!setQueryExtracted) {
 				setQueryExtracted(true);
@@ -286,7 +277,7 @@ export default function HooksPage() {
 	}, [router.query]);
 
 	useEffect(() => {
-		if (!isShallowEqual(router.query, filters)) {
+		if (!shallowEqual(router.query, filters)) {
 			router.push({
 				pathname: router.pathname,
 				query: defined(filters),

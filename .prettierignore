@@ -1,5 +1,6 @@
 **/node_modules/**
 **/out/**
+**/out_dokku/**
 **/public/**
 **/.next/**
 package-lock.json
