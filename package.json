@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build && next export",
+		"build:dokku": "TARGET_ENV='dokku' next build && TARGET_ENV='dokku' next export",
 		"start": "next start",
 		"format": "prettier --write \"**/*.js\""
 	},
