@@ -4,6 +4,7 @@ import Page from '../../components/Page';
 import COLORS from '../../data/color-generator/colors.json';
 import {getColors} from '../../lib/color-generator/generateColors';
 import cx from '../../lib/cx';
+import Input from '../../components/Input';
 
 const path = [
 	{id: 'color-generator', href: '/color-generator', label: 'Color Generator'},
@@ -168,25 +169,37 @@ class ColorGenerator extends Component {
 				(group) => {
 					const {id, label, baseColor} = group;
 					const isNeutral = id === 'surfaceNeutral' || id === 'surfaceDivider';
+					const formattedLabel = !isNeutral
+						? label
+						: `${label} ${isNeutral ? '(generated from neutrals)' : ''}`;
 					return (
 						<div key={id} className="mb-6">
-							<label className="block text-sm leading-5 font-medium text-gray-700">{`${label}  ${
-								isNeutral ? '(generated from neutrals)' : ''
-							}`}</label>
+							{isNeutral && (
+								<label
+									className={cx({
+										block: true,
+										'text-sm': true,
+										'leading-5': true,
+										'text-gray-700': true,
+										'mb-1': true,
+									})}>
+									{label} (generated from neutrals)
+								</label>
+							)}
 							{!isNeutral ? (
-								<input
-									className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-2"
+								<Input
 									type="text"
 									name={id}
+									label={label}
 									value={baseColor || ''}
-									onChange={(e) => {
-										this.updateBaseColor(id, e.target.value || undefined);
-									}}
-									placeholder={`#000000`}
+									onChange={(value) =>
+										this.updateBaseColor(id, value || undefined)
+									}
+									placeholder="#000000"
 								/>
 							) : null}
 
-							<div className="flex">{this.renderGeneratedColors(id)}</div>
+							<div className="flex mt-2">{this.renderGeneratedColors(id)}</div>
 						</div>
 					);
 				}

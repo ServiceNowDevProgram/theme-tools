@@ -10,6 +10,10 @@ a {
 	@apply underline;
 }
 
+.label {
+	@apply text-sm leading-5 text-gray-700;
+}
+
 .codelinemarkers {
 	width: 24px;
 }

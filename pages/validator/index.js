@@ -240,6 +240,7 @@ export default function ValidatorPage({data}) {
 							items={releaseItems}
 							selected={selectedRelease}
 							onSelect={(id) => setSelectedRelease(id)}
+							layout="horizontal"
 						/>
 						<div className="flex items-center ml-auto">
 							<div className="mr-2">

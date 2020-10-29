@@ -4,6 +4,7 @@ import {useRouter} from 'next/router';
 import get from 'lodash/get';
 import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';
+import kebabCase from 'lodash/kebabCase';
 
 import {isValidHexString, isValidRgbString} from '../../lib/color';
 
@@ -11,6 +12,8 @@ import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import {HookLink} from '../../components/Links';
 import SimpleTable from '../../components/SimpleTable';
+import Input from '../../components/Input';
+import Select from '../../components/Select';
 
 import exportData from '../../data/hooks.json';
 
@@ -82,47 +85,28 @@ function getColumn(columns, id) {
 
 function SelectFilter({label, value, setValue, options, hideAll = false}) {
 	return (
-		<div className="relative flex items-center">
-			<label className="mr-2">{label}</label>
-			<select
-				className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-1 px-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-				value={value}
-				onChange={(e) => {
-					setValue(e.target.value || undefined);
-				}}>
-				{hideAll ? undefined : <option value="">All</option>}
-				{options.map((option, i) => (
-					<option key={i} value={option}>
-						{option}
-					</option>
-				))}
-			</select>
-			<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-				<svg
-					className="fill-current h-4 w-4"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 20 20">
-					<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-				</svg>
-			</div>
-		</div>
+		<Select
+			layout="horizontal"
+			label={label}
+			items={options.map((x) => ({id: x, label: x}))}
+			selected={value}
+			onSelect={(id) => setValue(id || undefined)}
+			unsetLabel={hideAll ? undefined : 'All'}
+		/>
 	);
 }
 
 function TextFilter({label, value, setValue, placeholder}) {
 	return (
-		<div className="flex items-center">
-			<label className="mr-2">{label}</label>
-			<input
-				className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-				type="text"
-				defaultValue={value || ''}
-				onChange={(e) => {
-					setValue(e.target.value || undefined);
-				}}
-				placeholder={placeholder}
-			/>
-		</div>
+		<Input
+			type="text"
+			name={kebabCase('Filter' + label)}
+			label={label}
+			value={value}
+			onChange={(value) => setValue(value)}
+			placeholder={placeholder}
+			layout="horizontal"
+		/>
 	);
 }
 

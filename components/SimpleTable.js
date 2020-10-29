@@ -11,7 +11,7 @@ export default function SimpleTable({columns, data, textSize}) {
 				return x[c.key];
 			}
 		});
-		return {cells};
+		return {id: x.id, cells};
 	});
 
 	return (
@@ -19,7 +19,9 @@ export default function SimpleTable({columns, data, textSize}) {
 			<thead>
 				<tr>
 					{columns.map((column) => (
-						<th className="align-bottom py-4 px-6 bg-grey-lightest font-bold uppercase text-xs text-grey-dark border-b border-grey-light">
+						<th
+							key={column.id}
+							className="align-bottom py-4 px-6 bg-grey-lightest font-bold uppercase text-xs text-grey-dark border-b border-grey-light">
 							{column.label}
 						</th>
 					))}
@@ -27,9 +29,10 @@ export default function SimpleTable({columns, data, textSize}) {
 			</thead>
 			<tbody>
 				{rows.map((row) => (
-					<tr>
-						{row.cells.map((cell) => (
+					<tr key={row.id}>
+						{row.cells.map((cell, i) => (
 							<td
+								key={row.id + '-' + i}
 								className={cx({
 									'py-4': true,
 									'px-6': true,

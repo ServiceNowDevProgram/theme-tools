@@ -1,9 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import cx from '../lib/cx';
 
-export default function Select({label, items, selected, onSelect = () => {}}) {
+function Select({
+	layout = 'vertical',
+	name,
+	label,
+	items,
+	selected,
+	onSelect = () => {},
+	unsetLabel,
+}) {
 	return (
-		<div className="flex items-center">
-			<label className="block text-secondary text-xs mr-2" htmlFor="format">
+		<div
+			className={cx({
+				flex: true,
+				'items-center': layout === 'horizontal',
+				'flex-col': layout === 'vertical',
+			})}>
+			<label
+				className={cx({
+					'mb-1': layout === 'vertical',
+					'mr-2': layout === 'horizontal',
+					label: true,
+				})}
+				htmlFor={name}>
 				{label}
 			</label>
 			<div className="relative">
@@ -14,6 +35,7 @@ export default function Select({label, items, selected, onSelect = () => {}}) {
 					onChange={(e) => {
 						onSelect(e.target.value);
 					}}>
+					{unsetLabel ? <option value="">{unsetLabel}</option> : null}
 					{items.map((x) => (
 						<option key={x.id} value={x.id}>
 							{x.label}
@@ -32,3 +54,20 @@ export default function Select({label, items, selected, onSelect = () => {}}) {
 		</div>
 	);
 }
+
+Select.propTypes = {
+	layout: PropTypes.oneOf(['vertical', 'horizontal']),
+	name: PropTypes.string,
+	label: PropTypes.string,
+	items: PropTypes.arrayOf(
+		PropTypes.shape({
+			color: PropTypes.string,
+			fontSize: PropTypes.number,
+		})
+	),
+	selected: PropTypes.string,
+	onSelect: PropTypes.func,
+	unsetLabel: PropTypes.string,
+};
+
+export default Select;
