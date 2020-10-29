@@ -5,12 +5,5 @@ module.exports = {
 	bracketSpacing: false,
 	jsxBracketSameLine: true,
 	arrowParens: 'always',
-	overrides: [
-		{
-			files: '_theme.scss',
-			options: {
-				printWidth: 200
-			}
-		}
-	]
+	trailingComma: 'es5',
 };
