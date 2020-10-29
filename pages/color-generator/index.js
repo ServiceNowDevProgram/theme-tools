@@ -1,13 +1,12 @@
 import React, {Component, Fragment} from 'react';
-
-import COLORS from './colors.json';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
-import {getColors} from './generateColors';
+import COLORS from '../../data/color-generator/colors.json';
+import {getColors} from '../../lib/color-generator/generateColors';
 import cx from '../../lib/cx';
 
 const path = [
-	{id: 'colorGenerator', href: '/color-generator', label: 'Color Generator'},
+	{id: 'color-generator', href: '/color-generator', label: 'Color Generator'},
 ];
 const selectedPath = 'color-generator';
 
@@ -79,6 +78,7 @@ class ColorGenerator extends Component {
 	};
 
 	renderTabs = (tabs = []) => {
+		const {selectedColorGroup} = this.state;
 		return tabs.map((tab, i) => {
 			return (
 				<button
@@ -88,7 +88,9 @@ class ColorGenerator extends Component {
 						'ml-8': i !== 0,
 						'font-medium': true,
 						'text-gray-500': true,
-						'hover:text-gray-900': true,
+						'text-gray-800': selectedColorGroup === tab.id,
+						'hover:text-gray-800': true,
+						'hover:underline': true,
 						transition: true,
 						'duration-150': true,
 						'ease-in-out': true,
@@ -199,6 +201,7 @@ class ColorGenerator extends Component {
 					label="Color Generator"
 					path={path}
 					selectedPath={selectedPath}
+					wide
 				/>
 				<Page wide>
 					<div className="mb-8 flex justify-between items-center">
