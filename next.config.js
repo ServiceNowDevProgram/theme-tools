@@ -1,6 +1,8 @@
-const debug = process.env.NODE_ENV !== 'production';
+const dev = process.env.NODE_ENV !== 'production';
+const dokku = process.env.DEPLOY_TARGET === 'dokku';
 
 module.exports = {
-	// assetPrefix: !debug ? '/pages/david-leonard/theme-tools/out/' : '',
-	basePath: !debug ? '/pages/david-leonard/theme-tools/out' : '',
+	// assetPrefix: !dev ? '/pages/david-leonard/theme-tools/out/' : '',
+	basePath: !dev && !dokku ? '/pages/david-leonard/theme-tools/out' : '',
+	trailingSlash: dokku ? true : undefined,
 };

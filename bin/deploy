@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
 printf "\x1b[32m"
+echo "Building dokku optimized site to out_dokku/..."
+printf "\x1b[0m"
+
+DEPLOY_TARGET=dokku ./node_modules/.bin/next build
+DEPLOY_TARGET=dokku ./node_modules/.bin/next export -o out_dokku
+
+printf "\x1b[32m"
 echo "Deploying to theme.deoprototypes.com..."
 printf "\x1b[0m"
+
 echo "Tarballing 'out' folder and uploading to Dokku server, this may take a few minutes"
-touch out/.static && tar -c --exclude='*.js.map' out $* | ssh dokku@deoprototypes.com tar:in theme
+touch out_dokku/.static && tar -c --exclude='*.js.map' out_dokku $* | ssh dokku@deoprototypes.com tar:in theme

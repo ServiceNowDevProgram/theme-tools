@@ -6,7 +6,8 @@
 		"dev": "next dev",
 		"build": "next build && next export",
 		"start": "next start",
-		"format": "prettier --write \"**/*.js\""
+		"format": "prettier --write \"**/*.js\"",
+		"deploy": "bin/deploy"
 	},
 	"dependencies": {
 		"codemirror": "5.58.2",
