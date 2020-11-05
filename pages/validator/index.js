@@ -80,6 +80,7 @@ export default function ValidatorPage({data}) {
 	const selectedPath = 'validator';
 
 	const [state, setState] = useState({
+		commitCount: 0,
 		currentCode: fakeData,
 		committedCode: fakeData,
 		syntaxError: null,
@@ -117,12 +118,12 @@ export default function ValidatorPage({data}) {
 		// Finally run the lint rules
 		const result = runRules(formattedCode, {release: selectedRelease}, data);
 		setState({
-			currentCode: state.currentCode,
-			committedCode: state.committedCode,
+			currentCode: formattedCode,
+			committedCode: formattedCode,
 			syntaxError: null,
 			lintErrors: result.errors,
 		});
-	}, [state.committedCode]);
+	}, [state.committedCode, state.commitCount]);
 
 	useEffect(() => {
 		if (!editor) return;
@@ -159,12 +160,13 @@ export default function ValidatorPage({data}) {
 	}, [state.lintErrors]);
 
 	function commitCode(value) {
-		setState({
+		setState((current) => ({
+			commitCount: current.count + 1,
 			currentCode: value,
 			committedCode: value,
 			syntaxError: null,
 			lintErrors: [],
-		});
+		}));
 	}
 
 	function applyFix(entry) {
@@ -191,6 +193,7 @@ export default function ValidatorPage({data}) {
 		}
 		const printedNewCode = JSON.stringify(newCode, null, '  ');
 		setState({
+			commitCount: 0,
 			currentCode: printedNewCode,
 			committedCode: printedNewCode,
 			syntaxError: null,
@@ -222,6 +225,7 @@ export default function ValidatorPage({data}) {
 		}
 		const printedNewCode = JSON.stringify(newCode, null, '  ');
 		setState({
+			commitCount: 0,
 			currentCode: printedNewCode,
 			committedCode: printedNewCode,
 			syntaxError: null,
@@ -301,7 +305,7 @@ export default function ValidatorPage({data}) {
 							<p className="font-semibold">
 								Invalid JSON, fix the problems identified below:
 							</p>
-							<div className="bg-gray-400 text-xs p-4 mt-2">
+							<div className="bg-gray-400 text-xs p-4 mt-2 overflow-x-auto">
 								<pre>
 									<code>{state.syntaxError.message}</code>
 								</pre>
@@ -347,7 +351,7 @@ export default function ValidatorPage({data}) {
 										<div className="text-xs bg-red-800 text-white pt-1 pb-1 pl-2 pr-2 uppercase font-semibold">
 											Current Code
 										</div>
-										<div className="bg-gray-400 text-xs p-4 pb-1 text-black">
+										<div className="bg-gray-400 text-xs p-4 pb-1 text-black overflow-x-auto">
 											<pre>
 												<code>
 													{node.loc.start.line}: {node.key.raw}:{' '}
