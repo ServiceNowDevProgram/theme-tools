@@ -78,7 +78,8 @@ class ColorGenerator extends Component {
 				groupedTeal: null,
 				groupedYellow: null,
 			},
-			selectedColorGroup: 'base',
+      selectedColorGroup: 'base',
+      isDark: false
 		};
 	}
 
@@ -95,7 +96,8 @@ class ColorGenerator extends Component {
 	}
 
 	copyColors = () => {
-		const generatedColors = getColors(DATA, this.state.selectedColors);
+    const { selectedColors, isDark } = this.state;
+		const generatedColors = getColors(DATA, selectedColors, isDark);
 		const out = {};
 		for (const [colorId, color] of Object.entries(DATA.colors)) {
 			const colors = generatedColors[colorId];
@@ -112,7 +114,16 @@ class ColorGenerator extends Component {
 		document.execCommand('copy');
 		document.body.removeChild(aux);
 		console.log('copied', JSON.stringify(out, null, 4));
-	};
+  };
+
+  generateDarkTheme = () => {
+    const { selectedColors } = this.state;
+    if (selectedColors.neutrals) {
+      this.setState({
+        isDark: !this.state.isDark
+      });
+    }
+  }
 
 	renderTabs = () => {
 		const {selectedColorGroup} = this.state;
@@ -181,40 +192,66 @@ class ColorGenerator extends Component {
 		}
 	};
 
-	renderColorGroups = (generatedColors) => {
+	renderColorGroups = (generatedColors, isDark) => {
 		const {selectedColorGroup, selectedColors} = this.state;
 		const group = DATA.groups[selectedColorGroup];
 		if (group) {
 			return Object.values(group.colors).map((colorId) => {
-				const {label} = DATA.colors[colorId];
 				const baseColor = selectedColors[colorId];
 				const isNeutral =
-					colorId === 'surfaceNeutral' || colorId === 'surfaceDivider';
+          colorId === 'surfaceNeutral' || colorId === 'surfaceDivider';
+        const label = (isNeutral || colorId === 'neutrals') && isDark ? `${DATA.colors[colorId].label} (dark)` :  DATA.colors[colorId].label
 				return (
 					<div key={colorId} className="mb-6">
 						{isNeutral && (
-							<label
-								className={cx({
-									block: true,
-									'text-sm': true,
-									'leading-5': true,
-									'text-gray-700': true,
-									'mb-1': true,
-								})}>
-								{label} (generated from neutrals)
-							</label>
+              <label
+                className={cx({
+                  block: true,
+                  'text-sm': true,
+                  'leading-5': true,
+                  'text-gray-700': true,
+                  'mb-1': true,
+                })}>
+                {label} (generated from neutrals)
+              </label>
 						)}
 						{!isNeutral ? (
-							<Input
-								type="text"
-								name={colorId}
-								label={label}
-								value={baseColor || ''}
-								onChange={(value) =>
-									this.updateBaseColor(colorId, value || undefined)
-								}
-								placeholder="#000000"
-							/>
+              <div className="flex items-end">
+                <div className="flex-1">
+                  <Input
+                    type="text"
+
+                    name={colorId}
+                    label={label}
+                    value={baseColor || ''}
+                    onChange={(value) =>
+                      this.updateBaseColor(colorId, value || undefined)
+                    }
+                    placeholder="#000000"
+                  />
+                </div>
+                {
+                  colorId === 'neutrals' && selectedColors.neutrals ?
+                  <div>
+                    <button
+                      className={cx({
+                        'bg-green-500': isDark,
+                        'hover:bg-green-700': isDark,
+                        'bg-gray-700': !isDark,
+                        'hover:bg-gray-900': !isDark,
+                        'text-white': true,
+                        'font-bold': true,
+                        'py-1': true,
+                        'px-2': true,
+                        'rounded': true,
+                        'ml-2': true
+                      })}
+                      onClick={this.generateDarkTheme}>
+                      {isDark ? 'Light Theme' : 'Dark Theme'}
+                    </button>
+                  </div> : null
+                }
+              </div>
 						) : null}
 
 						<div className="flex mt-2">
@@ -259,7 +296,8 @@ class ColorGenerator extends Component {
 	};
 
 	render() {
-		const generatedColors = getColors(DATA, this.state.selectedColors);
+    const { selectedColors, isDark } = this.state;
+    const generatedColors = getColors(DATA, selectedColors, isDark);
 		return (
 			<Fragment>
 				<PageHeader
@@ -272,13 +310,13 @@ class ColorGenerator extends Component {
 					{this.renderDefaultThemeAlert()}
 					<div className="mb-8 flex justify-between items-center">
 						<div>{this.renderTabs()}</div>
-						<button
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
-							onClick={this.copyColors}>
-							Copy Json
-						</button>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
+              onClick={this.copyColors}>
+              Copy Json
+            </button>
 					</div>
-					<div>{this.renderColorGroups(generatedColors)}</div>
+					<div>{this.renderColorGroups(generatedColors, isDark)}</div>
 				</Page>
 			</Fragment>
 		);
