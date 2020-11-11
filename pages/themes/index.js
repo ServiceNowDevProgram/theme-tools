@@ -104,6 +104,11 @@ class Themes extends Component {
 		} catch {}
 	};
 
+	getTime = (date) => {
+		const utc = moment.utc(date).toDate();
+		return moment(utc).local().format('MM/DD/YY hh:mm:ss A');
+	};
+
 	render() {
 		const {themes, selectedTheme} = this.state;
 
@@ -147,14 +152,14 @@ class Themes extends Component {
 							) : null}
 						</div>
 					</div>
-					<div className="flex justify-end mb-8">
-						<small>
-							Last saved:{' '}
-							{moment(moment.utc(selectedTheme.sys_updated_on).toDate())
-								.local()
-								.format('MM/DD/YY hh:mm:ss A')}
-						</small>
-					</div>
+					{themes.length ? (
+						<div className="flex justify-end mb-8">
+							<small>
+								Last saved:
+								{this.getTime(selectedTheme.sys_updated_on)}
+							</small>
+						</div>
+					) : null}
 					<Input
 						key={selectedTheme.sys_id}
 						type="text"
