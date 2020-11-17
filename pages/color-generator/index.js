@@ -3,6 +3,7 @@ import {toast} from 'react-toastify';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 import DATA from '../../data/color-generator/colors.json';
 import {getColors} from '../../lib/color-generator/generateColors';
 import {copyObject} from '../../lib/common/copy';
@@ -307,11 +308,9 @@ class ColorGenerator extends Component {
 					{this.renderDefaultThemeAlert()}
 					<div className="mb-8 flex justify-between items-center">
 						<div>{this.renderTabs()}</div>
-						<button
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
-							onClick={this.copyColors}>
-							Copy Json
-						</button>
+						<span className="ml-auto">
+							<Button onClick={this.copyColors}>Copy colors as JSON</Button>
+						</span>
 					</div>
 					<div>{this.renderColorGroups(generatedColors, isDark)}</div>
 				</Page>

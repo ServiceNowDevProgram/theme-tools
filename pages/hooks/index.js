@@ -16,6 +16,7 @@ import {HookLink} from '../../components/Links';
 import SimpleTable from '../../components/SimpleTable';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
+import Button from '../../components/Button';
 
 import exportData from '../../data/hooks.json';
 
@@ -498,11 +499,9 @@ export default function HooksPage() {
 							</span>
 						</div>
 
-						<button
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
-							onClick={() => copyFilteredData(filteredData)}>
-							Copy hooks
-						</button>
+						<Button onClick={() => copyFilteredData(filteredData)}>
+							Copy hooks as JSON
+						</Button>
 						{/* <SelectFilter
 						label="Class"
 						value={filters.class}

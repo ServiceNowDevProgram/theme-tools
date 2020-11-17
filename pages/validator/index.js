@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import Select from '../../components/Select';
+import Button from '../../components/Button';
 import jsonAst from '../../lib/jsonAst';
 import cx from '../../lib/cx';
 import tippy from 'tippy.js';
@@ -266,11 +267,12 @@ export default function ValidatorPage({data}) {
 								/>
 							</div>
 
-							<button
+							<Button
 								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-								onClick={() => commitCode(state.currentCode)}>
+								onClick={() => commitCode(state.currentCode)}
+								size="md">
 								Validate
-							</button>
+							</Button>
 						</div>
 					</div>
 				</div>
