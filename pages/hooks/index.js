@@ -8,6 +8,7 @@ import kebabCase from 'lodash/kebabCase';
 
 import {isValidHexString, isValidRgbString} from '../../lib/color';
 import shallowEqual from '../../lib/common/shallowEqual';
+import {copyObject} from '../../lib/common/copy';
 
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
@@ -199,6 +200,17 @@ function filterData(filterDefs, filters, rows, columns, selectedRelease) {
 		if (!remove) filteredData.push(row);
 	}
 	return filteredData;
+}
+
+function copyFilteredData(data) {
+	let out = {};
+	data.forEach((hook) => {
+		const {customProperty, defaultValue} = hook;
+		if (customProperty && defaultValue) {
+			out[customProperty] = defaultValue;
+		}
+	});
+	copyObject(out);
 }
 
 const FILTER_DEFS = {
@@ -459,29 +471,38 @@ export default function HooksPage() {
 				/>
 
 				<Page wide>
-					<div className="mb-6 flex items-center space-x-4">
-						<SelectFilter
-							label="Release"
-							value={selectedRelease}
-							setValue={(value) => setSelectedRelease(value)}
-							options={releaseOptions}
-							hideAll
-						/>
-						<TextFilter
-							label="Name"
-							value={filters.search}
-							setValue={(value) => setFilters({...filters, search: value})}
-						/>
-						<SelectFilter
-							label="Namespace"
-							value={filters.namespace}
-							setValue={(value) => setFilters({...filters, namespace: value})}
-							options={namespaceOptions}
-						/>
-						<span className="ml-auto">
-							Matches:{' '}
-							<span className="text-teal-800">{filteredData.length}</span>
-						</span>
+					<div className="mb-6 flex justify-between">
+						<div className="flex items-center space-x-4">
+							<SelectFilter
+								className="mb-6"
+								label="Release"
+								value={selectedRelease}
+								setValue={(value) => setSelectedRelease(value)}
+								options={releaseOptions}
+								hideAll
+							/>
+							<TextFilter
+								label="Name"
+								value={filters.search}
+								setValue={(value) => setFilters({...filters, search: value})}
+							/>
+							<SelectFilter
+								label="Namespace"
+								value={filters.namespace}
+								setValue={(value) => setFilters({...filters, namespace: value})}
+								options={namespaceOptions}
+							/>
+							<span>
+								Matches:{' '}
+								<span className="text-teal-800">{filteredData.length}</span>
+							</span>
+						</div>
+
+						<button
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
+							onClick={() => copyFilteredData(filteredData)}>
+							Copy hooks
+						</button>
 						{/* <SelectFilter
 						label="Class"
 						value={filters.class}

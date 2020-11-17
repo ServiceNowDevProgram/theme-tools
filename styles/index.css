@@ -21,3 +21,11 @@ a {
 .CodeMirror-line {
 	padding-left: 10px;
 }
+
+.Toastify__toast {
+	border-radius: 0.25rem;
+}
+
+.Toastify__toast--success {
+	background-color: #48bb78;
+}

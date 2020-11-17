@@ -236,7 +236,7 @@
 			"label": "Surface Brand",
 			"baseColor": "",
 			"lightPercentage": 0.85,
-			"lightVariations": 6,
+			"lightVariations": 5,
 			"darkPercentage": 0.5,
 			"darkVariations": 0,
 			"startIndex": 1,
@@ -259,7 +259,7 @@
 			"lightPercentage": 0.6,
 			"lightVariations": 5,
 			"darkPercentage": 0.8,
-			"darkVariations": 6,
+			"darkVariations": 5,
 			"hook": "now-color_chrome--divider"
 		},
 		"groupedBlue": {
