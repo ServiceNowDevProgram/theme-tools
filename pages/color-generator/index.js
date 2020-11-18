@@ -312,56 +312,48 @@ class ColorGenerator extends Component {
 		}
 	};
 
-	updateBrandPrimary = (val) => {
-		if (isHex(val)) {
-			const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(val);
-			const primary = getPrimaryColorsFromBrandPrimaryHex(val);
-			const surfaceBrand = getSurfaceBrandColorsFromPrimaryHex(val);
-			const chromeBrand = getChromeBrandColorsFromPrimaryHex(val);
-			const chromeDivider = getChromeDividerColorsFromPrimaryHex(val);
-			const interactive = getInteractiveColorsFromPrimaryHex(val);
-			const focus = getFocusColorsFromPrimaryHex(val);
-
-			this.setState({
-				selectedColors: {
-					...this.state.selectedColors,
-					neutrals,
-					primary,
-					surfaceBrand,
-					chromeBrand,
-					chromeDivider,
-					interactive,
-					focus,
-				},
-			});
-		}
-	};
-
-	updateBrandSecondary = (val) => {
-		if (isHex(val)) {
-			const secondary = getSecondaryColorsFromSecondaryHex(val);
-			const selectionPrimary = getSelectionPrimaryFromSecondaryHex(val);
-			const selectionSecondary = getSelectionSecondaryFromSecondaryHex(val);
-
-			this.setState({
-				selectedColors: {
-					...this.state.selectedColors,
-					secondary,
-					selectionPrimary,
-					selectionSecondary,
-				},
-			});
+	renderInsertPolarisAlert = () => {
+		const {
+			autoGenBrandNeutral,
+			autoGenBrandPrimary,
+			autoGenBrandSecondary,
+		} = this.state;
+		if (
+			!autoGenBrandNeutral ||
+			!autoGenBrandPrimary ||
+			!autoGenBrandSecondary
+		) {
+			return (
+				<button
+					className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none rounded-md flex w-full mb-4"
+					onClick={this.insertPolarisColors}>
+					<span className="font-semibold mr-2 text-left flex-auto">
+						Insert Polaris Colors
+					</span>
+					<svg
+						className="fill-current opacity-75 h-4 w-4"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20">
+						<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z" />
+					</svg>
+				</button>
+			);
 		}
 	};
 
 	generateSmartColors = () => {
 		const {
+			autoGenBrandNeutral,
 			autoGenBrandPrimary,
 			autoGenBrandSecondary,
 			selectedColors,
 		} = this.state;
 
-		if (isHex(autoGenBrandPrimary) && isHex(autoGenBrandSecondary)) {
+		if (
+			isHex(autoGenBrandNeutral) &&
+			isHex(autoGenBrandPrimary) &&
+			isHex(autoGenBrandSecondary)
+		) {
 			const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(
 				autoGenBrandPrimary
 			);
@@ -402,6 +394,9 @@ class ColorGenerator extends Component {
 					secondary,
 					selectionPrimary,
 					selectionSecondary,
+					brandNeutral: autoGenBrandNeutral,
+					brandPrimary: autoGenBrandPrimary,
+					brandSecondary: autoGenBrandSecondary,
 				},
 				openSmartGenModal: false,
 			});
@@ -465,19 +460,7 @@ class ColorGenerator extends Component {
 									id="modal-headline">
 									Auto Generate Colors
 								</h3>
-								<button
-									className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none rounded-md flex w-full mb-4"
-									onClick={this.insertPolarisColors}>
-									<span className="font-semibold mr-2 text-left flex-auto">
-										Insert Polaris Colors
-									</span>
-									<svg
-										className="fill-current opacity-75 h-4 w-4"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 20 20">
-										<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z" />
-									</svg>
-								</button>
+								{this.renderInsertPolarisAlert()}
 								<div className="mt-2 flex flex-col">
 									<div className="mb-3">
 										<label className="text-sm text-gray-700">
