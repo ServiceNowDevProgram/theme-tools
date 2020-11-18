@@ -3,9 +3,23 @@ import {toast} from 'react-toastify';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Modal from '../../components/Modal';
+import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
-import {getColors} from '../../lib/color-generator/generateColors';
+import {
+	getColors,
+	isHex,
+	getNeutralBaseColorsFromBrandPrimaryHex,
+	getPrimaryColorsFromBrandPrimaryHex,
+	getSurfaceBrandColorsFromPrimaryHex,
+	getChromeBrandColorsFromPrimaryHex,
+	getChromeDividerColorsFromPrimaryHex,
+	getSecondaryColorsFromSecondaryHex,
+	getSelectionPrimaryFromSecondaryHex,
+	getSelectionSecondaryFromSecondaryHex,
+	getInteractiveColorsFromPrimaryHex,
+	getFocusColorsFromPrimaryHex,
+} from '../../lib/color-generator/generateColors';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
 
@@ -83,6 +97,10 @@ class ColorGenerator extends Component {
 			},
 			selectedColorGroup: 'base',
 			isDark: false,
+			openSmartGenModal: false,
+			autoGenBrandNeutral: '',
+			autoGenBrandPrimary: '',
+			autoGenBrandSecondary: '',
 		};
 	}
 
@@ -96,6 +114,29 @@ class ColorGenerator extends Component {
 			}
 		}
 		this.setState({selectedColors: newSelectedColors});
+	}
+
+	componentDidUpdate(prevProps, props) {
+		const {selectedColors} = this.state;
+		if (!shallowEqual(props.selectedColors, selectedColors)) {
+			if (!history.replaceState) return;
+
+			const searchParams = new URLSearchParams(window.location.search);
+			for (const i in selectedColors) {
+				if (selectedColors[i]) {
+					searchParams.set(i, selectedColors[i]);
+				}
+			}
+
+			let newurl =
+				window.location.protocol +
+				'//' +
+				window.location.host +
+				window.location.pathname +
+				'?' +
+				searchParams.toString();
+			window.history.replaceState({path: newurl}, '', newurl);
+		}
 	}
 
 	copyColors = () => {
@@ -146,28 +187,7 @@ class ColorGenerator extends Component {
 		});
 	};
 
-	updateUrl = (updates) => {
-		if (!history.replaceState) return;
-
-		const searchParams = new URLSearchParams(window.location.search);
-		for (const [key, value] of updates) {
-			if (value) {
-				searchParams.set(key, value);
-			}
-		}
-
-		let newurl =
-			window.location.protocol +
-			'//' +
-			window.location.host +
-			window.location.pathname +
-			'?' +
-			searchParams.toString();
-		window.history.replaceState({path: newurl}, '', newurl);
-	};
-
 	updateBaseColor = (id, value) => {
-		this.updateUrl([[id, value]]);
 		this.setState({
 			selectedColors: {
 				...this.state.selectedColors,
@@ -263,7 +283,6 @@ class ColorGenerator extends Component {
 
 	setDefaultTheme = () => {
 		this.setState({selectedColors: {...DEFAULT_THEME}});
-		this.updateUrl(Object.entries(DEFAULT_THEME));
 	};
 
 	renderDefaultThemeAlert = () => {
@@ -293,8 +312,121 @@ class ColorGenerator extends Component {
 		}
 	};
 
+	updateBrandPrimary = (val) => {
+		if (isHex(val)) {
+			const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(val);
+			const primary = getPrimaryColorsFromBrandPrimaryHex(val);
+			const surfaceBrand = getSurfaceBrandColorsFromPrimaryHex(val);
+			const chromeBrand = getChromeBrandColorsFromPrimaryHex(val);
+			const chromeDivider = getChromeDividerColorsFromPrimaryHex(val);
+			const interactive = getInteractiveColorsFromPrimaryHex(val);
+			const focus = getFocusColorsFromPrimaryHex(val);
+
+			this.setState({
+				selectedColors: {
+					...this.state.selectedColors,
+					neutrals,
+					primary,
+					surfaceBrand,
+					chromeBrand,
+					chromeDivider,
+					interactive,
+					focus,
+				},
+			});
+		}
+	};
+
+	updateBrandSecondary = (val) => {
+		if (isHex(val)) {
+			const secondary = getSecondaryColorsFromSecondaryHex(val);
+			const selectionPrimary = getSelectionPrimaryFromSecondaryHex(val);
+			const selectionSecondary = getSelectionSecondaryFromSecondaryHex(val);
+
+			this.setState({
+				selectedColors: {
+					...this.state.selectedColors,
+					secondary,
+					selectionPrimary,
+					selectionSecondary,
+				},
+			});
+		}
+	};
+
+	generateSmartColors = () => {
+		const {
+			autoGenBrandPrimary,
+			autoGenBrandSecondary,
+			selectedColors,
+		} = this.state;
+
+		if (isHex(autoGenBrandPrimary) && isHex(autoGenBrandSecondary)) {
+			const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(
+				autoGenBrandPrimary
+			);
+			const primary = getPrimaryColorsFromBrandPrimaryHex(autoGenBrandPrimary);
+			const surfaceBrand = getSurfaceBrandColorsFromPrimaryHex(
+				autoGenBrandPrimary
+			);
+			const chromeBrand = getChromeBrandColorsFromPrimaryHex(
+				autoGenBrandPrimary
+			);
+			const chromeDivider = getChromeDividerColorsFromPrimaryHex(
+				autoGenBrandPrimary
+			);
+			const interactive = getInteractiveColorsFromPrimaryHex(
+				autoGenBrandPrimary
+			);
+			const focus = getFocusColorsFromPrimaryHex(autoGenBrandPrimary);
+			const secondary = getSecondaryColorsFromSecondaryHex(
+				autoGenBrandSecondary
+			);
+			const selectionPrimary = getSelectionPrimaryFromSecondaryHex(
+				autoGenBrandSecondary
+			);
+			const selectionSecondary = getSelectionSecondaryFromSecondaryHex(
+				autoGenBrandSecondary
+			);
+
+			this.setState({
+				selectedColors: {
+					...selectedColors,
+					neutrals,
+					primary,
+					surfaceBrand,
+					chromeBrand,
+					chromeDivider,
+					interactive,
+					focus,
+					secondary,
+					selectionPrimary,
+					selectionSecondary,
+				},
+				openSmartGenModal: false,
+			});
+		} else {
+			toast.error('Please make sure all fields are completed');
+		}
+	};
+
+	insertPolarisColors = () => {
+		this.setState({
+			autoGenBrandNeutral: '#171F4E',
+			autoGenBrandPrimary: '#4F52BD',
+			autoGenBrandSecondary: '#00A779',
+		});
+	};
+
 	render() {
-		const {selectedColors, isDark} = this.state;
+		const {
+			selectedColors,
+			isDark,
+			openSmartGenModal,
+			autoGenBrandNeutral,
+			autoGenBrandPrimary,
+			autoGenBrandSecondary,
+		} = this.state;
 		const generatedColors = getColors(DATA, selectedColors, isDark);
 		return (
 			<Fragment>
@@ -308,12 +440,107 @@ class ColorGenerator extends Component {
 					{this.renderDefaultThemeAlert()}
 					<div className="mb-8 flex justify-between items-center">
 						<div>{this.renderTabs()}</div>
-						<span className="ml-auto">
-							<Button onClick={this.copyColors}>Copy colors as JSON</Button>
-						</span>
+						<div>
+							<button
+								className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
+								onClick={() => this.setState({openSmartGenModal: true})}>
+								Smart Gen
+							</button>
+							<button
+								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
+								onClick={this.copyColors}>
+								Copy Json
+							</button>
+						</div>
 					</div>
 					<div>{this.renderColorGroups(generatedColors, isDark)}</div>
 				</Page>
+
+				<Modal open={openSmartGenModal}>
+					<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+						<div className="sm:flex sm:items-start">
+							<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
+								<h3
+									className="text-lg leading-6 font-medium text-gray-900 mb-8"
+									id="modal-headline">
+									Auto Generate Colors
+								</h3>
+								<button
+									className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none rounded-md flex w-full mb-4"
+									onClick={this.insertPolarisColors}>
+									<span className="font-semibold mr-2 text-left flex-auto">
+										Insert Polaris Colors
+									</span>
+									<svg
+										className="fill-current opacity-75 h-4 w-4"
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20">
+										<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z" />
+									</svg>
+								</button>
+								<div className="mt-2 flex flex-col">
+									<div className="mb-3">
+										<label className="text-sm text-gray-700">
+											Brand Neutral
+										</label>
+										<Input
+											name="brand-neutral-auto"
+											placeholder="#171F4E"
+											value={autoGenBrandNeutral}
+											onChange={(val) =>
+												this.setState({autoGenBrandNeutral: val})
+											}
+										/>
+									</div>
+									<div className="mb-3">
+										<label className="text-sm text-gray-700">
+											Brand Primary
+										</label>
+										<Input
+											name="brand-primary-auto"
+											placeholder="#4F52BD"
+											value={autoGenBrandPrimary}
+											onChange={(val) =>
+												this.setState({autoGenBrandPrimary: val})
+											}
+										/>
+									</div>
+									<div className="mb-3">
+										<label className="text-sm text-gray-700">
+											Brand Secondary
+										</label>
+										<Input
+											name="brand-secondary-auto"
+											placeholder="#00A779"
+											value={autoGenBrandSecondary}
+											onChange={(val) =>
+												this.setState({autoGenBrandSecondary: val})
+											}
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+						<span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+							<button
+								onClick={this.generateSmartColors}
+								type="button"
+								className="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+								Generate
+							</button>
+						</span>
+						<span className="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+							<button
+								onClick={() => this.setState({openSmartGenModal: false})}
+								type="button"
+								className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+								Cancel
+							</button>
+						</span>
+					</div>
+				</Modal>
 			</Fragment>
 		);
 	}
