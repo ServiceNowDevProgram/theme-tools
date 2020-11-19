@@ -1,21 +1,21 @@
 import axios from 'axios';
 
-const root = 'https://dev59115.service-now.com';
+const root = 'https://ndsthemedemo.service-now.com';
 
-export async function getThemes() {
-	const headers = {
+function getHeaders() {
+	return {
 		Accept: 'application/json',
 		'Content-Type': 'application/json',
-		Authorization: 'Basic ' + btoa('admin' + ':' + 'SnowQ4@2020'),
-		'X-UserToken':
-			'f45789422f506010850a1e282799b6b17e8e4027072a7c4f4174f88352e30af542f71fc3',
+		Authorization: 'Basic ' + btoa('demo' + ':' + 'SnowQ4@2020'),
 	};
+}
 
-	const params = {deleted: 'false', sysparm_limit: 100};
+export async function getThemes(params) {
+	const headers = getHeaders();
 
 	try {
 		const themes = await axios.get(
-			`${root}/api/now/table/x_549258_nds_theme_theme`,
+			`${root}/api/now/table/x_snc_nds_themes_theme`,
 			{params, headers}
 		);
 		if (themes.data) {
@@ -27,17 +27,11 @@ export async function getThemes() {
 }
 
 export async function newTheme(data) {
-	const headers = {
-		Accept: 'application/json',
-		'Content-Type': 'application/json',
-		Authorization: 'Basic ' + btoa('admin' + ':' + 'SnowQ4@2020'),
-		'X-UserToken':
-			'f45789422f506010850a1e282799b6b17e8e4027072a7c4f4174f88352e30af542f71fc3',
-	};
+	const headers = getHeaders();
 
 	try {
 		const themes = await axios.post(
-			`${root}/api/now/table/x_549258_nds_theme_theme`,
+			`${root}/api/now/table/x_snc_nds_themes_theme`,
 			data,
 			{headers}
 		);
@@ -50,17 +44,11 @@ export async function newTheme(data) {
 }
 
 export async function updateTheme(id, data) {
-	const headers = {
-		Accept: 'application/json',
-		'Content-Type': 'application/json',
-		Authorization: 'Basic ' + btoa('admin' + ':' + 'SnowQ4@2020'),
-		'X-UserToken':
-			'f45789422f506010850a1e282799b6b17e8e4027072a7c4f4174f88352e30af542f71fc3',
-	};
+	const headers = getHeaders();
 
 	try {
 		const themes = await axios.put(
-			`${root}/api/now/table/x_549258_nds_theme_theme/${id}`,
+			`${root}/api/now/table/x_snc_nds_themes_theme/${id}`,
 			data,
 			{headers}
 		);
@@ -73,19 +61,13 @@ export async function updateTheme(id, data) {
 }
 
 export async function deleteTheme(id) {
-	const headers = {
-		Accept: 'application/json',
-		'Content-Type': 'application/json',
-		Authorization: 'Basic ' + btoa('admin' + ':' + 'SnowQ4@2020'),
-		'X-UserToken':
-			'f45789422f506010850a1e282799b6b17e8e4027072a7c4f4174f88352e30af542f71fc3',
-	};
+	const headers = getHeaders();
 
 	const data = {deleted: true};
 
 	try {
 		const themes = await axios.put(
-			`${root}/api/now/table/x_549258_nds_theme_theme/${id}`,
+			`${root}/api/now/table/x_snc_nds_themes_theme/${id}`,
 			data,
 			{headers}
 		);

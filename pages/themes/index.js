@@ -6,6 +6,8 @@ import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
+import debounce from 'lodash/debounce';
+import {toast} from 'react-toastify';
 
 import {getThemes, newTheme, updateTheme, deleteTheme} from '../api/themes';
 
@@ -38,8 +40,13 @@ class Themes extends Component {
 	}
 
 	getThemes = async () => {
+		const params = {
+			deleted: 'false',
+			sysparm_query: 'ORDERBYDESCsys_updated_on',
+		};
+
 		try {
-			const themes = await getThemes();
+			const themes = await getThemes(params);
 			if (!this.state.selectedTheme.sys_id) {
 				this.setState({
 					themes,
@@ -68,7 +75,7 @@ class Themes extends Component {
 		} catch {}
 	};
 
-	updateTheme = async () => {
+	updateTheme = debounce(async () => {
 		const {selectedTheme} = this.state;
 		try {
 			const theme = await updateTheme(selectedTheme.sys_id, {
@@ -78,6 +85,7 @@ class Themes extends Component {
 			});
 
 			if (theme) {
+				toast.success('Theme updated');
 				this.setState(
 					{
 						selectedTheme: theme,
@@ -86,7 +94,7 @@ class Themes extends Component {
 				);
 			}
 		} catch {}
-	};
+	}, 1000);
 
 	deleteTheme = async () => {
 		const {selectedTheme} = this.state;
@@ -144,7 +152,7 @@ class Themes extends Component {
 										Update
 									</button>
 									<button
-										className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-1"
+										className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none ml-1"
 										onClick={() => this.setState({isDeleteModalOpen: true})}>
 										Delete
 									</button>
@@ -153,83 +161,91 @@ class Themes extends Component {
 						</div>
 					</div>
 					{themes.length ? (
-						<div className="flex justify-end mb-8">
-							<small>
-								Last saved:
-								{this.getTime(selectedTheme.sys_updated_on)}
-							</small>
-						</div>
+						<Fragment>
+							<div className="flex justify-end mb-8">
+								<small>
+									Last saved:
+									{this.getTime(selectedTheme.sys_updated_on)}
+								</small>
+							</div>
+
+							<Input
+								key={selectedTheme.sys_id}
+								type="text"
+								name="name"
+								label="Theme name"
+								value={selectedTheme.name}
+								onChange={(value) =>
+									this.setState({
+										selectedTheme: {...selectedTheme, name: value},
+									})
+								}
+								placeholder="name"
+							/>
+							{CodeMirror && selectedTheme && (
+								<CodeMirror
+									className="mt-8"
+									value={selectedTheme.theme}
+									options={{
+										mode: 'application/json',
+										theme: 'material',
+										lineNumbers: true,
+										gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
+									}}
+									smartIndent
+									onBeforeChange={(editor, data, value) => {
+										this.setState({
+											selectedTheme: {...selectedTheme, theme: value},
+										});
+									}}
+								/>
+							)}
+						</Fragment>
 					) : null}
-					<Input
-						key={selectedTheme.sys_id}
-						type="text"
-						name="name"
-						label="Theme name"
-						value={selectedTheme.name}
-						onChange={(value) =>
-							this.setState({selectedTheme: {...selectedTheme, name: value}})
-						}
-						placeholder="name"
-					/>
-					{CodeMirror && selectedTheme && (
-						<CodeMirror
-							className="mt-8"
-							value={selectedTheme.theme}
-							options={{
-								mode: 'application/json',
-								theme: 'material',
-								lineNumbers: true,
-								gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
-							}}
-							smartIndent
-							onBeforeChange={(editor, data, value) => {
-								this.setState({
-									selectedTheme: {...selectedTheme, theme: value},
-								});
-							}}
-						/>
-					)}
 				</Page>
 
 				<Modal open={this.state.isModalOpen}>
-					<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-						<div className="sm:flex sm:items-start">
-							<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
-								<h3
-									className="text-lg leading-6 font-medium text-gray-900"
-									id="modal-headline">
-									Create new theme
-								</h3>
-								<div className="mt-2">
-									<Input
-										type="text"
-										name="name"
-										value={this.state.newThemeName}
-										onChange={(value) => this.setState({newThemeName: value})}
-										placeholder="name"
-									/>
+					<form>
+						<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+							<div className="sm:flex sm:items-start">
+								<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
+									<h3
+										className="text-lg leading-6 font-medium text-gray-900"
+										id="modal-headline">
+										Create new theme
+									</h3>
+									<div className="mt-2">
+										<Input
+											type="text"
+											name="name"
+											value={this.state.newThemeName}
+											onChange={(value) => this.setState({newThemeName: value})}
+											placeholder="name"
+										/>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-						<span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-							<button
-								onClick={this.createNewTheme}
-								type="button"
-								className="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-								Create
-							</button>
-						</span>
-						<span className="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-							<button
-								onClick={() => this.setState({isModalOpen: false})}
-								type="button"
-								className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-								Cancel
-							</button>
-						</span>
-					</div>
+						<div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+							<span className="flex w-full rounded-md shadow-sm sm:w-auto">
+								<button
+									onClick={this.createNewTheme}
+									type="button"
+									className="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+									Create
+								</button>
+							</span>
+							<span className="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+								<button
+									type="submit"
+									onClick={() => this.setState({isModalOpen: false})}
+									type="button"
+									className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+									Cancel
+								</button>
+							</span>
+						</div>
+					</form>
 				</Modal>
 
 				<Modal open={this.state.isDeleteModalOpen}>
