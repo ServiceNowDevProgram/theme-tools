@@ -10,10 +10,12 @@
 		"deploy": "bin/deploy"
 	},
 	"dependencies": {
+		"axios": "0.21.0",
 		"codemirror": "5.58.2",
 		"json-to-ast": "2.1.0",
 		"jsonlint": "1.6.3",
 		"lodash": "4.17.20",
+		"moment": "2.29.1",
 		"next": "9.5.3",
 		"prop-types": "15.7.2",
 		"react": "16.13.1",
