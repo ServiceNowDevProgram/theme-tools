@@ -2,16 +2,16 @@ import axios from 'axios';
 
 const root = 'https://ndsthemedemo.service-now.com';
 
-function getHeaders() {
+function getHeaders(username, password) {
 	return {
 		Accept: 'application/json',
 		'Content-Type': 'application/json',
-		Authorization: 'Basic ' + btoa('demo' + ':' + 'SnowQ4@2020'),
+		Authorization: 'Basic ' + btoa(`${username}:${password}`),
 	};
 }
 
 export async function getThemes(params) {
-	const headers = getHeaders();
+	const headers = getHeaders('demo-safe', 'demo-safe');
 
 	try {
 		const themes = await axios.get(
@@ -22,12 +22,12 @@ export async function getThemes(params) {
 			return themes.data.result;
 		}
 	} catch (err) {
-		return err;
+		throw new Error(err);
 	}
 }
 
-export async function newTheme(data) {
-	const headers = getHeaders();
+export async function createTheme(data) {
+	const headers = getHeaders('demo', 'SnowQ4@2020');
 
 	try {
 		const themes = await axios.post(
@@ -39,12 +39,12 @@ export async function newTheme(data) {
 			return themes.data.result;
 		}
 	} catch (err) {
-		return err;
+		throw new Error(err);
 	}
 }
 
-export async function updateTheme(id, data) {
-	const headers = getHeaders();
+export async function updateTheme(id, data, user) {
+	const headers = getHeaders(user.username, user.password);
 
 	try {
 		const themes = await axios.put(
@@ -56,12 +56,13 @@ export async function updateTheme(id, data) {
 			return themes.data.result;
 		}
 	} catch (err) {
-		return err;
+		throw new Error(err);
 	}
 }
 
-export async function deleteTheme(id) {
-	const headers = getHeaders();
+export async function deleteTheme(id, user) {
+	console.log(user);
+	const headers = getHeaders(user.username, user.password);
 
 	const data = {deleted: true};
 
@@ -75,6 +76,6 @@ export async function deleteTheme(id) {
 			return themes.data.result;
 		}
 	} catch (err) {
-		return err;
+		throw new Error(err);
 	}
 }

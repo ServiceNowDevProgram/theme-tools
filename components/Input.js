@@ -43,7 +43,7 @@ function Input({
 
 Input.propTypes = {
 	layout: PropTypes.oneOf(['vertical', 'horizontal']),
-	type: PropTypes.oneOf(['text', 'number']),
+	type: PropTypes.oneOf(['text', 'number', 'password']),
 	name: PropTypes.string,
 	label: PropTypes.string,
 	value: PropTypes.string,
