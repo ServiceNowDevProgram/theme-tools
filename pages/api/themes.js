@@ -61,7 +61,6 @@ export async function updateTheme(id, data, user) {
 }
 
 export async function deleteTheme(id, user) {
-	console.log(user);
 	const headers = getHeaders(user.username, user.password);
 
 	const data = {deleted: true};

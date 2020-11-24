@@ -68,8 +68,35 @@ class Themes extends Component {
 		}
 	};
 
+	isJsonString = (str) => {
+		try {
+			JSON.parse(str);
+		} catch (e) {
+			return false;
+		}
+
+		return true;
+	};
+
+	validateFields = (name, theme) => {
+		if (!name || !theme) {
+			toast.warn('Please insert a name or theme json');
+			return false;
+		} else if (!this.isJsonString(theme)) {
+			toast.warn(
+				'Please check your theme json. You can use the Validator to validate it.'
+			);
+			return false;
+		} else {
+			return true;
+		}
+	};
+
 	createNewTheme = async () => {
 		const {newTheme} = this.state;
+
+		if (!this.validateFields(newTheme.name, newTheme.themeJson)) return;
+
 		const data = {
 			name: newTheme.name,
 			theme: JSON.stringify(JSON.parse(newTheme.themeJson), null, '  '),
@@ -85,6 +112,7 @@ class Themes extends Component {
 				},
 				this.getThemes
 			);
+			toast.success('Theme saved');
 		} catch (error) {
 			toast.error(
 				'There was an error creating your theme. Please contact #theming.'
@@ -94,6 +122,8 @@ class Themes extends Component {
 
 	updateTheme = debounce(async () => {
 		const {selectedTheme, username, password} = this.state;
+		if (!this.validateFields(selectedTheme.name, selectedTheme.theme)) return;
+
 		toast.warn('Updating your theme.', {autoClose: 2000});
 		try {
 			const theme = await updateTheme(
