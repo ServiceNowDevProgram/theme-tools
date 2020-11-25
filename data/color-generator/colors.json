@@ -31,6 +31,9 @@
 			"id": "framework",
 			"label": "Framework",
 			"colors": [
+				"brandNeutral",
+				"brandPrimary",
+				"brandSecondary",
 				"surfaceNeutral",
 				"surfaceDivider",
 				"surfaceBrand",
@@ -208,6 +211,39 @@
 			"darkPercentage": 0.6,
 			"darkVariations": 3,
 			"hook": "now-color_alert--low"
+		},
+		"brandNeutral": {
+			"id": "brandNeutral",
+			"label": "Brand Neutral",
+			"baseColor": "",
+			"lightPercentage": 0,
+			"lightVariations": 0,
+			"darkPercentage": 0,
+			"darkVariations": 0,
+			"startIndex": null,
+			"hook": "now-color_brand--neutral"
+		},
+		"brandPrimary": {
+			"id": "brandPrimary",
+			"label": "Brand Primary",
+			"baseColor": "",
+			"lightPercentage": 0,
+			"lightVariations": 0,
+			"darkPercentage": 0,
+			"darkVariations": 0,
+			"startIndex": null,
+			"hook": "now-color_brand--primary"
+		},
+		"brandSecondary": {
+			"id": "brandSecondary",
+			"label": "Brand Secondary",
+			"baseColor": "",
+			"lightPercentage": 0,
+			"lightVariations": 0,
+			"darkPercentage": 0,
+			"darkVariations": 0,
+			"startIndex": null,
+			"hook": "now-color_brand--secondary"
 		},
 		"surfaceNeutral": {
 			"id": "surfaceNeutral",
