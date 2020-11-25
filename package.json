@@ -20,6 +20,7 @@
 		"prop-types": "15.7.2",
 		"react": "16.13.1",
 		"react-codemirror2": "7.2.1",
+		"react-color": "2.19.3",
 		"react-dom": "16.13.1",
 		"react-toastify": "6.1.0",
 		"tippy.js": "6.2.7"

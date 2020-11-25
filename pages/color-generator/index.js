@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
+import BaseColorPicker from '../../components/BaseColorPicker';
 import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
 import {
@@ -58,6 +59,41 @@ const DEFAULT_THEME = {
 	groupedYellow: '#f0cf65',
 };
 
+const INITIAL_COLORS = {
+	neutrals: null,
+	primary: null,
+	secondary: null,
+	selectionPrimary: null,
+	selectionSecondary: null,
+	interactive: null,
+	link: null,
+	focus: null,
+	alertCritical: null,
+	alertHigh: null,
+	alertWarning: null,
+	alertModerate: null,
+	alertInfo: null,
+	alertPositive: null,
+	alertLow: null,
+	brandNeutral: null,
+	brandPrimary: null,
+	brandSecondary: null,
+	surfaceBrand: null,
+	chromeBrand: null,
+	chromeDivider: null,
+	groupedBlue: null,
+	groupedBrown: null,
+	groupedgray: null,
+	groupedGreen: null,
+	groupedGreenYellow: null,
+	groupedMagenta: null,
+	groupedOrange: null,
+	groupedPink: null,
+	groupedPurple: null,
+	groupedTeal: null,
+	groupedYellow: null,
+};
+
 const path = [
 	{id: 'color-generator', href: '/color-generator', label: 'Color Generator'},
 ];
@@ -68,38 +104,7 @@ class ColorGenerator extends Component {
 
 		this.state = {
 			selectedColors: {
-				neutrals: null,
-				primary: null,
-				secondary: null,
-				selectionPrimary: null,
-				selectionSecondary: null,
-				interactive: null,
-				link: null,
-				focus: null,
-				alertCritical: null,
-				alertHigh: null,
-				alertWarning: null,
-				alertModerate: null,
-				alertInfo: null,
-				alertPositive: null,
-				alertLow: null,
-				brandNeutral: null,
-				brandPrimary: null,
-				brandSecondary: null,
-				surfaceBrand: null,
-				chromeBrand: null,
-				chromeDivider: null,
-				groupedBlue: null,
-				groupedBrown: null,
-				groupedgray: null,
-				groupedGreen: null,
-				groupedGreenYellow: null,
-				groupedMagenta: null,
-				groupedOrange: null,
-				groupedPink: null,
-				groupedPurple: null,
-				groupedTeal: null,
-				groupedYellow: null,
+				...INITIAL_COLORS,
 			},
 			selectedColorGroup: 'base',
 			isDark: false,
@@ -127,7 +132,14 @@ class ColorGenerator extends Component {
 		if (!shallowEqual(props.selectedColors, selectedColors)) {
 			if (!history.replaceState) return;
 
-			const searchParams = new URLSearchParams(window.location.search);
+			const searchParams = new URLSearchParams();
+
+			for (const i in selectedColors) {
+				if (selectedColors[i]) {
+					searchParams.delete(i);
+				}
+			}
+
 			for (const i in selectedColors) {
 				if (selectedColors[i]) {
 					searchParams.set(i, selectedColors[i]);
@@ -212,6 +224,12 @@ class ColorGenerator extends Component {
 					</div>
 				);
 			});
+		} else {
+			return (
+				<div className="flex-1">
+					<div style={{height: '80px', backgroundColor: '#f5f5f5'}}></div>
+				</div>
+			);
 		}
 	};
 
@@ -243,16 +261,14 @@ class ColorGenerator extends Component {
 						)}
 						{!isNeutral ? (
 							<div className="flex items-end">
-								<div className="flex-1">
-									<Input
-										type="text"
+								<div>
+									<BaseColorPicker
 										name={colorId}
 										label={label}
 										value={baseColor || ''}
 										onChange={(value) =>
 											this.updateBaseColor(colorId, value || undefined)
 										}
-										placeholder="#000000"
 									/>
 								</div>
 								{colorId === 'neutrals' && selectedColors.neutrals ? (
@@ -443,9 +459,16 @@ class ColorGenerator extends Component {
 						<div>{this.renderTabs()}</div>
 						<div>
 							<button
+								className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
+								onClick={() =>
+									this.setState({selectedColors: {...INITIAL_COLORS}})
+								}>
+								Clear All
+							</button>
+							<button
 								className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
 								onClick={() => this.setState({openSmartGenModal: true})}>
-								Smart Gen
+								Auto Generate
 							</button>
 							<button
 								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
@@ -469,11 +492,9 @@ class ColorGenerator extends Component {
 								{this.renderInsertPolarisAlert()}
 								<div className="mt-2 flex flex-col">
 									<div className="mb-3">
-										<label className="text-sm text-gray-700">
-											Brand Neutral
-										</label>
 										<Input
 											name="brand-neutral-auto"
+											label="Brand Neutral"
 											placeholder="#171F4E"
 											value={autoGenBrandNeutral}
 											onChange={(val) =>
@@ -482,11 +503,9 @@ class ColorGenerator extends Component {
 										/>
 									</div>
 									<div className="mb-3">
-										<label className="text-sm text-gray-700">
-											Brand Primary
-										</label>
 										<Input
 											name="brand-primary-auto"
+											label="Brand Primary"
 											placeholder="#4F52BD"
 											value={autoGenBrandPrimary}
 											onChange={(val) =>
@@ -495,11 +514,9 @@ class ColorGenerator extends Component {
 										/>
 									</div>
 									<div className="mb-3">
-										<label className="text-sm text-gray-700">
-											Brand Secondary
-										</label>
 										<Input
 											name="brand-secondary-auto"
+											label="Brand Secondary"
 											placeholder="#00A779"
 											value={autoGenBrandSecondary}
 											onChange={(val) =>
