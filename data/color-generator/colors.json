@@ -47,7 +47,7 @@
 			"colors": [
 				"groupedBlue",
 				"groupedBrown",
-				"groupedgray",
+				"groupedGray",
 				"groupedGreen",
 				"groupedGreenYellow",
 				"groupedMagenta",
@@ -318,8 +318,8 @@
 			"darkVariations": 3,
 			"hook": "now-color_grouped--brown"
 		},
-		"groupedgray": {
-			"id": "groupedgray",
+		"groupedGray": {
+			"id": "groupedGray",
 			"label": "Grouped Gray",
 			"baseColor": "",
 			"lightPercentage": 0.7,

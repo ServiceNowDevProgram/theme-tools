@@ -43,12 +43,14 @@ const DEFAULT_THEME = {
 	brandNeutral: '#ffffff',
 	brandPrimary: '#293e40',
 	brandSecondary: '#81b5a1',
+	surfaceNeutral: '#49585a',
+	surfaceDivider: '#49585a',
 	surfaceBrand: '#93c0ae',
 	chromeBrand: '#4d6061',
 	chromeDivider: '#243738',
 	groupedBlue: '#78b0cc',
 	groupedBrown: '#9c8a77',
-	groupedgray: '#8b9196',
+	groupedGray: '#8b9196',
 	groupedGreen: '#93aa7d',
 	groupedGreenYellow: '#9aad5e',
 	groupedMagenta: '#cb79c1',
@@ -78,12 +80,14 @@ const INITIAL_COLORS = {
 	brandNeutral: null,
 	brandPrimary: null,
 	brandSecondary: null,
+	surfaceNeutral: null,
+	surfaceDivider: null,
 	surfaceBrand: null,
 	chromeBrand: null,
 	chromeDivider: null,
 	groupedBlue: null,
 	groupedBrown: null,
-	groupedgray: null,
+	groupedGray: null,
 	groupedGreen: null,
 	groupedGreenYellow: null,
 	groupedMagenta: null,
@@ -215,7 +219,7 @@ class ColorGenerator extends Component {
 	};
 
 	renderGeneratedColors = (colors) => {
-		if (colors) {
+		if (colors && colors.length) {
 			return colors.map((color) => {
 				return (
 					<div className="flex-1" title={color.name} key={color.name}>
@@ -247,7 +251,7 @@ class ColorGenerator extends Component {
 						: DATA.colors[colorId].label;
 				return (
 					<div key={colorId} className="mb-6">
-						{isNeutral && (
+						{/* {isNeutral && (
 							<label
 								className={cx({
 									block: true,
@@ -258,20 +262,10 @@ class ColorGenerator extends Component {
 								})}>
 								{label} (generated from neutrals)
 							</label>
-						)}
-						{!isNeutral ? (
-							<div className="flex items-end">
-								<div>
-									<BaseColorPicker
-										name={colorId}
-										label={label}
-										value={baseColor || ''}
-										onChange={(value) =>
-											this.updateBaseColor(colorId, value || undefined)
-										}
-									/>
-								</div>
-								{colorId === 'neutrals' && selectedColors.neutrals ? (
+						)} */}
+						{/* {!isNeutral ? ( */}
+
+						{/* {colorId === 'neutrals' && selectedColors.neutrals ? (
 									<div>
 										<button
 											className={cx({
@@ -290,9 +284,20 @@ class ColorGenerator extends Component {
 											{isDark ? 'Light Theme' : 'Dark Theme'}
 										</button>
 									</div>
-								) : null}
+                ) : null} */}
+						{/* // ) : null} */}
+						<div className="flex items-end">
+							<div>
+								<BaseColorPicker
+									name={colorId}
+									label={label}
+									value={baseColor || ''}
+									onChange={(value) =>
+										this.updateBaseColor(colorId, value || undefined)
+									}
+								/>
 							</div>
-						) : null}
+						</div>
 
 						<div className="flex mt-2">
 							{this.renderGeneratedColors(generatedColors[colorId])}
