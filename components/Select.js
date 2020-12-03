@@ -14,6 +14,7 @@ function Select({
 	return (
 		<div
 			className={cx({
+				'w-full': true,
 				flex: true,
 				'items-center': layout === 'horizontal',
 				'flex-col': layout === 'vertical',
@@ -22,12 +23,13 @@ function Select({
 				className={cx({
 					'mb-1': layout === 'vertical',
 					'mr-2': layout === 'horizontal',
+					'flex-1-0-auto': true,
 					label: true,
 				})}
 				htmlFor={name}>
 				{label}
 			</label>
-			<div className="relative">
+			<div className="relative w-full">
 				<select
 					className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-1 px-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 					id="format"

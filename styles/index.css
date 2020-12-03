@@ -29,3 +29,7 @@ a {
 .Toastify__toast--success {
 	background-color: #48bb78;
 }
+
+.flex-1-0-auto {
+	flex: 1 0 auto;
+}

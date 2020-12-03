@@ -19,6 +19,7 @@ import Select from '../../components/Select';
 import Button from '../../components/Button';
 
 import exportData from '../../data/hooks.json';
+import {isFunction} from 'lodash';
 
 const rawData = {...exportData};
 
@@ -59,6 +60,9 @@ function getValue(column, row) {
 	const {accessor} = column;
 	if (isString(accessor)) {
 		return get(row, accessor);
+	}
+	if (isFunction(accessor)) {
+		return accessor(row);
 	}
 }
 
@@ -233,6 +237,12 @@ const FILTER_DEFS = {
 			return value === filterValue;
 		},
 	},
+	cssProperty: {
+		filter: ({columns, row, filterValue}) => {
+			const value = getValue(getColumn(columns, 'cssProperty'), row);
+			return value === filterValue;
+		},
+	},
 	// class: {
 	// 	filter: ({columns, row, filterValue}) => {
 	// 		const value = getValue(getColumn(columns, 'class'), row);
@@ -296,7 +306,7 @@ export default function HooksPage() {
 				query: defined(filters),
 			});
 		}
-	}, [filters.namespace, debouncedSearchTerm]);
+	}, [filters.namespace, filters.cssProperty, debouncedSearchTerm]);
 
 	const data = React.useMemo(
 		() => getHooksByRelease(rawData, selectedRelease),
@@ -421,6 +431,15 @@ export default function HooksPage() {
 					);
 				},
 			},
+			{
+				id: 'cssProperty',
+				Header: 'CSS Property',
+				label: 'CSS Property',
+				accessor: (row) => row.cssProperty.join(', '),
+				renderer: (row) => row.cssProperty.join(', '),
+				// Filter: ExistsColumnFilter,
+				// filter: 'exists',
+			},
 		],
 		[]
 	);
@@ -440,6 +459,11 @@ export default function HooksPage() {
 		[columns, data]
 	);
 
+	const cssPropertyOptions = React.useMemo(
+		() => getOptions(getColumn(columns, 'cssProperty'), data),
+		[columns, data]
+	);
+
 	const filteredData = React.useMemo(
 		() => filterData(FILTER_DEFS, filters, data, columns, selectedRelease),
 		[
@@ -447,6 +471,7 @@ export default function HooksPage() {
 			columns,
 			selectedRelease,
 			filters.namespace,
+			filters.cssProperty,
 			debouncedSearchTerm,
 			queryExtracted,
 		]
@@ -472,8 +497,15 @@ export default function HooksPage() {
 				/>
 
 				<Page wide>
-					<div className="mb-6 flex justify-between">
-						<div className="flex items-center space-x-4">
+					<div className="mb-4 flex justify-between">
+						<TextFilter
+							label="Search"
+							value={filters.search}
+							setValue={(value) => setFilters({...filters, search: value})}
+						/>
+					</div>
+					<div className="mb-4 flex justify-between">
+						<div className="mr-3 flex-1">
 							<SelectFilter
 								className="mb-6"
 								label="Release"
@@ -482,26 +514,26 @@ export default function HooksPage() {
 								options={releaseOptions}
 								hideAll
 							/>
-							<TextFilter
-								label="Name"
-								value={filters.search}
-								setValue={(value) => setFilters({...filters, search: value})}
-							/>
+						</div>
+						<div className="mr-3 flex-1">
 							<SelectFilter
 								label="Namespace"
 								value={filters.namespace}
 								setValue={(value) => setFilters({...filters, namespace: value})}
 								options={namespaceOptions}
 							/>
-							<span>
-								Matches:{' '}
-								<span className="text-teal-800">{filteredData.length}</span>
-							</span>
+						</div>
+						<div className="flex-1">
+							<SelectFilter
+								label="CSS Property"
+								value={filters.cssProperty}
+								setValue={(value) =>
+									setFilters({...filters, cssProperty: value})
+								}
+								options={cssPropertyOptions}
+							/>
 						</div>
 
-						<Button onClick={() => copyFilteredData(filteredData)}>
-							Copy hooks as JSON
-						</Button>
 						{/* <SelectFilter
 						label="Class"
 						value={filters.class}
@@ -514,6 +546,17 @@ export default function HooksPage() {
 						setValue={(value) => setFilters({...filters, subclass: value})}
 						options={subclassOptions}
 					/> */}
+					</div>
+					<div className="mb-4 flex justify-between items-center">
+						<span className="label">
+							Matches:{' '}
+							<span className="text-teal-800 font-bold">
+								{filteredData.length}
+							</span>
+						</span>
+						<Button onClick={() => copyFilteredData(filteredData)}>
+							Copy visible hooks as JSON
+						</Button>
 					</div>
 					<SimpleTable columns={columns} data={filteredData} textSize="sm" />
 				</Page>
