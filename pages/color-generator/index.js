@@ -1,13 +1,12 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {toast} from 'react-toastify';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
-import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import BaseColorPicker from '../../components/BaseColorPicker';
 import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
-import {INITIAL_THEME, DEFAULT_THEME} from './data/themes';
+import {INITIAL_THEME, DEFAULT_THEME} from '../../data/themes';
 import {
 	getColors,
 	isHex,
@@ -410,9 +409,7 @@ class ColorGenerator extends Component {
 				</Page>
 
 				<Modal open={openSmartGenModal}>
-					<div
-						className="bg-white px-4 pt-5"
-						style={{width: '90vw', height: '90vh'}}>
+					<div className="bg-white px-4 pt-5" style={{width: '90vw'}}>
 						<div className="sm:flex sm:items-start">
 							<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
 								<h3
