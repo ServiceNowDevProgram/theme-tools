@@ -7,9 +7,11 @@ import Modal from '../../components/Modal';
 import BaseColorPicker from '../../components/BaseColorPicker';
 import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
+import {INITIAL_THEME, DEFAULT_THEME} from './data/themes';
 import {
 	getColors,
 	isHex,
+	getNeutrals,
 	getNeutralBaseColorsFromBrandPrimaryHex,
 	getPrimaryColorsFromBrandPrimaryHex,
 	getSurfaceBrandColorsFromPrimaryHex,
@@ -24,80 +26,6 @@ import {
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
 
-const DEFAULT_THEME = {
-	neutrals: '#49585a',
-	primary: '#1e856d',
-	secondary: '#01778e',
-	selectionPrimary: '#1e856d',
-	selectionSecondary: '#e5eef0',
-	interactive: '#01778e',
-	link: '#01778e',
-	focus: '#01778e',
-	alertCritical: '#c83c36',
-	alertHigh: '#dd9122',
-	alertWarning: '#d2c300',
-	alertModerate: '#5456cf',
-	alertInfo: '#0e78c4',
-	alertPositive: '#25832b',
-	alertLow: '#666666',
-	brandNeutral: '#ffffff',
-	brandPrimary: '#293e40',
-	brandSecondary: '#81b5a1',
-	surfaceNeutral: '#49585a',
-	surfaceDivider: '#49585a',
-	surfaceBrand: '#93c0ae',
-	chromeBrand: '#4d6061',
-	chromeDivider: '#243738',
-	groupedBlue: '#78b0cc',
-	groupedBrown: '#9c8a77',
-	groupedGray: '#8b9196',
-	groupedGreen: '#93aa7d',
-	groupedGreenYellow: '#9aad5e',
-	groupedMagenta: '#cb79c1',
-	groupedOrange: '#d7816a',
-	groupedPink: '#cb798f',
-	groupedPurple: '#b59bd1',
-	groupedTeal: '#68aea3',
-	groupedYellow: '#f0cf65',
-};
-
-const INITIAL_COLORS = {
-	neutrals: null,
-	primary: null,
-	secondary: null,
-	selectionPrimary: null,
-	selectionSecondary: null,
-	interactive: null,
-	link: null,
-	focus: null,
-	alertCritical: null,
-	alertHigh: null,
-	alertWarning: null,
-	alertModerate: null,
-	alertInfo: null,
-	alertPositive: null,
-	alertLow: null,
-	brandNeutral: null,
-	brandPrimary: null,
-	brandSecondary: null,
-	surfaceNeutral: null,
-	surfaceDivider: null,
-	surfaceBrand: null,
-	chromeBrand: null,
-	chromeDivider: null,
-	groupedBlue: null,
-	groupedBrown: null,
-	groupedGray: null,
-	groupedGreen: null,
-	groupedGreenYellow: null,
-	groupedMagenta: null,
-	groupedOrange: null,
-	groupedPink: null,
-	groupedPurple: null,
-	groupedTeal: null,
-	groupedYellow: null,
-};
-
 const path = [
 	{id: 'color-generator', href: '/color-generator', label: 'Color Generator'},
 ];
@@ -108,7 +36,7 @@ class ColorGenerator extends Component {
 
 		this.state = {
 			selectedColors: {
-				...INITIAL_COLORS,
+				...INITIAL_THEME,
 			},
 			selectedColorGroup: 'base',
 			isDark: false,
@@ -384,46 +312,86 @@ class ColorGenerator extends Component {
 			const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(
 				autoGenBrandPrimary
 			);
-			const primary = getPrimaryColorsFromBrandPrimaryHex(autoGenBrandPrimary);
-			const surfaceBrand = getSurfaceBrandColorsFromPrimaryHex(
-				autoGenBrandPrimary
-			);
-			const chromeBrand = getChromeBrandColorsFromPrimaryHex(
-				autoGenBrandPrimary
-			);
-			const chromeDivider = getChromeDividerColorsFromPrimaryHex(
-				autoGenBrandPrimary
-			);
-			const interactive = getInteractiveColorsFromPrimaryHex(
-				autoGenBrandPrimary
-			);
-			const focus = getFocusColorsFromPrimaryHex(autoGenBrandPrimary);
-			const secondary = getSecondaryColorsFromSecondaryHex(
-				autoGenBrandSecondary
-			);
-			const selectionPrimary = getSelectionPrimaryFromSecondaryHex(
-				autoGenBrandSecondary
-			);
-			const selectionSecondary = getSelectionSecondaryFromSecondaryHex(
-				autoGenBrandSecondary
-			);
+
+			// const primary = getPrimaryColorsFromBrandPrimaryHex(autoGenBrandPrimary);
+			// const secondary = getSecondaryColorsFromSecondaryHex(
+			//   autoGenBrandSecondary
+			// );
+			// const surfaceBrand = getSurfaceBrandColorsFromPrimaryHex(
+			// 	autoGenBrandPrimary
+			// );
+			// const chromeBrand = getChromeBrandColorsFromPrimaryHex(
+			// 	autoGenBrandPrimary
+			// );
+			// const chromeDivider = getChromeDividerColorsFromPrimaryHex(
+			// 	autoGenBrandPrimary
+			// );
+			// const interactive = getInteractiveColorsFromPrimaryHex(
+			// 	autoGenBrandPrimary
+			// );
+			// const focus = getFocusColorsFromPrimaryHex(autoGenBrandPrimary);
+			// const selectionPrimary = getSelectionPrimaryFromSecondaryHex(
+			// 	autoGenBrandSecondary
+			// );
+			// const selectionSecondary = getSelectionSecondaryFromSecondaryHex(
+			// 	autoGenBrandSecondary
+			// );
+
+			// const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(autoGenBrandNeutral);
+			const neutralColors = getNeutrals(neutrals);
 
 			this.setState({
 				selectedColors: {
 					...selectedColors,
 					neutrals,
-					primary,
-					surfaceBrand,
-					chromeBrand,
-					chromeDivider,
-					interactive,
-					focus,
-					secondary,
-					selectionPrimary,
-					selectionSecondary,
+					primary: autoGenBrandPrimary,
+					secondary: autoGenBrandSecondary,
+					selectionPrimary: autoGenBrandSecondary,
+					selectionSecondary: autoGenBrandSecondary,
+					interactive: autoGenBrandPrimary,
+					surfaceBrand: autoGenBrandPrimary,
+					chromeBrand: autoGenBrandPrimary,
+					chromeDivider: autoGenBrandPrimary,
 					brandNeutral: autoGenBrandNeutral,
 					brandPrimary: autoGenBrandPrimary,
 					brandSecondary: autoGenBrandSecondary,
+					surfaceNeutral: neutralColors[4].hex,
+					surfaceDivider: neutralColors[8].hex,
+					surfaceBrand: autoGenBrandPrimary,
+					chromeBrand: autoGenBrandPrimary,
+					chromeDivider: autoGenBrandPrimary,
+					backgroundPrimary: neutralColors[0].hex,
+					backgroundSecondary: neutralColors[1].hex,
+					backgroundTertiary: neutralColors[2].hex,
+					dividerPrimary: neutralColors[4].hex,
+					dividerSecondary: neutralColors[3].hex,
+					dividerTertiary: neutralColors[2].hex,
+					textPrimary: neutralColors[18].hex,
+					textSecondary: neutralColors[12].hex,
+					textTertiary: neutralColors[9].hex,
+					borderPrimary: neutralColors[7].hex,
+					borderSecondary: neutralColors[5].hex,
+					borderTertiary: neutralColors[3].hex,
+					alertCritical: '#eb001b',
+					alertHigh: '#fd9700',
+					alertWarning: '#f0e000',
+					alertModerate: '#5221ff',
+					alertInfo: '#38aaf4',
+					alertPositive: '#51ae00',
+					alertLow: '9698a4',
+					groupedBlue: '#78b0cc',
+					groupedBrown: '#9c8a77',
+					groupedGray: '#8b9196',
+					groupedGreen: '#93aa7d',
+					groupedGreenYellow: '#9aad5e',
+					groupedMagenta: '#cb79c1',
+					groupedOrange: '#d7816a',
+					groupedPink: '#cb798f',
+					groupedPurple: '#b59bd1',
+					groupedTeal: '#68aea3',
+					groupedYellow: '#f0cf65',
+					link: '#4262FE',
+					focus: '#4262FE',
 				},
 				openSmartGenModal: false,
 			});
@@ -464,9 +432,9 @@ class ColorGenerator extends Component {
 						<div>{this.renderTabs()}</div>
 						<div>
 							<button
-								className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
+								className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
 								onClick={() =>
-									this.setState({selectedColors: {...INITIAL_COLORS}})
+									this.setState({selectedColors: {...INITIAL_THEME}})
 								}>
 								Clear All
 							</button>
@@ -474,6 +442,23 @@ class ColorGenerator extends Component {
 								className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
 								onClick={() => this.setState({openSmartGenModal: true})}>
 								Auto Generate
+							</button>
+							<button
+								className={cx({
+									'bg-gray-700': !isDark,
+									'hover:bg-gray-900': !isDark,
+									'bg-yellow-500': isDark,
+									'hover:bg-yellow-700': isDark,
+									'text-white': true,
+									'font-bold': true,
+									'py-1': true,
+									'px-2': true,
+									rounded: true,
+									'ml-auto': true,
+									'mr-3': true,
+								})}
+								onClick={() => this.setState({isDark: !isDark})}>
+								{isDark ? 'Light Theme' : 'Dark Theme'}
 							</button>
 							<button
 								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"

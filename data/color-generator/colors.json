@@ -14,19 +14,6 @@
 				"focus"
 			]
 		},
-		"alert": {
-			"id": "alert",
-			"label": "Alert",
-			"colors": [
-				"alertCritical",
-				"alertHigh",
-				"alertWarning",
-				"alertModerate",
-				"alertInfo",
-				"alertPositive",
-				"alertLow"
-			]
-		},
 		"framework": {
 			"id": "framework",
 			"label": "Framework",
@@ -39,6 +26,37 @@
 				"surfaceBrand",
 				"chromeBrand",
 				"chromeDivider"
+			]
+		},
+		"derived": {
+			"id": "derived",
+			"label": "Derived",
+			"colors": [
+				"backgroundPrimary",
+				"backgroundSecondary",
+				"backgroundTertiary",
+				"dividerPrimary",
+				"dividerSecondary",
+				"dividerTertiary",
+				"textPrimary",
+				"textSecondary",
+				"textTertiary",
+				"borderPrimary",
+				"borderSecondary",
+				"borderTertiary"
+			]
+		},
+		"alert": {
+			"id": "alert",
+			"label": "Alert",
+			"colors": [
+				"alertCritical",
+				"alertHigh",
+				"alertWarning",
+				"alertModerate",
+				"alertInfo",
+				"alertPositive",
+				"alertLow"
 			]
 		},
 		"grouped": {
@@ -407,6 +425,57 @@
 			"darkPercentage": 0.45,
 			"darkVariations": 3,
 			"hook": "now-color_grouped--yellow"
+		},
+		"backgroundPrimary": {
+			"id": "backgroundPrimary",
+			"label": "Background Primary",
+			"hook": "now-color_background--primary"
+		},
+		"backgroundSecondary": {
+			"id": "backgroundSecondary",
+			"label": "Background Secondary",
+			"hook": "now-color_background--secondary"
+		},
+		"backgroundTertiary": {
+			"id": "backgroundTertiary",
+			"label": "Background Tertiary",
+			"hook": "now-color_background--tertiary"
+		},
+		"dividerPrimary": {
+			"id": "dividerPrimary",
+			"label": "Divider Primary"
+		},
+		"dividerSecondary": {
+			"id": "dividerSecondary",
+			"label": "Divider Secondary"
+		},
+		"dividerTertiary": {
+			"id": "dividerTertiary",
+			"label": "Divider Tertiary"
+		},
+		"textPrimary": {
+			"id": "textPrimary",
+			"label": "Text Primary"
+		},
+		"textSecondary": {
+			"id": "textSecondary",
+			"label": "Text Secondary"
+		},
+		"textTertiary": {
+			"id": "textTertiary",
+			"label": "Text Tertiary"
+		},
+		"borderPrimary": {
+			"id": "borderPrimary",
+			"label": "Border Primary"
+		},
+		"borderSecondary": {
+			"id": "borderSecondary",
+			"label": "Border Secondary"
+		},
+		"borderTertiary": {
+			"id": "borderTertiary",
+			"label": "Border Tertiary"
 		}
 	}
 }
