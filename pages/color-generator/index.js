@@ -13,15 +13,6 @@ import {
 	isHex,
 	getNeutrals,
 	getNeutralBaseColorsFromBrandPrimaryHex,
-	getPrimaryColorsFromBrandPrimaryHex,
-	getSurfaceBrandColorsFromPrimaryHex,
-	getChromeBrandColorsFromPrimaryHex,
-	getChromeDividerColorsFromPrimaryHex,
-	getSecondaryColorsFromSecondaryHex,
-	getSelectionPrimaryFromSecondaryHex,
-	getSelectionSecondaryFromSecondaryHex,
-	getInteractiveColorsFromPrimaryHex,
-	getFocusColorsFromPrimaryHex,
 } from '../../lib/color-generator/generateColors';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
@@ -312,33 +303,6 @@ class ColorGenerator extends Component {
 			const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(
 				autoGenBrandPrimary
 			);
-
-			// const primary = getPrimaryColorsFromBrandPrimaryHex(autoGenBrandPrimary);
-			// const secondary = getSecondaryColorsFromSecondaryHex(
-			//   autoGenBrandSecondary
-			// );
-			// const surfaceBrand = getSurfaceBrandColorsFromPrimaryHex(
-			// 	autoGenBrandPrimary
-			// );
-			// const chromeBrand = getChromeBrandColorsFromPrimaryHex(
-			// 	autoGenBrandPrimary
-			// );
-			// const chromeDivider = getChromeDividerColorsFromPrimaryHex(
-			// 	autoGenBrandPrimary
-			// );
-			// const interactive = getInteractiveColorsFromPrimaryHex(
-			// 	autoGenBrandPrimary
-			// );
-			// const focus = getFocusColorsFromPrimaryHex(autoGenBrandPrimary);
-			// const selectionPrimary = getSelectionPrimaryFromSecondaryHex(
-			// 	autoGenBrandSecondary
-			// );
-			// const selectionSecondary = getSelectionSecondaryFromSecondaryHex(
-			// 	autoGenBrandSecondary
-			// );
-
-			// const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(autoGenBrandNeutral);
-			const neutralColors = getNeutrals(neutrals);
 
 			this.setState({
 				selectedColors: {
