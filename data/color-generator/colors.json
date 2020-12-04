@@ -14,19 +14,6 @@
 				"focus"
 			]
 		},
-		"alert": {
-			"id": "alert",
-			"label": "Alert",
-			"colors": [
-				"alertCritical",
-				"alertHigh",
-				"alertWarning",
-				"alertModerate",
-				"alertInfo",
-				"alertPositive",
-				"alertLow"
-			]
-		},
 		"framework": {
 			"id": "framework",
 			"label": "Framework",
@@ -41,13 +28,44 @@
 				"chromeDivider"
 			]
 		},
+		"derived": {
+			"id": "derived",
+			"label": "Derived",
+			"colors": [
+				"backgroundPrimary",
+				"backgroundSecondary",
+				"backgroundTertiary",
+				"dividerPrimary",
+				"dividerSecondary",
+				"dividerTertiary",
+				"textPrimary",
+				"textSecondary",
+				"textTertiary",
+				"borderPrimary",
+				"borderSecondary",
+				"borderTertiary"
+			]
+		},
+		"alert": {
+			"id": "alert",
+			"label": "Alert",
+			"colors": [
+				"alertCritical",
+				"alertHigh",
+				"alertWarning",
+				"alertModerate",
+				"alertInfo",
+				"alertPositive",
+				"alertLow"
+			]
+		},
 		"grouped": {
 			"id": "grouped",
 			"label": "Grouped",
 			"colors": [
 				"groupedBlue",
 				"groupedBrown",
-				"groupedgray",
+				"groupedGray",
 				"groupedGreen",
 				"groupedGreenYellow",
 				"groupedMagenta",
@@ -63,350 +81,262 @@
 		"neutrals": {
 			"id": "neutrals",
 			"label": "Neutrals",
-			"baseColor": "",
-			"lightPercentage": 0.95,
-			"lightVariations": 10,
-			"darkPercentage": 0.9,
-			"darkVariations": 9,
 			"hook": "now-color--neutral"
 		},
 		"primary": {
 			"id": "primary",
 			"label": "Primary",
-			"baseColor": "",
-			"lightPercentage": 0.85,
-			"lightVariations": 1,
-			"darkPercentage": 0.5,
-			"darkVariations": 2,
 			"hook": "now-color--primary"
 		},
 		"secondary": {
 			"id": "secondary",
 			"label": "Secondary",
-			"baseColor": "",
-			"lightPercentage": 0.85,
-			"lightVariations": 1,
-			"darkPercentage": 0.5,
-			"darkVariations": 2,
 			"hook": "now-color--secondary"
 		},
 		"selectionPrimary": {
 			"id": "selectionPrimary",
 			"label": "Selection Primary",
-			"baseColor": "",
-			"lightPercentage": 0.85,
-			"lightVariations": 2,
-			"darkPercentage": 0.5,
-			"darkVariations": 2,
 			"hook": "now-color_selection--primary"
 		},
 		"selectionSecondary": {
 			"id": "selectionSecondary",
 			"label": "Selection Secondary",
-			"baseColor": "",
-			"lightPercentage": 0.61,
-			"lightVariations": 2,
-			"darkPercentage": 0.1,
-			"darkVariations": 2,
 			"hook": "now-color_selection--secondary"
 		},
 		"interactive": {
 			"id": "interactive",
 			"label": "Interactive",
-			"baseColor": "",
-			"lightPercentage": 0.85,
-			"lightVariations": 2,
-			"darkPercentage": 0.5,
-			"darkVariations": 2,
 			"hook": "now-color--interactive"
 		},
 		"link": {
 			"id": "link",
 			"label": "Link",
-			"baseColor": "",
-			"lightPercentage": 0.3,
-			"lightVariations": 1,
-			"darkPercentage": 0.25,
-			"darkVariations": 2,
 			"startIndex": 1,
 			"hook": "now-color--link"
 		},
 		"focus": {
 			"id": "focus",
 			"label": "Focus",
-			"baseColor": "",
-			"lightPercentage": 0.3,
-			"lightVariations": 1,
-			"darkPercentage": 0.25,
-			"darkVariations": 1,
 			"startIndex": 1,
 			"hook": "now-color--focus"
 		},
 		"alertCritical": {
 			"id": "alertCritical",
 			"label": "Alert Critical",
-			"baseColor": "",
-			"lightPercentage": 0.75,
-			"lightVariations": 2,
-			"darkPercentage": 0.6,
-			"darkVariations": 3,
 			"hook": "now-color_alert--critical"
 		},
 		"alertHigh": {
 			"id": "alertHigh",
 			"label": "Alert High",
-			"baseColor": "",
-			"lightPercentage": 0.75,
-			"lightVariations": 2,
-			"darkPercentage": 0.6,
-			"darkVariations": 3,
 			"hook": "now-color_alert--high"
 		},
 		"alertWarning": {
 			"id": "alertWarning",
 			"label": "Alert Warning",
-			"baseColor": "",
-			"lightPercentage": 0.75,
-			"lightVariations": 2,
-			"darkPercentage": 0.6,
-			"darkVariations": 3,
 			"hook": "now-color_alert--warning"
 		},
 		"alertModerate": {
 			"id": "alertModerate",
 			"label": "Alert Moderate",
-			"baseColor": "",
-			"lightPercentage": 0.75,
-			"lightVariations": 2,
-			"darkPercentage": 0.6,
-			"darkVariations": 3,
 			"hook": "now-color_alert--moderate"
 		},
 		"alertInfo": {
 			"id": "alertInfo",
 			"label": "Alert Info",
-			"baseColor": "",
-			"lightPercentage": 0.75,
-			"lightVariations": 2,
-			"darkPercentage": 0.6,
-			"darkVariations": 3,
 			"hook": "now-color_alert--info"
 		},
 		"alertPositive": {
 			"id": "alertPositive",
 			"label": "Alert Positive",
-			"baseColor": "",
-			"lightPercentage": 0.75,
-			"lightVariations": 2,
-			"darkPercentage": 0.6,
-			"darkVariations": 3,
 			"hook": "now-color_alert--positive"
 		},
 		"alertLow": {
 			"id": "alertLow",
 			"label": "Alert Low",
-			"baseColor": "",
-			"lightPercentage": 0.75,
-			"lightVariations": 2,
-			"darkPercentage": 0.6,
-			"darkVariations": 3,
 			"hook": "now-color_alert--low"
 		},
 		"brandNeutral": {
 			"id": "brandNeutral",
 			"label": "Brand Neutral",
-			"baseColor": "",
-			"lightPercentage": 0,
-			"lightVariations": 0,
-			"darkPercentage": 0,
-			"darkVariations": 0,
 			"startIndex": null,
 			"hook": "now-color_brand--neutral"
 		},
 		"brandPrimary": {
 			"id": "brandPrimary",
 			"label": "Brand Primary",
-			"baseColor": "",
-			"lightPercentage": 0,
-			"lightVariations": 0,
-			"darkPercentage": 0,
-			"darkVariations": 0,
 			"startIndex": null,
 			"hook": "now-color_brand--primary"
 		},
 		"brandSecondary": {
 			"id": "brandSecondary",
 			"label": "Brand Secondary",
-			"baseColor": "",
-			"lightPercentage": 0,
-			"lightVariations": 0,
-			"darkPercentage": 0,
-			"darkVariations": 0,
 			"startIndex": null,
 			"hook": "now-color_brand--secondary"
 		},
 		"surfaceNeutral": {
 			"id": "surfaceNeutral",
 			"label": "Surface Neutral",
-			"baseColor": "",
-			"lightPercentage": 0.95,
-			"lightVariations": 6,
-			"darkPercentage": 0.81,
-			"darkVariations": 0,
 			"startIndex": 1,
-			"hook": "now-color_surface--neutral"
+			"hook": "now-color_surface--neutral",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
 		},
 		"surfaceDivider": {
 			"id": "surfaceDivider",
 			"label": "Surface Divider",
-			"baseColor": "",
-			"lightPercentage": 0.9,
-			"lightVariations": 6,
-			"darkPercentage": 0.81,
-			"darkVariations": 0,
 			"startIndex": 1,
-			"hook": "now-color_surface--divider"
+			"hook": "now-color_surface--divider",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
 		},
 		"surfaceBrand": {
 			"id": "surfaceBrand",
 			"label": "Surface Brand",
-			"baseColor": "",
-			"lightPercentage": 0.85,
-			"lightVariations": 5,
-			"darkPercentage": 0.5,
-			"darkVariations": 0,
 			"startIndex": 1,
-			"hook": "now-color_surface--brand"
+			"hook": "now-color_surface--brand",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
 		},
 		"chromeBrand": {
 			"id": "chromeBrand",
 			"label": "Chrome Brand",
-			"baseColor": "",
-			"lightPercentage": 0.85,
-			"lightVariations": 5,
-			"darkPercentage": 0.5,
-			"darkVariations": 5,
 			"hook": "now-color_chrome--brand"
 		},
 		"chromeDivider": {
 			"id": "chromeDivider",
 			"label": "Chrome Divider",
-			"baseColor": "",
-			"lightPercentage": 0.6,
-			"lightVariations": 5,
-			"darkPercentage": 0.8,
-			"darkVariations": 5,
-			"hook": "now-color_chrome--divider"
+			"hook": "now-color_chrome--divider",
+			"disabled": true
 		},
 		"groupedBlue": {
 			"id": "groupedBlue",
 			"label": "Grouped Blue",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--blue"
 		},
 		"groupedBrown": {
 			"id": "groupedBrown",
 			"label": "Grouped Brown",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--brown"
 		},
-		"groupedgray": {
-			"id": "groupedgray",
+		"groupedGray": {
+			"id": "groupedGray",
 			"label": "Grouped Gray",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--gray"
 		},
 		"groupedGreen": {
 			"id": "groupedGreen",
 			"label": "Grouped Green",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--green"
 		},
 		"groupedGreenYellow": {
 			"id": "groupedGreenYellow",
 			"label": "Grouped Green Yellow",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--green-yellow"
 		},
 		"groupedMagenta": {
 			"id": "groupedMagenta",
 			"label": "Grouped Magenta",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--magenta"
 		},
 		"groupedOrange": {
 			"id": "groupedOrange",
 			"label": "Grouped Orange",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--orange"
 		},
 		"groupedPink": {
 			"id": "groupedPink",
 			"label": "Grouped Pink",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--pink"
 		},
 		"groupedPurple": {
 			"id": "groupedPurple",
 			"label": "Grouped Purple",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--purple"
 		},
 		"groupedTeal": {
 			"id": "groupedTeal",
 			"label": "Grouped Teal",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--teal"
 		},
 		"groupedYellow": {
 			"id": "groupedYellow",
 			"label": "Grouped Yellow",
-			"baseColor": "",
-			"lightPercentage": 0.7,
-			"lightVariations": 2,
-			"darkPercentage": 0.45,
-			"darkVariations": 3,
 			"hook": "now-color_grouped--yellow"
+		},
+		"backgroundPrimary": {
+			"id": "backgroundPrimary",
+			"label": "Background Primary",
+			"hook": "now-color_background--primary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"backgroundSecondary": {
+			"id": "backgroundSecondary",
+			"label": "Background Secondary",
+			"hook": "now-color_background--secondary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"backgroundTertiary": {
+			"id": "backgroundTertiary",
+			"label": "Background Tertiary",
+			"hook": "now-color_background--tertiary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"dividerPrimary": {
+			"id": "dividerPrimary",
+			"label": "Divider Primary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"dividerSecondary": {
+			"id": "dividerSecondary",
+			"label": "Divider Secondary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"dividerTertiary": {
+			"id": "dividerTertiary",
+			"label": "Divider Tertiary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"textPrimary": {
+			"id": "textPrimary",
+			"label": "Text Primary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"textSecondary": {
+			"id": "textSecondary",
+			"label": "Text Secondary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"textTertiary": {
+			"id": "textTertiary",
+			"label": "Text Tertiary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"borderPrimary": {
+			"id": "borderPrimary",
+			"label": "Border Primary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"borderSecondary": {
+			"id": "borderSecondary",
+			"label": "Border Secondary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
+		},
+		"borderTertiary": {
+			"id": "borderTertiary",
+			"label": "Border Tertiary",
+			"notes": "Disabled, Generated from neutrals",
+			"disabled": true
 		}
 	}
 }

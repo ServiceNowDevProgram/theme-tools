@@ -311,7 +311,7 @@ class Themes extends Component {
 				</Page>
 
 				<Modal open={isLoginModalOpen}>
-					<form>
+					<form style={{width: '500px'}}>
 						<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 							<div className="sm:flex sm:items-start">
 								<div className="mt-3 text-center sm:mt-0 sm:text-left flex-1">
@@ -372,7 +372,7 @@ class Themes extends Component {
 				</Modal>
 
 				<Modal open={this.state.isCreateModalOpen}>
-					<form>
+					<form style={{width: '640px'}}>
 						<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 							<div className="sm:flex sm:items-start">
 								<div className="mt-3 text-center sm:mt-0 sm:text-left flex-1">

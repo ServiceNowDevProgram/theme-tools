@@ -5,12 +5,16 @@ import reactCSS from 'reactcss';
 import PropTypes from 'prop-types';
 
 class BaseColorPicker extends Component {
-	state = {
-		isColorPickerOpen: false,
-	};
+	constructor(props) {
+		super(props);
 
-	render() {
-		const {name, label, value, onChange} = this.props;
+		this.state = {
+			isColorPickerOpen: false,
+		};
+	}
+
+	renderButton = () => {
+		const {disabled, value, onChange, isDark} = this.props;
 		const styles = reactCSS({
 			default: {
 				swatch: {
@@ -24,7 +28,7 @@ class BaseColorPicker extends Component {
 				popover: {
 					position: 'absolute',
 					zIndex: '2',
-					top: '-312px',
+					right: '-225px',
 				},
 				cover: {
 					position: 'fixed',
@@ -36,8 +40,56 @@ class BaseColorPicker extends Component {
 			},
 		});
 
+		if (disabled) {
+			return (
+				<div
+					style={{
+						height: '30px',
+						width: '100px',
+						backgroundColor: value,
+						position: 'relative',
+						border: `2px solid ${isDark ? '#ffffff' : '#000000'}`,
+						borderRadius: '3px',
+					}}
+					className="ml-2"></div>
+			);
+		} else {
+			return (
+				<Fragment>
+					<button
+						style={{
+							height: '30px',
+							width: '100px',
+							backgroundColor: value,
+							position: 'relative',
+							border: `2px solid ${isDark ? '#ffffff' : '#000000'}`,
+							borderRadius: '3px',
+						}}
+						className="ml-2"
+						onClick={() =>
+							this.setState({
+								isColorPickerOpen: !this.state.isColorPickerOpen,
+							})
+						}></button>
+					{this.state.isColorPickerOpen ? (
+						<div style={styles.popover}>
+							<div
+								style={styles.cover}
+								onClick={() => this.setState({isColorPickerOpen: false})}
+							/>
+							<SketchPicker color={value} onChange={(c) => onChange(c.hex)} />
+						</div>
+					) : null}
+				</Fragment>
+			);
+		}
+	};
+
+	render() {
+		const {name, label, value, onChange, disabled} = this.props;
+
 		return (
-			<div className="flex items-end">
+			<div className="flex items-end" style={{position: 'relative'}}>
 				<Input
 					type="text"
 					name={name}
@@ -45,30 +97,9 @@ class BaseColorPicker extends Component {
 					value={value}
 					onChange={(value) => onChange(value)}
 					placeholder="#000000"
+					disabled={disabled}
 				/>
-				{value ? (
-					<button
-						style={{
-							height: '30px',
-							width: '100px',
-							backgroundColor: value,
-							position: 'relative',
-						}}
-						className="ml-2"
-						onClick={() =>
-							this.setState({isColorPickerOpen: !this.state.isColorPickerOpen})
-						}>
-						{this.state.isColorPickerOpen ? (
-							<div style={styles.popover}>
-								<div
-									style={styles.cover}
-									onClick={() => this.setState({isColorPickerOpen: false})}
-								/>
-								<SketchPicker color={value} onChange={(c) => onChange(c.hex)} />
-							</div>
-						) : null}
-					</button>
-				) : null}
+				{this.renderButton()}
 			</div>
 		);
 	}
@@ -79,6 +110,7 @@ BaseColorPicker.propTypes = {
 	label: PropTypes.string.isRequired,
 	value: PropTypes.string.isRequired,
 	onChange: PropTypes.func,
+	disabled: PropTypes.bool,
 };
 
 export default BaseColorPicker;

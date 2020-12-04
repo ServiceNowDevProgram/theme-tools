@@ -7,92 +7,15 @@ import Modal from '../../components/Modal';
 import BaseColorPicker from '../../components/BaseColorPicker';
 import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
+import {INITIAL_THEME, DEFAULT_THEME} from './data/themes';
 import {
 	getColors,
 	isHex,
 	getNeutralBaseColorsFromBrandPrimaryHex,
-	getPrimaryColorsFromBrandPrimaryHex,
-	getSurfaceBrandColorsFromPrimaryHex,
-	getChromeBrandColorsFromPrimaryHex,
-	getChromeDividerColorsFromPrimaryHex,
-	getSecondaryColorsFromSecondaryHex,
-	getSelectionPrimaryFromSecondaryHex,
-	getSelectionSecondaryFromSecondaryHex,
-	getInteractiveColorsFromPrimaryHex,
-	getFocusColorsFromPrimaryHex,
 } from '../../lib/color-generator/generateColors';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
-
-const DEFAULT_THEME = {
-	neutrals: '#49585a',
-	primary: '#1e856d',
-	secondary: '#01778e',
-	selectionPrimary: '#1e856d',
-	selectionSecondary: '#e5eef0',
-	interactive: '#01778e',
-	link: '#01778e',
-	focus: '#01778e',
-	alertCritical: '#c83c36',
-	alertHigh: '#dd9122',
-	alertWarning: '#d2c300',
-	alertModerate: '#5456cf',
-	alertInfo: '#0e78c4',
-	alertPositive: '#25832b',
-	alertLow: '#666666',
-	brandNeutral: '#ffffff',
-	brandPrimary: '#293e40',
-	brandSecondary: '#81b5a1',
-	surfaceBrand: '#93c0ae',
-	chromeBrand: '#4d6061',
-	chromeDivider: '#243738',
-	groupedBlue: '#78b0cc',
-	groupedBrown: '#9c8a77',
-	groupedgray: '#8b9196',
-	groupedGreen: '#93aa7d',
-	groupedGreenYellow: '#9aad5e',
-	groupedMagenta: '#cb79c1',
-	groupedOrange: '#d7816a',
-	groupedPink: '#cb798f',
-	groupedPurple: '#b59bd1',
-	groupedTeal: '#68aea3',
-	groupedYellow: '#f0cf65',
-};
-
-const INITIAL_COLORS = {
-	neutrals: null,
-	primary: null,
-	secondary: null,
-	selectionPrimary: null,
-	selectionSecondary: null,
-	interactive: null,
-	link: null,
-	focus: null,
-	alertCritical: null,
-	alertHigh: null,
-	alertWarning: null,
-	alertModerate: null,
-	alertInfo: null,
-	alertPositive: null,
-	alertLow: null,
-	brandNeutral: null,
-	brandPrimary: null,
-	brandSecondary: null,
-	surfaceBrand: null,
-	chromeBrand: null,
-	chromeDivider: null,
-	groupedBlue: null,
-	groupedBrown: null,
-	groupedgray: null,
-	groupedGreen: null,
-	groupedGreenYellow: null,
-	groupedMagenta: null,
-	groupedOrange: null,
-	groupedPink: null,
-	groupedPurple: null,
-	groupedTeal: null,
-	groupedYellow: null,
-};
+import styles from '../../styles/Home.module.css';
 
 const path = [
 	{id: 'color-generator', href: '/color-generator', label: 'Color Generator'},
@@ -104,7 +27,7 @@ class ColorGenerator extends Component {
 
 		this.state = {
 			selectedColors: {
-				...INITIAL_COLORS,
+				...INITIAL_THEME,
 			},
 			selectedColorGroup: 'base',
 			isDark: false,
@@ -159,7 +82,7 @@ class ColorGenerator extends Component {
 
 	copyColors = () => {
 		const {selectedColors, isDark} = this.state;
-		const generatedColors = getColors(DATA, selectedColors, isDark);
+		const generatedColors = getColors(selectedColors, isDark);
 		const out = {};
 		for (const [colorId, color] of Object.entries(DATA.colors)) {
 			const colors = generatedColors[colorId];
@@ -191,9 +114,7 @@ class ColorGenerator extends Component {
 					className={cx({
 						'ml-8': i !== 0,
 						'font-medium': true,
-						'text-gray-500': true,
-						'text-gray-800': selectedColorGroup === tab.id,
-						'hover:text-gray-800': true,
+						underline: selectedColorGroup === tab.id,
 						'hover:underline': true,
 						transition: true,
 						'duration-150': true,
@@ -215,7 +136,7 @@ class ColorGenerator extends Component {
 	};
 
 	renderGeneratedColors = (colors) => {
-		if (colors) {
+		if (colors && colors.length) {
 			return colors.map((color) => {
 				return (
 					<div className="flex-1" title={color.name} key={color.name}>
@@ -239,60 +160,33 @@ class ColorGenerator extends Component {
 		if (group) {
 			return Object.values(group.colors).map((colorId) => {
 				const baseColor = selectedColors[colorId];
-				const isNeutral =
-					colorId === 'surfaceNeutral' || colorId === 'surfaceDivider';
-				const label =
-					(isNeutral || colorId === 'neutrals') && isDark
-						? `${DATA.colors[colorId].label} (dark)`
-						: DATA.colors[colorId].label;
 				return (
 					<div key={colorId} className="mb-6">
-						{isNeutral && (
-							<label
-								className={cx({
-									block: true,
-									'text-sm': true,
-									'leading-5': true,
-									'text-gray-700': true,
-									'mb-1': true,
-								})}>
-								{label} (generated from neutrals)
-							</label>
-						)}
-						{!isNeutral ? (
-							<div className="flex items-end">
-								<div>
-									<BaseColorPicker
-										name={colorId}
-										label={label}
-										value={baseColor || ''}
-										onChange={(value) =>
-											this.updateBaseColor(colorId, value || undefined)
-										}
-									/>
-								</div>
-								{colorId === 'neutrals' && selectedColors.neutrals ? (
-									<div>
-										<button
-											className={cx({
-												'bg-green-500': isDark,
-												'hover:bg-green-700': isDark,
-												'bg-gray-700': !isDark,
-												'hover:bg-gray-900': !isDark,
-												'text-white': true,
-												'font-bold': true,
-												'py-1': true,
-												'px-2': true,
-												rounded: true,
-												'ml-2': true,
-											})}
-											onClick={this.generateDarkTheme}>
-											{isDark ? 'Light Theme' : 'Dark Theme'}
-										</button>
-									</div>
-								) : null}
+						<div className="flex items-end">
+							<div>
+								<BaseColorPicker
+									name={colorId}
+									label={DATA.colors[colorId].label}
+									value={baseColor || ''}
+									disabled={DATA.colors[colorId].disabled}
+									isDark={isDark}
+									onChange={(value) =>
+										this.updateBaseColor(colorId, value || undefined)
+									}
+								/>
 							</div>
-						) : null}
+							{DATA.colors[colorId].notes && (
+								<label
+									className={cx({
+										block: true,
+										'text-sm': true,
+										'leading-5': true,
+										'ml-2': true,
+									})}>
+									({DATA.colors[colorId].notes})
+								</label>
+							)}
+						</div>
 
 						<div className="flex mt-2">
 							{this.renderGeneratedColors(generatedColors[colorId])}
@@ -379,46 +273,59 @@ class ColorGenerator extends Component {
 			const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(
 				autoGenBrandPrimary
 			);
-			const primary = getPrimaryColorsFromBrandPrimaryHex(autoGenBrandPrimary);
-			const surfaceBrand = getSurfaceBrandColorsFromPrimaryHex(
-				autoGenBrandPrimary
-			);
-			const chromeBrand = getChromeBrandColorsFromPrimaryHex(
-				autoGenBrandPrimary
-			);
-			const chromeDivider = getChromeDividerColorsFromPrimaryHex(
-				autoGenBrandPrimary
-			);
-			const interactive = getInteractiveColorsFromPrimaryHex(
-				autoGenBrandPrimary
-			);
-			const focus = getFocusColorsFromPrimaryHex(autoGenBrandPrimary);
-			const secondary = getSecondaryColorsFromSecondaryHex(
-				autoGenBrandSecondary
-			);
-			const selectionPrimary = getSelectionPrimaryFromSecondaryHex(
-				autoGenBrandSecondary
-			);
-			const selectionSecondary = getSelectionSecondaryFromSecondaryHex(
-				autoGenBrandSecondary
-			);
 
 			this.setState({
 				selectedColors: {
 					...selectedColors,
 					neutrals,
-					primary,
-					surfaceBrand,
-					chromeBrand,
-					chromeDivider,
-					interactive,
-					focus,
-					secondary,
-					selectionPrimary,
-					selectionSecondary,
+					primary: autoGenBrandPrimary,
+					secondary: autoGenBrandSecondary,
+					selectionPrimary: autoGenBrandSecondary,
+					selectionSecondary: autoGenBrandSecondary,
+					interactive: autoGenBrandPrimary,
+					surfaceBrand: autoGenBrandPrimary,
+					chromeBrand: autoGenBrandPrimary,
+					chromeDivider: autoGenBrandPrimary,
 					brandNeutral: autoGenBrandNeutral,
 					brandPrimary: autoGenBrandPrimary,
 					brandSecondary: autoGenBrandSecondary,
+					surfaceNeutral: neutrals,
+					surfaceDivider: neutrals,
+					surfaceBrand: autoGenBrandPrimary,
+					chromeBrand: autoGenBrandPrimary,
+					chromeDivider: autoGenBrandPrimary,
+					backgroundPrimary: neutrals,
+					backgroundSecondary: neutrals,
+					backgroundTertiary: neutrals,
+					dividerPrimary: neutrals,
+					dividerSecondary: neutrals,
+					dividerTertiary: neutrals,
+					textPrimary: neutrals,
+					textSecondary: neutrals,
+					textTertiary: neutrals,
+					borderPrimary: neutrals,
+					borderSecondary: neutrals,
+					borderTertiary: neutrals,
+					alertCritical: '#eb001b',
+					alertHigh: '#fd9700',
+					alertWarning: '#f0e000',
+					alertModerate: '#5221ff',
+					alertInfo: '#38aaf4',
+					alertPositive: '#51ae00',
+					alertLow: '9698a4',
+					groupedBlue: '#78b0cc',
+					groupedBrown: '#9c8a77',
+					groupedGray: '#8b9196',
+					groupedGreen: '#93aa7d',
+					groupedGreenYellow: '#9aad5e',
+					groupedMagenta: '#cb79c1',
+					groupedOrange: '#d7816a',
+					groupedPink: '#cb798f',
+					groupedPurple: '#b59bd1',
+					groupedTeal: '#68aea3',
+					groupedYellow: '#f0cf65',
+					link: '#4262FE',
+					focus: '#4262FE',
 				},
 				openSmartGenModal: false,
 			});
@@ -444,9 +351,14 @@ class ColorGenerator extends Component {
 			autoGenBrandPrimary,
 			autoGenBrandSecondary,
 		} = this.state;
-		const generatedColors = getColors(DATA, selectedColors, isDark);
+
+		const generatedColors = getColors(selectedColors, isDark);
+
 		return (
-			<Fragment>
+			<div
+				className={cx({
+					[styles.dark]: isDark,
+				})}>
 				<PageHeader
 					label="Color Generator"
 					path={path}
@@ -459,9 +371,9 @@ class ColorGenerator extends Component {
 						<div>{this.renderTabs()}</div>
 						<div>
 							<button
-								className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
+								className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
 								onClick={() =>
-									this.setState({selectedColors: {...INITIAL_COLORS}})
+									this.setState({selectedColors: {...INITIAL_THEME}})
 								}>
 								Clear All
 							</button>
@@ -469,6 +381,23 @@ class ColorGenerator extends Component {
 								className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
 								onClick={() => this.setState({openSmartGenModal: true})}>
 								Auto Generate
+							</button>
+							<button
+								className={cx({
+									'bg-gray-700': !isDark,
+									'hover:bg-gray-900': !isDark,
+									'bg-yellow-500': isDark,
+									'hover:bg-yellow-700': isDark,
+									'text-white': true,
+									'font-bold': true,
+									'py-1': true,
+									'px-2': true,
+									rounded: true,
+									'ml-auto': true,
+									'mr-3': true,
+								})}
+								onClick={() => this.setState({isDark: !isDark})}>
+								{isDark ? 'Light Theme' : 'Dark Theme'}
 							</button>
 							<button
 								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
@@ -481,18 +410,22 @@ class ColorGenerator extends Component {
 				</Page>
 
 				<Modal open={openSmartGenModal}>
-					<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+					<div
+						className="bg-white px-4 pt-5"
+						style={{width: '90vw', height: '90vh'}}>
 						<div className="sm:flex sm:items-start">
 							<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
 								<h3
-									className="text-lg leading-6 font-medium text-gray-900 mb-8"
+									className="text-lg leading-6 font-medium text-gray-900 mb-40"
 									id="modal-headline">
 									Auto Generate Colors
 								</h3>
 								{this.renderInsertPolarisAlert()}
 								<div className="mt-2 flex flex-col">
-									<div className="mb-3">
-										<Input
+									<div
+										className="mb-3 flex items-end"
+										style={{position: 'relative'}}>
+										<BaseColorPicker
 											name="brand-neutral-auto"
 											label="Brand Neutral"
 											placeholder="#171F4E"
@@ -502,8 +435,17 @@ class ColorGenerator extends Component {
 											}
 										/>
 									</div>
-									<div className="mb-3">
-										<Input
+									<div className="flex-1">
+										<div
+											style={{
+												height: '80px',
+												backgroundColor: autoGenBrandNeutral || '#f5f5f5',
+											}}></div>
+									</div>
+									<div
+										className="mb-3 flex items-end"
+										style={{position: 'relative'}}>
+										<BaseColorPicker
 											name="brand-primary-auto"
 											label="Brand Primary"
 											placeholder="#4F52BD"
@@ -513,8 +455,17 @@ class ColorGenerator extends Component {
 											}
 										/>
 									</div>
-									<div className="mb-3">
-										<Input
+									<div className="flex-1">
+										<div
+											style={{
+												height: '80px',
+												backgroundColor: autoGenBrandPrimary || '#f5f5f5',
+											}}></div>
+									</div>
+									<div
+										className="mb-3 flex items-end"
+										style={{position: 'relative'}}>
+										<BaseColorPicker
 											name="brand-secondary-auto"
 											label="Brand Secondary"
 											placeholder="#00A779"
@@ -523,6 +474,13 @@ class ColorGenerator extends Component {
 												this.setState({autoGenBrandSecondary: val})
 											}
 										/>
+									</div>
+									<div className="flex-1">
+										<div
+											style={{
+												height: '80px',
+												backgroundColor: autoGenBrandSecondary || '#f5f5f5',
+											}}></div>
 									</div>
 								</div>
 							</div>
@@ -547,7 +505,7 @@ class ColorGenerator extends Component {
 						</span>
 					</div>
 				</Modal>
-			</Fragment>
+			</div>
 		);
 	}
 }
