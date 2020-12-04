@@ -82,7 +82,7 @@ class ColorGenerator extends Component {
 
 	copyColors = () => {
 		const {selectedColors, isDark} = this.state;
-		const generatedColors = getColors(DATA, selectedColors, isDark);
+		const generatedColors = getColors(selectedColors, isDark);
 		const out = {};
 		for (const [colorId, color] of Object.entries(DATA.colors)) {
 			const colors = generatedColors[colorId];
@@ -352,7 +352,7 @@ class ColorGenerator extends Component {
 			autoGenBrandSecondary,
 		} = this.state;
 
-		const generatedColors = getColors(DATA, selectedColors, isDark);
+		const generatedColors = getColors(selectedColors, isDark);
 
 		return (
 			<div
