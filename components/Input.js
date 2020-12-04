@@ -10,6 +10,7 @@ function Input({
 	value,
 	onChange = () => {},
 	placeholder,
+	disabled,
 }) {
 	return (
 		<div
@@ -35,6 +36,7 @@ function Input({
 				onChange={(e) => {
 					onChange(e.target.value || undefined);
 				}}
+				disabled={disabled}
 				placeholder={placeholder}
 			/>
 		</div>
@@ -49,6 +51,7 @@ Input.propTypes = {
 	value: PropTypes.string,
 	onChange: PropTypes.func,
 	placeholder: PropTypes.string,
+	disabled: PropTypes.bool,
 };
 
 export default Input;

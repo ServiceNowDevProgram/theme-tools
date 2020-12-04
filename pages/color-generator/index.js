@@ -11,11 +11,11 @@ import {INITIAL_THEME, DEFAULT_THEME} from './data/themes';
 import {
 	getColors,
 	isHex,
-	getNeutrals,
 	getNeutralBaseColorsFromBrandPrimaryHex,
 } from '../../lib/color-generator/generateColors';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
+import styles from '../../styles/Home.module.css';
 
 const path = [
 	{id: 'color-generator', href: '/color-generator', label: 'Color Generator'},
@@ -114,9 +114,7 @@ class ColorGenerator extends Component {
 					className={cx({
 						'ml-8': i !== 0,
 						'font-medium': true,
-						'text-gray-500': true,
-						'text-gray-800': selectedColorGroup === tab.id,
-						'hover:text-gray-800': true,
+						underline: selectedColorGroup === tab.id,
 						'hover:underline': true,
 						transition: true,
 						'duration-150': true,
@@ -162,60 +160,32 @@ class ColorGenerator extends Component {
 		if (group) {
 			return Object.values(group.colors).map((colorId) => {
 				const baseColor = selectedColors[colorId];
-				// const isNeutral =
-				// 	colorId === 'surfaceNeutral' || colorId === 'surfaceDivider';
-				// const label =
-				// 	(isNeutral || colorId === 'neutrals') && isDark
-				// 		? `${DATA.colors[colorId].label} (dark)`
-				// 		: DATA.colors[colorId].label;
 				return (
 					<div key={colorId} className="mb-6">
-						{/* {isNeutral && (
-							<label
-								className={cx({
-									block: true,
-									'text-sm': true,
-									'leading-5': true,
-									'text-gray-700': true,
-									'mb-1': true,
-								})}>
-								{label} (generated from neutrals)
-							</label>
-						)} */}
-						{/* {!isNeutral ? ( */}
-
-						{/* {colorId === 'neutrals' && selectedColors.neutrals ? (
-									<div>
-										<button
-											className={cx({
-												'bg-green-500': isDark,
-												'hover:bg-green-700': isDark,
-												'bg-gray-700': !isDark,
-												'hover:bg-gray-900': !isDark,
-												'text-white': true,
-												'font-bold': true,
-												'py-1': true,
-												'px-2': true,
-												rounded: true,
-												'ml-2': true,
-											})}
-											onClick={this.generateDarkTheme}>
-											{isDark ? 'Light Theme' : 'Dark Theme'}
-										</button>
-									</div>
-                ) : null} */}
-						{/* // ) : null} */}
 						<div className="flex items-end">
 							<div>
 								<BaseColorPicker
 									name={colorId}
 									label={DATA.colors[colorId].label}
 									value={baseColor || ''}
+									disabled={DATA.colors[colorId].disabled}
+									isDark={isDark}
 									onChange={(value) =>
 										this.updateBaseColor(colorId, value || undefined)
 									}
 								/>
 							</div>
+							{DATA.colors[colorId].notes && (
+								<label
+									className={cx({
+										block: true,
+										'text-sm': true,
+										'leading-5': true,
+										'ml-2': true,
+									})}>
+									({DATA.colors[colorId].notes})
+								</label>
+							)}
 						</div>
 
 						<div className="flex mt-2">
@@ -381,9 +351,14 @@ class ColorGenerator extends Component {
 			autoGenBrandPrimary,
 			autoGenBrandSecondary,
 		} = this.state;
+
 		const generatedColors = getColors(DATA, selectedColors, isDark);
+
 		return (
-			<Fragment>
+			<div
+				className={cx({
+					[styles.dark]: isDark,
+				})}>
 				<PageHeader
 					label="Color Generator"
 					path={path}
@@ -435,18 +410,22 @@ class ColorGenerator extends Component {
 				</Page>
 
 				<Modal open={openSmartGenModal}>
-					<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+					<div
+						className="bg-white px-4 pt-5"
+						style={{width: '90vw', height: '90vh'}}>
 						<div className="sm:flex sm:items-start">
 							<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
 								<h3
-									className="text-lg leading-6 font-medium text-gray-900 mb-8"
+									className="text-lg leading-6 font-medium text-gray-900 mb-40"
 									id="modal-headline">
 									Auto Generate Colors
 								</h3>
 								{this.renderInsertPolarisAlert()}
 								<div className="mt-2 flex flex-col">
-									<div className="mb-3">
-										<Input
+									<div
+										className="mb-3 flex items-end"
+										style={{position: 'relative'}}>
+										<BaseColorPicker
 											name="brand-neutral-auto"
 											label="Brand Neutral"
 											placeholder="#171F4E"
@@ -456,8 +435,17 @@ class ColorGenerator extends Component {
 											}
 										/>
 									</div>
-									<div className="mb-3">
-										<Input
+									<div className="flex-1">
+										<div
+											style={{
+												height: '80px',
+												backgroundColor: autoGenBrandNeutral || '#f5f5f5',
+											}}></div>
+									</div>
+									<div
+										className="mb-3 flex items-end"
+										style={{position: 'relative'}}>
+										<BaseColorPicker
 											name="brand-primary-auto"
 											label="Brand Primary"
 											placeholder="#4F52BD"
@@ -467,8 +455,17 @@ class ColorGenerator extends Component {
 											}
 										/>
 									</div>
-									<div className="mb-3">
-										<Input
+									<div className="flex-1">
+										<div
+											style={{
+												height: '80px',
+												backgroundColor: autoGenBrandPrimary || '#f5f5f5',
+											}}></div>
+									</div>
+									<div
+										className="mb-3 flex items-end"
+										style={{position: 'relative'}}>
+										<BaseColorPicker
 											name="brand-secondary-auto"
 											label="Brand Secondary"
 											placeholder="#00A779"
@@ -477,6 +474,13 @@ class ColorGenerator extends Component {
 												this.setState({autoGenBrandSecondary: val})
 											}
 										/>
+									</div>
+									<div className="flex-1">
+										<div
+											style={{
+												height: '80px',
+												backgroundColor: autoGenBrandSecondary || '#f5f5f5',
+											}}></div>
 									</div>
 								</div>
 							</div>
@@ -501,7 +505,7 @@ class ColorGenerator extends Component {
 						</span>
 					</div>
 				</Modal>
-			</Fragment>
+			</div>
 		);
 	}
 }
