@@ -171,12 +171,12 @@ class ColorGenerator extends Component {
 		if (group) {
 			return Object.values(group.colors).map((colorId) => {
 				const baseColor = selectedColors[colorId];
-				const isNeutral =
-					colorId === 'surfaceNeutral' || colorId === 'surfaceDivider';
-				const label =
-					(isNeutral || colorId === 'neutrals') && isDark
-						? `${DATA.colors[colorId].label} (dark)`
-						: DATA.colors[colorId].label;
+				// const isNeutral =
+				// 	colorId === 'surfaceNeutral' || colorId === 'surfaceDivider';
+				// const label =
+				// 	(isNeutral || colorId === 'neutrals') && isDark
+				// 		? `${DATA.colors[colorId].label} (dark)`
+				// 		: DATA.colors[colorId].label;
 				return (
 					<div key={colorId} className="mb-6">
 						{/* {isNeutral && (
@@ -218,7 +218,7 @@ class ColorGenerator extends Component {
 							<div>
 								<BaseColorPicker
 									name={colorId}
-									label={label}
+									label={DATA.colors[colorId].label}
 									value={baseColor || ''}
 									onChange={(value) =>
 										this.updateBaseColor(colorId, value || undefined)

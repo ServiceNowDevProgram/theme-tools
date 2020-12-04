@@ -11,6 +11,7 @@ class BaseColorPicker extends Component {
 
 	render() {
 		const {name, label, value, onChange} = this.props;
+		console.log(this.state.isColorPickerOpen);
 		const styles = reactCSS({
 			default: {
 				swatch: {
@@ -24,7 +25,8 @@ class BaseColorPicker extends Component {
 				popover: {
 					position: 'absolute',
 					zIndex: '2',
-					top: '-312px',
+					bottom: '32px',
+					left: '207px',
 				},
 				cover: {
 					position: 'fixed',
@@ -37,7 +39,7 @@ class BaseColorPicker extends Component {
 		});
 
 		return (
-			<div className="flex items-end">
+			<div className="flex items-end" style={{position: 'relative'}}>
 				<Input
 					type="text"
 					name={name}
@@ -47,17 +49,20 @@ class BaseColorPicker extends Component {
 					placeholder="#000000"
 				/>
 				{value ? (
-					<button
-						style={{
-							height: '30px',
-							width: '100px',
-							backgroundColor: value,
-							position: 'relative',
-						}}
-						className="ml-2"
-						onClick={() =>
-							this.setState({isColorPickerOpen: !this.state.isColorPickerOpen})
-						}>
+					<Fragment>
+						<button
+							style={{
+								height: '30px',
+								width: '100px',
+								backgroundColor: value,
+								position: 'relative',
+							}}
+							className="ml-2"
+							onClick={() =>
+								this.setState({
+									isColorPickerOpen: !this.state.isColorPickerOpen,
+								})
+							}></button>
 						{this.state.isColorPickerOpen ? (
 							<div style={styles.popover}>
 								<div
@@ -67,7 +72,7 @@ class BaseColorPicker extends Component {
 								<SketchPicker color={value} onChange={(c) => onChange(c.hex)} />
 							</div>
 						) : null}
-					</button>
+					</Fragment>
 				) : null}
 			</div>
 		);
