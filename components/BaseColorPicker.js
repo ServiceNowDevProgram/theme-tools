@@ -4,6 +4,12 @@ import {SketchPicker} from 'react-color';
 import reactCSS from 'reactcss';
 import PropTypes from 'prop-types';
 
+const positions = {
+	top: '0',
+	middle: '-150px',
+	bottom: '-276px',
+};
+
 class BaseColorPicker extends Component {
 	constructor(props) {
 		super(props);
@@ -14,7 +20,7 @@ class BaseColorPicker extends Component {
 	}
 
 	renderButton = () => {
-		const {disabled, value, onChange, isDark} = this.props;
+		const {disabled, value, onChange, isDark, position} = this.props;
 		const styles = reactCSS({
 			default: {
 				swatch: {
@@ -29,6 +35,7 @@ class BaseColorPicker extends Component {
 					position: 'absolute',
 					zIndex: '2',
 					right: '-225px',
+					bottom: position ? positions[position] : 0,
 				},
 				cover: {
 					position: 'fixed',
@@ -111,6 +118,7 @@ BaseColorPicker.propTypes = {
 	value: PropTypes.string.isRequired,
 	onChange: PropTypes.func,
 	disabled: PropTypes.bool,
+	position: PropTypes.oneOf(['top', 'middle', 'bottom']),
 };
 
 export default BaseColorPicker;

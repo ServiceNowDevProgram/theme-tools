@@ -193,9 +193,7 @@
 			"id": "surfaceBrand",
 			"label": "Surface Brand",
 			"startIndex": 1,
-			"hook": "now-color_surface--brand",
-			"notes": "Disabled: Generated from neutrals",
-			"disabled": true
+			"hook": "now-color_surface--brand"
 		},
 		"chromeBrand": {
 			"id": "chromeBrand",

@@ -11,6 +11,8 @@ import {
 	getColors,
 	isHex,
 	getNeutralBaseColorsFromBrandPrimaryHex,
+	hexToHSL,
+	HSLToHex,
 } from '../../lib/color-generator/generateColors';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
@@ -273,6 +275,12 @@ class ColorGenerator extends Component {
 				autoGenBrandPrimary
 			);
 
+			const brandPrimaryHSL = hexToHSL(autoGenBrandPrimary);
+			const brandSecondaryHSL = hexToHSL(autoGenBrandSecondary);
+			const selectionSecondary = HSLToHex(brandSecondaryHSL.h, 11, 85);
+			const chromeDivider = HSLToHex(brandPrimaryHSL.h, brandPrimaryHSL.s, 37);
+			const surfaceBrand = HSLToHex(brandPrimaryHSL.h, brandPrimaryHSL.s, 83);
+
 			this.setState({
 				selectedColors: {
 					...selectedColors,
@@ -280,17 +288,16 @@ class ColorGenerator extends Component {
 					primary: autoGenBrandPrimary,
 					secondary: autoGenBrandSecondary,
 					selectionPrimary: autoGenBrandSecondary,
-					selectionSecondary: autoGenBrandSecondary,
+					selectionSecondary: selectionSecondary,
 					interactive: autoGenBrandPrimary,
-					surfaceBrand: autoGenBrandPrimary,
 					chromeBrand: autoGenBrandPrimary,
-					chromeDivider: autoGenBrandPrimary,
+					chromeDivider: chromeDivider,
 					brandNeutral: autoGenBrandNeutral,
 					brandPrimary: autoGenBrandPrimary,
 					brandSecondary: autoGenBrandSecondary,
 					surfaceNeutral: neutrals,
 					surfaceDivider: neutrals,
-					surfaceBrand: autoGenBrandPrimary,
+					surfaceBrand: surfaceBrand,
 					chromeBrand: autoGenBrandPrimary,
 					chromeDivider: autoGenBrandPrimary,
 					backgroundPrimary: neutrals,
@@ -413,7 +420,7 @@ class ColorGenerator extends Component {
 						<div className="sm:flex sm:items-start">
 							<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
 								<h3
-									className="text-lg leading-6 font-medium text-gray-900 mb-40"
+									className="text-lg leading-6 font-medium text-gray-900 mb-16"
 									id="modal-headline">
 									Auto Generate Colors
 								</h3>
@@ -427,6 +434,7 @@ class ColorGenerator extends Component {
 											label="Brand Neutral"
 											placeholder="#171F4E"
 											value={autoGenBrandNeutral}
+											position="middle"
 											onChange={(val) =>
 												this.setState({autoGenBrandNeutral: val})
 											}
@@ -447,6 +455,7 @@ class ColorGenerator extends Component {
 											label="Brand Primary"
 											placeholder="#4F52BD"
 											value={autoGenBrandPrimary}
+											position="middle"
 											onChange={(val) =>
 												this.setState({autoGenBrandPrimary: val})
 											}
@@ -467,6 +476,7 @@ class ColorGenerator extends Component {
 											label="Brand Secondary"
 											placeholder="#00A779"
 											value={autoGenBrandSecondary}
+											position="middle"
 											onChange={(val) =>
 												this.setState({autoGenBrandSecondary: val})
 											}
