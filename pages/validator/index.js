@@ -216,7 +216,10 @@ export default function ValidatorPage({data}) {
 			const entry = autoFixes.find(
 				(entry) => entry.node.key.value === k && entry.node.value.value === v
 			);
-			if (!entry) continue;
+			if (!entry) {
+				newCode[k] = v;
+				continue;
+			}
 			const {node, part, fix} = entry;
 			if (part === 'key') {
 				newCode[fix] = v;
