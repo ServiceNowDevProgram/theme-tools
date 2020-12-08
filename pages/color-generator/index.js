@@ -318,7 +318,7 @@ class ColorGenerator extends Component {
 					alertModerate: '#5221ff',
 					alertInfo: '#38aaf4',
 					alertPositive: '#51ae00',
-					alertLow: '9698a4',
+					alertLow: '#9698a4',
 					groupedBlue: '#78b0cc',
 					groupedBrown: '#9c8a77',
 					groupedGray: '#8b9196',
