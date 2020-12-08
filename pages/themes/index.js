@@ -280,6 +280,7 @@ class Themes extends Component {
 								name="name"
 								label="Theme name"
 								value={selectedTheme.name}
+								disabled={Boolean(!username || !password)}
 								onChange={(value) =>
 									this.setState({
 										selectedTheme: {...selectedTheme, name: value},

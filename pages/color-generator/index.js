@@ -5,6 +5,7 @@ import Page from '../../components/Page';
 import Modal from '../../components/Modal';
 import BaseColorPicker from '../../components/BaseColorPicker';
 import CopyValue from '../../components/CopyValue';
+import Select from '../../components/Select';
 import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
 import {INITIAL_THEME, DEFAULT_THEME} from '../../data/themes';
@@ -14,7 +15,9 @@ import {
 	getNeutralBaseColorsFromBrandPrimaryHex,
 	hexToHSL,
 	HSLToHex,
+	getBaseColors,
 } from '../../lib/color-generator/generateColors';
+import {getThemes} from '../api/themes';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
 import styles from '../../styles/Home.module.css';
@@ -37,6 +40,8 @@ class ColorGenerator extends Component {
 			autoGenBrandNeutral: '',
 			autoGenBrandPrimary: '',
 			autoGenBrandSecondary: '',
+			themes: [],
+			selectedTheme: {},
 		};
 	}
 
@@ -50,6 +55,7 @@ class ColorGenerator extends Component {
 			}
 		}
 		this.setState({selectedColors: newSelectedColors});
+		this.getThemes();
 	}
 
 	componentDidUpdate(prevProps, props) {
@@ -81,6 +87,24 @@ class ColorGenerator extends Component {
 			window.history.replaceState({path: newurl}, '', newurl);
 		}
 	}
+
+	getThemes = async () => {
+		const params = {
+			deleted: 'false',
+			sysparm_query: 'ORDERBYDESCsys_updated_on',
+		};
+
+		try {
+			const themes = await getThemes(params);
+			this.setState({
+				themes,
+			});
+		} catch (err) {
+			toast.error(
+				'There was an error getting themes. Please contact #theming.'
+			);
+		}
+	};
 
 	copyColors = () => {
 		const {selectedColors, isDark} = this.state;
@@ -337,6 +361,7 @@ class ColorGenerator extends Component {
 					focus: '#4262FE',
 				},
 				openSmartGenModal: false,
+				selectedTheme: {},
 			});
 		} else {
 			toast.error('Please make sure all fields are completed');
@@ -351,6 +376,15 @@ class ColorGenerator extends Component {
 		});
 	};
 
+	onThemeSelect = (theme) => {
+		if (!theme) {
+			this.setState({selectedColors: {}});
+		} else if (theme) {
+			const colors = getBaseColors(JSON.parse(theme.theme));
+			this.setState({selectedColors: colors, selectedTheme: theme});
+		}
+	};
+
 	render() {
 		const {
 			selectedColors,
@@ -359,10 +393,11 @@ class ColorGenerator extends Component {
 			autoGenBrandNeutral,
 			autoGenBrandPrimary,
 			autoGenBrandSecondary,
+			themes,
+			selectedTheme,
 		} = this.state;
 
 		const generatedColors = getColors(selectedColors, isDark);
-
 		return (
 			<div
 				className={cx({
@@ -376,13 +411,33 @@ class ColorGenerator extends Component {
 				/>
 				<Page wide>
 					{this.renderDefaultThemeAlert()}
+					<div className="flex flex-row-reverse mb-5">
+						<div className="flex-initial">
+							<Select
+								layout="horizontal"
+								label="Themes"
+								items={themes.map((x) => ({id: x.sys_id, label: x.name}))}
+								unsetLabel="Select a theme"
+								selected={selectedTheme.sys_id || ''}
+								onSelect={(id) => {
+									const theme = this.state.themes.filter(
+										(theme) => theme.sys_id === id
+									)[0];
+									this.onThemeSelect(theme);
+								}}
+							/>
+						</div>
+					</div>
 					<div className="mb-8 flex justify-between items-center">
 						<div>{this.renderTabs()}</div>
 						<div>
 							<button
 								className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
 								onClick={() =>
-									this.setState({selectedColors: {...INITIAL_THEME}})
+									this.setState({
+										selectedColors: {...INITIAL_THEME},
+										selectedTheme: {},
+									})
 								}>
 								Clear All
 							</button>
@@ -443,7 +498,7 @@ class ColorGenerator extends Component {
 											}
 										/>
 									</div>
-									<div className="flex-1">
+									<div className="flex-1 mb-3">
 										<div
 											style={{
 												height: '80px',
@@ -464,7 +519,7 @@ class ColorGenerator extends Component {
 											}
 										/>
 									</div>
-									<div className="flex-1">
+									<div className="flex-1 mb-3">
 										<div
 											style={{
 												height: '80px',
