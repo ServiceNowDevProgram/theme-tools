@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import Modal from '../../components/Modal';
 import BaseColorPicker from '../../components/BaseColorPicker';
+import CopyValue from '../../components/CopyValue';
 import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
 import {INITIAL_THEME, DEFAULT_THEME} from '../../data/themes';
@@ -142,7 +143,9 @@ class ColorGenerator extends Component {
 				return (
 					<div className="flex-1" title={color.name} key={color.name}>
 						<div style={{height: '80px', backgroundColor: color.hex}}></div>
-						<small style={{fontSize: '10px'}}>{color.hex}</small>
+						<CopyValue value={color.hex}>
+							<small style={{fontSize: '10px'}}>{color.hex}</small>
+						</CopyValue>
 					</div>
 				);
 			});
