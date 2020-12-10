@@ -237,9 +237,21 @@ const FILTER_DEFS = {
 			return value === filterValue;
 		},
 	},
+	usage: {
+		filter: ({columns, row, filterValue}) => {
+			const value = getValue(getColumn(columns, 'usage'), row);
+			return value === filterValue;
+		},
+	},
 	cssProperty: {
 		filter: ({columns, row, filterValue}) => {
 			const value = getValue(getColumn(columns, 'cssProperty'), row);
+			return value === filterValue;
+		},
+	},
+	schema: {
+		filter: ({columns, row, filterValue}) => {
+			const value = getValue(getColumn(columns, 'schema'), row);
 			return value === filterValue;
 		},
 	},
@@ -306,7 +318,13 @@ export default function HooksPage() {
 				query: defined(filters),
 			});
 		}
-	}, [filters.namespace, filters.cssProperty, debouncedSearchTerm]);
+	}, [
+		filters.namespace,
+		filters.usage,
+		filters.cssProperty,
+		filters.schema,
+		debouncedSearchTerm,
+	]);
 
 	const data = React.useMemo(
 		() => getHooksByRelease(rawData, selectedRelease),
@@ -317,17 +335,9 @@ export default function HooksPage() {
 		() => [
 			{
 				id: 'scssVariable',
-				Header: 'SCSS Variable',
 				label: 'SCSS Variable',
 				accessor: 'scssVariable',
 				key: 'scssVariable',
-				Cell: ({row}) => {
-					return (
-						<HookLink uid={row.original.uid} id={row.original.id}>
-							{row.original.scssVariable}
-						</HookLink>
-					);
-				},
 				renderer: (row) => {
 					if (!row.scssVariable) {
 						return '-';
@@ -341,7 +351,6 @@ export default function HooksPage() {
 			},
 			{
 				id: 'customProperty',
-				Header: 'CSS Custom Property',
 				label: 'CSS Custom Property',
 				accessor: 'customProperty',
 				key: 'customProperty',
@@ -365,51 +374,27 @@ export default function HooksPage() {
 			},
 			{
 				id: 'namespace',
-				Header: 'Namespace',
 				label: 'Namespace',
 				accessor: 'namespace',
 				key: 'namespace',
 			},
-			// {
-			// 	// ("generic"|"category"|"specific")
-			// 	id: 'class',
-			// 	Header: 'Class',
-			// 	accessor: 'class',
-			// },
-			// {
-			// 	id: 'subclass',
-			// 	Header: 'Subclass',
-			// 	accessor: 'subclass',
-			// },
+			{
+				id: 'usage',
+				label: 'Usage',
+				accessor: 'usage',
+				key: 'usage',
+			},
 			{
 				id: 'fallbacks',
-				Header: 'Fallbacks',
 				label: 'Fallbacks',
 				accessor: (row) => row.fallbacks.join(', '),
 				renderer: (row) => row.fallbacks.join(', '),
-				// Filter: ExistsColumnFilter,
-				// filter: 'exists',
 			},
 			{
 				id: 'defaultValue',
-				Header: 'Default Value',
 				label: 'Default Value',
 				accessor: 'defaultValue',
 				key: 'defaultValue',
-				Cell: ({value}) => {
-					if (!isValidHexString(value)) {
-						return String(value);
-					}
-
-					return (
-						<div className="flex items-center">
-							<div
-								className="w-4 h-4 rounded-full inline-block border border-gray-600 mr-1"
-								style={{backgroundColor: value}}></div>
-							{value}
-						</div>
-					);
-				},
 				renderer: (row) => {
 					const value = row.defaultValue;
 
@@ -433,12 +418,15 @@ export default function HooksPage() {
 			},
 			{
 				id: 'cssProperty',
-				Header: 'CSS Property',
 				label: 'CSS Property',
 				accessor: (row) => row.cssProperty.join(', '),
 				renderer: (row) => row.cssProperty.join(', '),
-				// Filter: ExistsColumnFilter,
-				// filter: 'exists',
+			},
+			{
+				id: 'schema',
+				label: 'Schema',
+				accessor: 'schema',
+				key: 'schema',
 			},
 		],
 		[]
@@ -459,8 +447,18 @@ export default function HooksPage() {
 		[columns, data]
 	);
 
+	const usageOptions = React.useMemo(
+		() => getOptions(getColumn(columns, 'usage'), data),
+		[columns, data]
+	);
+
 	const cssPropertyOptions = React.useMemo(
 		() => getOptions(getColumn(columns, 'cssProperty'), data),
+		[columns, data]
+	);
+
+	const schemaOptions = React.useMemo(
+		() => getOptions(getColumn(columns, 'schema'), data),
 		[columns, data]
 	);
 
@@ -471,7 +469,9 @@ export default function HooksPage() {
 			columns,
 			selectedRelease,
 			filters.namespace,
+			filters.usage,
 			filters.cssProperty,
+			filters.schema,
 			debouncedSearchTerm,
 			queryExtracted,
 		]
@@ -523,7 +523,15 @@ export default function HooksPage() {
 								options={namespaceOptions}
 							/>
 						</div>
-						<div className="flex-1">
+						<div className="mr-3 flex-1">
+							<SelectFilter
+								label="Usage"
+								value={filters.usage}
+								setValue={(value) => setFilters({...filters, usage: value})}
+								options={usageOptions}
+							/>
+						</div>
+						<div className="mr-3 flex-1">
 							<SelectFilter
 								label="CSS Property"
 								value={filters.cssProperty}
@@ -531,6 +539,14 @@ export default function HooksPage() {
 									setFilters({...filters, cssProperty: value})
 								}
 								options={cssPropertyOptions}
+							/>
+						</div>
+						<div className="mr-3 flex-1">
+							<SelectFilter
+								label="Schema"
+								value={filters.schema}
+								setValue={(value) => setFilters({...filters, schema: value})}
+								options={schemaOptions}
 							/>
 						</div>
 
@@ -559,6 +575,11 @@ export default function HooksPage() {
 						</Button>
 					</div>
 					<SimpleTable columns={columns} data={filteredData} textSize="sm" />
+					{filteredData.length === 0 ? (
+						<div className="block text-center py-20 mt-5 bg-gray-300">
+							No results found
+						</div>
+					) : undefined}
 				</Page>
 			</Fragment>
 		</NoSsr>
