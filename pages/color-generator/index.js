@@ -298,7 +298,7 @@ class ColorGenerator extends Component {
 			isHex(autoGenBrandPrimary) &&
 			isHex(autoGenBrandSecondary)
 		) {
-			const neutrals = getNeutralBaseColorsFromBrandPrimaryHex(
+			const neutralBase = getNeutralBaseColorsFromBrandPrimaryHex(
 				autoGenBrandPrimary
 			);
 
@@ -311,7 +311,7 @@ class ColorGenerator extends Component {
 			this.setState({
 				selectedColors: {
 					...selectedColors,
-					neutrals,
+					neutrals: neutralBase,
 					primary: autoGenBrandPrimary,
 					secondary: autoGenBrandSecondary,
 					selectionPrimary: autoGenBrandSecondary,
@@ -322,23 +322,23 @@ class ColorGenerator extends Component {
 					brandNeutral: autoGenBrandNeutral,
 					brandPrimary: autoGenBrandPrimary,
 					brandSecondary: autoGenBrandSecondary,
-					surfaceNeutral: neutrals,
-					surfaceDivider: neutrals,
+					surfaceNeutral: neutralBase,
+					surfaceDivider: neutralBase,
 					surfaceBrand: surfaceBrand,
 					chromeBrand: autoGenBrandPrimary,
 					chromeDivider: autoGenBrandPrimary,
-					backgroundPrimary: neutrals,
-					backgroundSecondary: neutrals,
-					backgroundTertiary: neutrals,
-					dividerPrimary: neutrals,
-					dividerSecondary: neutrals,
-					dividerTertiary: neutrals,
-					textPrimary: neutrals,
-					textSecondary: neutrals,
-					textTertiary: neutrals,
-					borderPrimary: neutrals,
-					borderSecondary: neutrals,
-					borderTertiary: neutrals,
+					backgroundPrimary: neutralBase,
+					backgroundSecondary: neutralBase,
+					backgroundTertiary: neutralBase,
+					dividerPrimary: neutralBase,
+					dividerSecondary: neutralBase,
+					dividerTertiary: neutralBase,
+					textPrimary: neutralBase,
+					textSecondary: neutralBase,
+					textTertiary: neutralBase,
+					borderPrimary: neutralBase,
+					borderSecondary: neutralBase,
+					borderTertiary: neutralBase,
 					alertCritical: '#eb001b',
 					alertHigh: '#fd9700',
 					alertWarning: '#f0e000',
@@ -381,7 +381,13 @@ class ColorGenerator extends Component {
 			this.setState({selectedColors: {}});
 		} else if (theme) {
 			const colors = getBaseColors(JSON.parse(theme.theme));
-			this.setState({selectedColors: colors, selectedTheme: theme});
+			this.setState({
+				selectedColors: colors,
+				selectedTheme: theme,
+				autoGenBrandNeutral: '',
+				autoGenBrandPrimary: '',
+				autoGenBrandSecondary: '',
+			});
 		}
 	};
 
