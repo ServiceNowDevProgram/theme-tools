@@ -16,6 +16,7 @@ import {
 	hexToHSL,
 	HSLToHex,
 	getBaseColors,
+	getContrastRatio,
 } from '../../lib/color-generator/generateColors';
 import {getThemes} from '../api/themes';
 import {copyObject} from '../../lib/common/copy';
@@ -37,11 +38,13 @@ class ColorGenerator extends Component {
 			selectedColorGroup: 'base',
 			isDark: false,
 			openSmartGenModal: false,
+			openA11yModal: false,
 			autoGenBrandNeutral: '',
 			autoGenBrandPrimary: '',
 			autoGenBrandSecondary: '',
 			themes: [],
 			selectedTheme: {},
+			selectedA11yColors: [],
 		};
 	}
 
@@ -191,7 +194,7 @@ class ColorGenerator extends Component {
 				return (
 					<div key={colorId} className="mb-6">
 						<div className="flex items-end">
-							<div>
+							<div className="mr-3">
 								<BaseColorPicker
 									name={colorId}
 									label={DATA.colors[colorId].label}
@@ -209,11 +212,25 @@ class ColorGenerator extends Component {
 										block: true,
 										'text-sm': true,
 										'leading-5': true,
-										'ml-2': true,
+										'mr-3': true,
 									})}>
 									({DATA.colors[colorId].notes})
 								</label>
 							)}
+							{DATA.colors[colorId].a11y &&
+								baseColor &&
+								selectedColors.neutrals && (
+									<button
+										className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded ml-auto"
+										onClick={() =>
+											this.setState({
+												openA11yModal: true,
+												selectedA11yColors: generatedColors[colorId],
+											})
+										}>
+										A11y
+									</button>
+								)}
 						</div>
 
 						<div className="flex mt-2">
@@ -389,6 +406,22 @@ class ColorGenerator extends Component {
 				autoGenBrandSecondary: '',
 			});
 		}
+	};
+
+	renderContrastChecker = (color1, color2) => {
+		const contrasts = getContrastRatio(color1, color2);
+		return (
+			<div className="flex">
+				<div className="mr-3">
+					<p>{`AA - normal ${contrasts.normal.aa.pass}`}</p>
+					<p>{`AA - large ${contrasts.large.aa.pass}`}</p>
+				</div>
+				<div>
+					<p>{`AAA - normal ${contrasts.normal.aaa.pass}`}</p>
+					<p>{`AAA - large ${contrasts.large.aaa.pass}`}</p>
+				</div>
+			</div>
+		);
 	};
 
 	render() {
@@ -574,6 +607,76 @@ class ColorGenerator extends Component {
 								Cancel
 							</button>
 						</span>
+					</div>
+				</Modal>
+
+				<Modal open={this.state.openA11yModal}>
+					<div style={{width: '90vw'}}>
+						{this.state.selectedA11yColors.map((color) => {
+							const primaryColor = isDark
+								? generatedColors['neutrals'][0]
+								: generatedColors['neutrals'][18];
+							const secondaryColor = isDark
+								? generatedColors['neutrals'][4]
+								: generatedColors['neutrals'][12];
+							const tertiaryColor = isDark
+								? generatedColors['neutrals'][6]
+								: generatedColors['neutrals'][9];
+
+							if (primaryColor && secondaryColor && tertiaryColor) {
+								return (
+									<div
+										style={{width: '100%', backgroundColor: color.hex}}
+										key={color.name}>
+										<div className="flex justify-around mb-3 m-auto">
+											<div className="flex-1 text-center">
+												<p style={{color: primaryColor.hex}}>Text Primary</p>
+											</div>
+											<div className="flex-1">
+												{this.renderContrastChecker(
+													color.rgb,
+													primaryColor.rgb
+												)}
+											</div>
+										</div>
+										<div className="flex justify-around mb-3">
+											<div className="flex-1 text-center">
+												<p style={{color: secondaryColor.hex}}>
+													Text Secondary
+												</p>
+											</div>
+											<div className="flex-1">
+												{this.renderContrastChecker(
+													color.rgb,
+													secondaryColor.rgb
+												)}
+											</div>
+										</div>
+										<div className="flex justify-around">
+											<div className="flex-1 text-center">
+												<p style={{color: tertiaryColor.hex}}>Text Tertiary</p>
+											</div>
+											<div className="flex-1">
+												{this.renderContrastChecker(
+													color.rgb,
+													tertiaryColor.rgb
+												)}
+											</div>
+										</div>
+									</div>
+								);
+							}
+						})}
+						<div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+							<span className="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+								<button
+									onClick={() => this.setState({openA11yModal: false})}
+									type="button"
+									className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+									Close
+								</button>
+							</span>
+						</div>
 					</div>
 				</Modal>
 			</div>
