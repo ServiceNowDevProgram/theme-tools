@@ -12,7 +12,7 @@ import {copyObject} from '../../lib/common/copy';
 
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
-import {HookLink} from '../../components/Links';
+import {HookLink, SchemaLink} from '../../components/Links';
 import SimpleTable from '../../components/SimpleTable';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
@@ -427,6 +427,12 @@ export default function HooksPage() {
 				label: 'Schema',
 				accessor: 'schema',
 				key: 'schema',
+				renderer: (row) => {
+					if (!row.schema) {
+						return '-';
+					}
+					return <SchemaLink id={row.schema}></SchemaLink>;
+				},
 			},
 		],
 		[]

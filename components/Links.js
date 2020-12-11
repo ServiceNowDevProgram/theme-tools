@@ -16,3 +16,11 @@ export function ReleaseLink({id}) {
 		</Link>
 	);
 }
+
+export function SchemaLink({id}) {
+	return (
+		<Link href={`/schema/${id}`}>
+			<a>{id}</a>
+		</Link>
+	);
+}
