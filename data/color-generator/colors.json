@@ -221,8 +221,7 @@
 		"chromeDivider": {
 			"id": "chromeDivider",
 			"label": "Chrome Divider",
-			"hook": "now-color_chrome--divider",
-			"disabled": true
+			"hook": "now-color_chrome--divider"
 		},
 		"groupedBlue": {
 			"id": "groupedBlue",
