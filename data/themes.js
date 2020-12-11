@@ -68,7 +68,7 @@ export const DEFAULT_THEME = {
 	brandSecondary: '#81b5a1',
 	surfaceNeutral: '#49585a',
 	surfaceDivider: '#49585a',
-	surfaceBrand: '#93c0ae',
+	surfaceBrand: '#81b5a1',
 	chromeBrand: '#293f40',
 	chromeDivider: '#243738',
 	groupedBlue: '#78b0cc',

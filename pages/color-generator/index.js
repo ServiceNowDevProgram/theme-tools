@@ -323,7 +323,6 @@ class ColorGenerator extends Component {
 			const brandSecondaryHSL = hexToHSL(autoGenBrandSecondary);
 			const selectionSecondary = HSLToHex(brandSecondaryHSL.h, 11, 85);
 			const chromeDivider = HSLToHex(brandPrimaryHSL.h, brandPrimaryHSL.s, 37);
-			const surfaceBrand = HSLToHex(brandPrimaryHSL.h, brandPrimaryHSL.s, 83);
 
 			this.setState({
 				selectedColors: {
@@ -341,7 +340,7 @@ class ColorGenerator extends Component {
 					brandSecondary: autoGenBrandSecondary,
 					surfaceNeutral: neutralBase,
 					surfaceDivider: neutralBase,
-					surfaceBrand: surfaceBrand,
+					surfaceBrand: autoGenBrandSecondary,
 					chromeBrand: autoGenBrandPrimary,
 					chromeDivider: autoGenBrandPrimary,
 					backgroundPrimary: neutralBase,
