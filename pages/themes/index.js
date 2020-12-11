@@ -28,7 +28,6 @@ class Themes extends Component {
 		themes: [],
 		selectedThemeId: '',
 		isCreateModalOpen: false,
-		newThemeName: '',
 		newTheme: {name: '', themeJson: ''},
 		selectedTheme: {},
 		themeJson: {},
@@ -107,7 +106,7 @@ class Themes extends Component {
 			this.setState(
 				{
 					isCreateModalOpen: false,
-					newThemeName: '',
+					newTheme: {name: '', themeJson: ''},
 					selectedTheme: theme,
 				},
 				this.getThemes
