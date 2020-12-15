@@ -113,9 +113,9 @@ class BaseColorPicker extends Component {
 }
 
 BaseColorPicker.propTypes = {
-	name: PropTypes.string.isRequired,
-	label: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired,
+	name: PropTypes.string,
+	label: PropTypes.string,
+	value: PropTypes.string,
 	onChange: PropTypes.func,
 	disabled: PropTypes.bool,
 	position: PropTypes.oneOf(['top', 'middle', 'bottom']),

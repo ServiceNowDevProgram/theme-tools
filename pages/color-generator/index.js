@@ -412,12 +412,12 @@ class ColorGenerator extends Component {
 		return (
 			<div className="flex">
 				<div className="mr-3">
-					<p>{`AA - normal ${contrasts.normal.aa.pass}`}</p>
-					<p>{`AA - large ${contrasts.large.aa.pass}`}</p>
+					<p>{`AA - normal ${contrasts.normal.aa}`}</p>
+					<p>{`AA - large ${contrasts.large.aa}`}</p>
 				</div>
 				<div>
-					<p>{`AAA - normal ${contrasts.normal.aaa.pass}`}</p>
-					<p>{`AAA - large ${contrasts.large.aaa.pass}`}</p>
+					<p>{`AAA - normal ${contrasts.normal.aaa}`}</p>
+					<p>{`AAA - large ${contrasts.large.aaa}`}</p>
 				</div>
 			</div>
 		);
@@ -504,7 +504,7 @@ class ColorGenerator extends Component {
 							<button
 								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
 								onClick={this.copyColors}>
-								Copy Json
+								Copy Colors Json
 							</button>
 						</div>
 					</div>
