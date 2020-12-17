@@ -28,6 +28,7 @@ export default function PageHeader({label, path, selectedPath, wide = false}) {
 				<NavLink href="/color-generator" label="Color Generator" />
 				<NavLink href="/themes" label="Themes" />
 				<NavLink href="/contrast-checker" label="Contrast Checker" />
+				<NavLink href="/decoder" label="Decoder" />
 			</div>
 
 			<div className="mb-6 bg-gray-300 p-4 text-sm">
