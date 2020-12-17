@@ -23,14 +23,6 @@ class BaseColorPicker extends Component {
 		const {disabled, value, onChange, isDark, position} = this.props;
 		const styles = reactCSS({
 			default: {
-				swatch: {
-					padding: '5px',
-					background: '#fff',
-					borderRadius: '1px',
-					boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
-					display: 'inline-block',
-					cursor: 'pointer',
-				},
 				popover: {
 					position: 'absolute',
 					zIndex: '2',

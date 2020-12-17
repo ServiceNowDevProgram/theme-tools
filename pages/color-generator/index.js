@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import Modal from '../../components/Modal';
 import BaseColorPicker from '../../components/BaseColorPicker';
+import BrandColorPicker from '../../components/BrandColorPicker';
 import CopyValue from '../../components/CopyValue';
 import Select from '../../components/Select';
 import shallowEqual from '../../lib/common/shallowEqual';
@@ -164,6 +165,53 @@ class ColorGenerator extends Component {
 		});
 	};
 
+	updateBrandColor = (id, color) => {
+		if (id === 'neutrals') {
+			const neutralBase = getNeutralBaseColorsFromBrandPrimaryHex(color);
+			const out = {
+				neutrals: neutralBase,
+				surfaceNeutral: neutralBase,
+				surfaceDivider: neutralBase,
+				backgroundPrimary: neutralBase,
+				backgroundSecondary: neutralBase,
+				backgroundTertiary: neutralBase,
+				dividerPrimary: neutralBase,
+				dividerSecondary: neutralBase,
+				dividerTertiary: neutralBase,
+				textPrimary: neutralBase,
+				textSecondary: neutralBase,
+				textTertiary: neutralBase,
+				borderPrimary: neutralBase,
+				borderSecondary: neutralBase,
+				borderTertiary: neutralBase,
+			};
+
+			this.setState({
+				selectedColors: {
+					...this.state.selectedColors,
+					...out,
+				},
+			});
+		} else {
+			if (id === 'selectionSecondary') {
+				const brandSecondaryHSL = hexToHSL(color);
+				color = HSLToHex(brandSecondaryHSL.h, 11, 85);
+			}
+
+			if (id === 'chromeDivider') {
+				const brandPrimaryHSL = hexToHSL(color);
+				color = HSLToHex(brandPrimaryHSL.h, brandPrimaryHSL.s, 37);
+			}
+
+			this.setState({
+				selectedColors: {
+					...this.state.selectedColors,
+					[id]: color,
+				},
+			});
+		}
+	};
+
 	renderGeneratedColors = (colors) => {
 		if (colors && colors.length) {
 			return colors.map((color) => {
@@ -217,6 +265,19 @@ class ColorGenerator extends Component {
 									({DATA.colors[colorId].notes})
 								</label>
 							)}
+							{DATA.colors[colorId].baseColorConfigurable &&
+								selectedColors.brandNeutral &&
+								selectedColors.brandPrimary &&
+								selectedColors.brandSecondary && (
+									<BrandColorPicker
+										neutral={selectedColors.brandNeutral}
+										primary={selectedColors.brandPrimary}
+										secondary={selectedColors.brandSecondary}
+										onChange={(newColor) =>
+											this.updateBrandColor(colorId, newColor)
+										}
+									/>
+								)}
 							{DATA.colors[colorId].a11y &&
 								baseColor &&
 								selectedColors.neutrals && (

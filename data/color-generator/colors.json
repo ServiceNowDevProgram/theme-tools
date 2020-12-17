@@ -81,37 +81,43 @@
 		"neutrals": {
 			"id": "neutrals",
 			"label": "Neutrals",
-			"hook": "now-color--neutral"
+			"hook": "now-color--neutral",
+			"baseColorConfigurable": true
 		},
 		"primary": {
 			"id": "primary",
 			"label": "Primary",
 			"hook": "now-color--primary",
-			"a11y": true
+			"a11y": true,
+			"baseColorConfigurable": true
 		},
 		"secondary": {
 			"id": "secondary",
 			"label": "Secondary",
 			"hook": "now-color--secondary",
-			"a11y": true
+			"a11y": true,
+			"baseColorConfigurable": true
 		},
 		"selectionPrimary": {
 			"id": "selectionPrimary",
 			"label": "Selection Primary",
 			"hook": "now-color_selection--primary",
-			"a11y": true
+			"a11y": true,
+			"baseColorConfigurable": true
 		},
 		"selectionSecondary": {
 			"id": "selectionSecondary",
 			"label": "Selection Secondary",
 			"hook": "now-color_selection--secondary",
-			"a11y": true
+			"a11y": true,
+			"baseColorConfigurable": true
 		},
 		"interactive": {
 			"id": "interactive",
 			"label": "Interactive",
 			"hook": "now-color--interactive",
-			"a11y": true
+			"a11y": true,
+			"baseColorConfigurable": true
 		},
 		"link": {
 			"id": "link",
@@ -210,18 +216,21 @@
 			"label": "Surface Brand",
 			"startIndex": 1,
 			"hook": "now-color_surface--brand",
-			"a11y": true
+			"a11y": true,
+			"baseColorConfigurable": true
 		},
 		"chromeBrand": {
 			"id": "chromeBrand",
 			"label": "Chrome Brand",
 			"hook": "now-color_chrome--brand",
-			"a11y": true
+			"a11y": true,
+			"baseColorConfigurable": true
 		},
 		"chromeDivider": {
 			"id": "chromeDivider",
 			"label": "Chrome Divider",
-			"hook": "now-color_chrome--divider"
+			"hook": "now-color_chrome--divider",
+			"baseColorConfigurable": true
 		},
 		"groupedBlue": {
 			"id": "groupedBlue",
