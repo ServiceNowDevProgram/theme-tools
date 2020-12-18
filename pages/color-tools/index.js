@@ -22,11 +22,11 @@ const ColorTools = () => {
 							<a>Color Range</a>
 						</Link>
 					</li>
-					{/* <li>
-            <Link href={`/complimentary-colors`}>
-              <a>Complimentary Colors</a>
-            </Link>
-          </li> */}
+					<li>
+						<Link href={`/complimentary-colors`}>
+							<a>Complimentary Colors</a>
+						</Link>
+					</li>
 				</ul>
 			</Page>
 		</Fragment>
