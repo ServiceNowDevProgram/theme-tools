@@ -25,6 +25,7 @@ export default function PageHeader({label, path, selectedPath, wide = false}) {
 				<NavLink href="/hooks" label="Hooks" />
 				<NavLink href="/releases" label="Releases" />
 				<NavLink href="/validator" label="Validator" />
+				<NavLink href="/color-tools" label="Color Tools" />
 				<NavLink href="/color-generator" label="Color Generator" />
 				<NavLink href="/themes" label="Themes" />
 				<NavLink href="/contrast-checker" label="Contrast Checker" />
