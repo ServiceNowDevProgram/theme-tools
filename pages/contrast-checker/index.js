@@ -1,7 +1,7 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
-import BaseColorPicker from '../../components/BaseColorPicker';
+import BaseColorPicker from '../../components/colors/BaseColorPicker';
 
 import {getContrastRatio} from '../../lib/color-generator/generateColors';
 import cx from '../../lib/cx';

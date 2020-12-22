@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
-import BaseColorPicker from '../../components/BaseColorPicker';
+import BaseColorPicker from '../../components/colors/BaseColorPicker';
 import Input from '../../components/Input';
 import {getComplimentaryColors} from '../../lib/color-generator/generateColors';
 import CopyValue from '../../components/CopyValue';

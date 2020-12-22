@@ -2,8 +2,9 @@ import React, {Fragment, useEffect, useState} from 'react';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
-import BaseColorPicker from '../../components/BaseColorPicker';
-import CopyValue from '../../components/CopyValue';
+import BaseColorPicker from '../../components/colors/BaseColorPicker';
+// import CopyValue from '../../components/CopyValue';
+import ColorSwatch from '../../components/colors/ColorSwatch';
 
 import {generateColorRange} from '../../lib/color-generator/generateColors';
 
@@ -28,24 +29,7 @@ const renderGeneratedColors = (
 		darkPercentage: Number(darkPercentage),
 	});
 
-	if (colors && colors.length) {
-		return colors.map((color) => {
-			return (
-				<div className="flex-1" title={color.name} key={color.name}>
-					<div style={{height: '80px', backgroundColor: color.hex}}></div>
-					<CopyValue value={color.hex}>
-						<small style={{fontSize: '10px'}}>{color.hex}</small>
-					</CopyValue>
-				</div>
-			);
-		});
-	} else {
-		return (
-			<div className="flex-1">
-				<div style={{height: '80px', backgroundColor: '#f5f5f5'}}></div>
-			</div>
-		);
-	}
+	return <ColorSwatch items={colors} />;
 };
 
 const ColorRange = () => {
@@ -105,7 +89,7 @@ const ColorRange = () => {
 				wide
 			/>
 			<Page wide>
-				<div className="flex mb-8">
+				<div className="mb-8">
 					{renderGeneratedColors(
 						baseColor,
 						lightVariations,

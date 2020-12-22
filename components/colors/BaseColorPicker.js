@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import Input from '../components/Input';
+import Input from '../Input';
 import {SketchPicker} from 'react-color';
 import reactCSS from 'reactcss';
 import PropTypes from 'prop-types';

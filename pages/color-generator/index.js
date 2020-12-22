@@ -3,8 +3,8 @@ import {toast} from 'react-toastify';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import Modal from '../../components/Modal';
-import BaseColorPicker from '../../components/BaseColorPicker';
-import BrandColorPicker from '../../components/BrandColorPicker';
+import BaseColorPicker from '../../components/colors/BaseColorPicker';
+import BrandColorPicker from '../../components/colors/BrandColorPicker';
 import CopyValue from '../../components/CopyValue';
 import Select from '../../components/Select';
 import shallowEqual from '../../lib/common/shallowEqual';
@@ -23,6 +23,7 @@ import {getThemes} from '../api/themes';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
 import styles from '../../styles/Home.module.css';
+import ColorSwatch from '../../components/colors/ColorSwatch';
 
 const path = [
 	{id: 'color-generator', href: '/color-generator', label: 'Color Generator'},
@@ -212,27 +213,6 @@ class ColorGenerator extends Component {
 		}
 	};
 
-	renderGeneratedColors = (colors) => {
-		if (colors && colors.length) {
-			return colors.map((color) => {
-				return (
-					<div className="flex-1" title={color.name} key={color.name}>
-						<div style={{height: '80px', backgroundColor: color.hex}}></div>
-						<CopyValue value={color.hex}>
-							<small style={{fontSize: '10px'}}>{color.hex}</small>
-						</CopyValue>
-					</div>
-				);
-			});
-		} else {
-			return (
-				<div className="flex-1">
-					<div style={{height: '80px', backgroundColor: '#f5f5f5'}}></div>
-				</div>
-			);
-		}
-	};
-
 	renderColorGroups = (generatedColors, isDark) => {
 		const {selectedColorGroup, selectedColors} = this.state;
 		const group = DATA.groups[selectedColorGroup];
@@ -294,8 +274,8 @@ class ColorGenerator extends Component {
 								)}
 						</div>
 
-						<div className="flex mt-2">
-							{this.renderGeneratedColors(generatedColors[colorId])}
+						<div className="mt-2">
+							<ColorSwatch items={generatedColors[colorId]} />
 						</div>
 					</div>
 				);
