@@ -7,6 +7,7 @@ import {getContrastRatio} from '../../lib/color-generator/generateColors';
 import cx from '../../lib/cx';
 
 const path = [
+	{id: 'colors', href: '/colors', label: 'Colors'},
 	{
 		id: 'contrast-checker',
 		href: '/contrast-checker',

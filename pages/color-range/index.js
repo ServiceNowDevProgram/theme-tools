@@ -3,13 +3,12 @@ import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 import BaseColorPicker from '../../components/colors/BaseColorPicker';
-// import CopyValue from '../../components/CopyValue';
 import ColorSwatch from '../../components/colors/ColorSwatch';
 
 import {generateColorRange} from '../../lib/color-generator/generateColors';
 
 const path = [
-	{id: 'color-tools', href: '/color-tools', label: 'Color Tools'},
+	{id: 'colors', href: '/colors', label: 'Colors'},
 	{id: 'color-range', href: `/color-range`, label: 'Color Range'},
 ];
 const selectedPath = 'color-range';

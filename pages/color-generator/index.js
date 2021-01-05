@@ -26,7 +26,8 @@ import styles from '../../styles/Home.module.css';
 import ColorSwatch from '../../components/colors/ColorSwatch';
 
 const path = [
-	{id: 'color-generator', href: '/color-generator', label: 'Color Generator'},
+	{id: 'colors', href: '/colors', label: 'Colors'},
+	{id: 'color-generator', href: '/color-generator', label: 'Theme Generator'},
 ];
 const selectedPath = 'color-generator';
 class ColorGenerator extends Component {
@@ -483,7 +484,7 @@ class ColorGenerator extends Component {
 					[styles.dark]: isDark,
 				})}>
 				<PageHeader
-					label="Color Generator"
+					label="Theme Generator"
 					path={path}
 					selectedPath={selectedPath}
 					wide
