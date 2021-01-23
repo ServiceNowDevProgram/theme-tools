@@ -27,7 +27,7 @@ export async function getThemes(params) {
 }
 
 export async function createTheme(data) {
-	const headers = getHeaders('demo', 'SnowQ4@2020');
+	const headers = getHeaders('demo', 'Now2021@Q1');
 
 	try {
 		const themes = await axios.post(
