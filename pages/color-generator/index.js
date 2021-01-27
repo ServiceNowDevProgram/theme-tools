@@ -5,8 +5,8 @@ import Page from '../../components/Page';
 import Modal from '../../components/Modal';
 import BaseColorPicker from '../../components/colors/BaseColorPicker';
 import BrandColorPicker from '../../components/colors/BrandColorPicker';
-import CopyValue from '../../components/CopyValue';
 import Select from '../../components/Select';
+import Toggle from '../../components/Toggle';
 import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
 import {INITIAL_THEME, DEFAULT_THEME} from '../../data/themes';
@@ -512,7 +512,7 @@ class ColorGenerator extends Component {
 						<div>{this.renderTabs()}</div>
 						<div>
 							<button
-								className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
+								className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3 mb-2"
 								onClick={() =>
 									this.setState({
 										selectedColors: {...INITIAL_THEME},
@@ -522,32 +522,22 @@ class ColorGenerator extends Component {
 								Clear All
 							</button>
 							<button
-								className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3"
+								className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3 mb-2"
 								onClick={() => this.setState({openSmartGenModal: true})}>
 								Auto Generate
 							</button>
 							<button
-								className={cx({
-									'bg-gray-700': !isDark,
-									'hover:bg-gray-900': !isDark,
-									'bg-yellow-500': isDark,
-									'hover:bg-yellow-700': isDark,
-									'text-white': true,
-									'font-bold': true,
-									'py-1': true,
-									'px-2': true,
-									rounded: true,
-									'ml-auto': true,
-									'mr-3': true,
-								})}
-								onClick={() => this.setState({isDark: !isDark})}>
-								{isDark ? 'Light Theme' : 'Dark Theme'}
-							</button>
-							<button
-								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto"
+								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto mb-2"
 								onClick={this.copyColors}>
 								Copy Colors Json
 							</button>
+							<Toggle
+								label="Dark Theme"
+								onChange={() =>
+									this.setState({isDark: !isDark, isHighContrast: false})
+								}
+								checked={isDark}
+							/>
 						</div>
 					</div>
 					<div>{this.renderColorGroups(generatedColors, isDark)}</div>
