@@ -40,7 +40,7 @@ const renderRatios = (foregroundColor, backgroundColor) => {
 			<div className="flex mb-4 justify-betwen">
 				<div className="mr-8">
 					<div className="flex">
-						<p className="mr-3">WCAG AA</p>
+						<p className="mr-3">WCAG 2.1 - AA</p>
 						<p
 							className={cx({
 								'ml-auto': true,
@@ -57,7 +57,7 @@ const renderRatios = (foregroundColor, backgroundColor) => {
 						</p>
 					</div>
 					<div className="flex">
-						<p>WCAG AAA</p>
+						<p>WCAG 2.1 - AAA</p>
 						<span
 							className={cx({
 								'ml-2': true,
@@ -74,7 +74,7 @@ const renderRatios = (foregroundColor, backgroundColor) => {
 					</div>
 				</div>
 				<Box color={foregroundColor} backgroundColor={backgroundColor}>
-					This is normal text
+					This is normal text 14px
 				</Box>
 			</div>
 
@@ -82,7 +82,7 @@ const renderRatios = (foregroundColor, backgroundColor) => {
 			<div className="flex mb-4 justify-betwen">
 				<div className="mr-8">
 					<div className="flex">
-						<p className="mr-3">WCAG AA</p>
+						<p className="mr-3">WCAG 2.1 - AA</p>
 						<p
 							className={cx({
 								'ml-auto': true,
@@ -99,7 +99,7 @@ const renderRatios = (foregroundColor, backgroundColor) => {
 						</p>
 					</div>
 					<div className="flex">
-						<p>WCAG AAA</p>
+						<p>WCAG 2.1 - AAA</p>
 						<p
 							className={cx({
 								'ml-2': true,
@@ -119,7 +119,7 @@ const renderRatios = (foregroundColor, backgroundColor) => {
 					color={foregroundColor}
 					backgroundColor={backgroundColor}
 					size="18px">
-					This is large text
+					This is large text 18px
 				</Box>
 			</div>
 		</div>
