@@ -97,7 +97,7 @@ class ColorGenerator extends Component {
 	getThemes = async () => {
 		const params = {
 			deleted: 'false',
-			sysparm_query: 'ORDERBYDESCsys_updated_on',
+			sysparm_query: 'ORDERBYname',
 		};
 
 		try {
