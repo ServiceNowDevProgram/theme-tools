@@ -532,7 +532,7 @@ class ColorGenerator extends Component {
 								Copy Colors Json
 							</button>
 							<Toggle
-								label="Dark Theme"
+								label="Dark Mode"
 								onChange={() =>
 									this.setState({isDark: !isDark, isHighContrast: false})
 								}
