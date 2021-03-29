@@ -11,6 +11,7 @@ const links = [
 	{label: 'Complimentary Colors', href: '/complimentary-colors'},
 	{label: 'Contrast Checker', href: '/contrast-checker'},
 	{label: 'Theme Generator', href: '/color-generator'},
+	{label: 'Theme Generator P', href: '/color-generator-p'},
 ];
 
 const ColorTools = () => {
