@@ -5,7 +5,7 @@ import Input from '../../components/Input';
 import BaseColorPicker from '../../components/colors/BaseColorPicker';
 import ColorSwatch from '../../components/colors/ColorSwatch';
 
-import {generateColorRange} from '../../lib/color-generator/generateColors';
+import {generateColorRange} from '../../lib/color-generator/generateColorsP';
 
 const path = [
 	{id: 'colors', href: '/colors', label: 'Colors'},
@@ -17,41 +17,51 @@ const renderGeneratedColors = (
 	baseColor,
 	lightVariations,
 	lightPercentage,
+	lightSaturation,
 	darkVariations,
-	darkPercentage
+	darkPercentage,
+	darkSaturation
 ) => {
 	const colors = generateColorRange({
 		color: baseColor,
 		lightVariations: Number(lightVariations),
 		lightPercentage: Number(lightPercentage),
+		lightSaturation: Number(lightSaturation),
 		darkVariations: Number(darkVariations),
 		darkPercentage: Number(darkPercentage),
+		darkSaturation: Number(darkSaturation),
 	});
 
 	return <ColorSwatch items={colors} />;
 };
 
 const ColorRange = () => {
-	const [baseColor, setBaseColor] = useState('#1e856d');
-	const [lightVariations, setLightVariations] = useState('3');
+	const [baseColor, setBaseColor] = useState('#4F5664');
+	const [lightVariations, setLightVariations] = useState('10');
 	const [lightPercentage, setLightPercentage] = useState('.95');
-	const [darkVariations, setDarkVariations] = useState('3');
-	const [darkPercentage, setDarkPercentage] = useState('.95');
+	const [lightSaturation, setLightSaturation] = useState('1');
+	const [darkVariations, setDarkVariations] = useState('9');
+	const [darkPercentage, setDarkPercentage] = useState('.9');
+	const [darkSaturation, setDarkSaturation] = useState('1');
 
 	useEffect(() => {
 		const urlParams = new URLSearchParams(window.location.search);
 		const base = urlParams.get('baseColor');
 		const lightV = urlParams.get('lightVariations');
 		const lightP = urlParams.get('lightPercentage');
+		const lightS = urlParams.get('lightSaturation');
 		const darkV = urlParams.get('darkVariations');
 		const darkP = urlParams.get('darkPercentage');
+		const darkS = urlParams.get('darkSaturation');
 
-		if (base && lightV && lightP && darkV && darkP) {
+		if (base && lightV && lightP && lightS && darkV && darkP && darkS) {
 			setBaseColor(base);
 			setLightVariations(lightV);
 			setLightPercentage(lightP);
+			setLightSaturation(lightS);
 			setDarkVariations(darkV);
 			setDarkPercentage(darkP);
+			setDarkSaturation(darkS);
 		}
 	}, []);
 
@@ -60,8 +70,10 @@ const ColorRange = () => {
 		searchParams.set('baseColor', baseColor);
 		searchParams.set('lightVariations', lightVariations);
 		searchParams.set('lightPercentage', lightPercentage);
+		searchParams.set('lightSaturation', lightSaturation);
 		searchParams.set('darkVariations', darkVariations);
 		searchParams.set('darkPercentage', darkPercentage);
+		searchParams.set('darkSaturation', darkSaturation);
 
 		let newurl =
 			window.location.protocol +
@@ -75,8 +87,10 @@ const ColorRange = () => {
 		baseColor,
 		lightVariations,
 		lightPercentage,
+		lightSaturation,
 		darkVariations,
 		darkPercentage,
+		darkSaturation,
 	]);
 
 	return (
@@ -93,41 +107,101 @@ const ColorRange = () => {
 						baseColor,
 						lightVariations,
 						lightPercentage,
+						lightSaturation,
 						darkVariations,
-						darkPercentage
+						darkPercentage,
+						darkSaturation
 					)}
 				</div>
-				<div className="grid grid-cols-5 gap-4">
-					<Input
-						label="Light Variations"
-						value={lightVariations}
-						placeholder="3"
-						onChange={(value) => setLightVariations(value)}
-					/>
-					<Input
-						label="Light Percentage"
-						value={lightPercentage}
-						placeholder=".95"
-						onChange={(value) => setLightPercentage(value)}
-					/>
-					<BaseColorPicker
-						label="Base Color"
-						value={baseColor}
-						position="middle"
-						onChange={(color) => setBaseColor(color)}
-					/>
-					<Input
-						label="Dark Variations"
-						value={darkVariations}
-						placeholder="3"
-						onChange={(value) => setDarkVariations(value)}
-					/>
-					<Input
-						label="Dark Percentage"
-						value={darkPercentage}
-						placeholder=".95"
-						onChange={(value) => setDarkPercentage(value)}
-					/>
+				<div className="grid grid-cols-7 gap-4">
+					<div>
+						<Input
+							label="Light Variations"
+							value={lightVariations}
+							placeholder="3"
+							onChange={(value) => setLightVariations(value)}
+						/>
+					</div>
+					<div>
+						<Input
+							label="Light Percentage"
+							value={lightPercentage}
+							placeholder=".95"
+							onChange={(value) => setLightPercentage(value)}
+						/>
+						<input
+							type="range"
+							min="0"
+							max="1"
+							value={lightPercentage}
+							step="0.01"
+							onChange={(e) => setLightPercentage(e.target.value)}
+						/>
+					</div>
+					<div>
+						<Input
+							label="Light Saturation"
+							value={lightSaturation}
+							placeholder=".95"
+							onChange={(value) => setLightSaturation(value)}
+						/>
+						<input
+							type="range"
+							min="0"
+							max="1"
+							value={lightSaturation}
+							step="0.01"
+							onChange={(e) => setLightSaturation(e.target.value)}
+						/>
+					</div>
+					<div>
+						<BaseColorPicker
+							label="Base Color"
+							value={baseColor}
+							position="middle"
+							onChange={(color) => setBaseColor(color)}
+						/>
+					</div>
+					<div>
+						<Input
+							label="Dark Variations"
+							value={darkVariations}
+							placeholder="3"
+							onChange={(value) => setDarkVariations(value)}
+						/>
+					</div>
+					<div>
+						<Input
+							label="Dark Percentage"
+							value={darkPercentage}
+							placeholder=".95"
+							onChange={(value) => setDarkPercentage(value)}
+						/>
+						<input
+							type="range"
+							min="0"
+							max="1"
+							value={darkPercentage}
+							step="0.01"
+							onChange={(e) => setDarkPercentage(e.target.value)}
+						/>
+					</div>
+					<div>
+						<Input
+							label="Dark Saturation"
+							value={darkSaturation}
+							placeholder=".95"
+							onChange={(value) => setDarkSaturation(value)}
+						/>
+						<input
+							type="range"
+							min="0"
+							max="1"
+							value={darkSaturation}
+							step="0.01"
+							onChange={(e) => setDarkSaturation(e.target.value)}
+						/>
+					</div>
 				</div>
 			</Page>
 		</Fragment>

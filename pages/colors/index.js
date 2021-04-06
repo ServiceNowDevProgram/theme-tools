@@ -27,7 +27,7 @@ const ColorTools = () => {
 				<ul className="list-disc">
 					{links.map((link) => {
 						return (
-							<li>
+							<li key={link.label}>
 								<Link href={link.href}>
 									<a>{link.label}</a>
 								</Link>
