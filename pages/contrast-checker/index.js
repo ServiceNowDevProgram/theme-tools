@@ -27,7 +27,7 @@ const Box = ({children, color, backgroundColor, size = '14px'}) => {
 };
 
 const renderRatios = (foregroundColor, backgroundColor) => {
-	const {ratio, normal, large} = getContrastRatio(
+	const {ratio, normal, large, nonText} = getContrastRatio(
 		foregroundColor,
 		backgroundColor
 	);
@@ -120,6 +120,39 @@ const renderRatios = (foregroundColor, backgroundColor) => {
 					backgroundColor={backgroundColor}
 					size="18px">
 					This is large text 18px
+				</Box>
+			</div>
+
+			<p className="text-xl mb-3">Non-text</p>
+			<div className="flex mb-4 justify-betwen">
+				<div className="mr-8">
+					<div className="flex">
+						<p className="mr-3">WCAG 2.1 - AA</p>
+						<p
+							className={cx({
+								'ml-auto': true,
+								'mb-2': true,
+								rounded: true,
+								'inline-flex': true,
+								'items-center': true,
+								'px-2': true,
+								'py-1': true,
+								'bg-green-200': nonText.aa === 'Pass',
+								'bg-red-200': nonText.aa === 'Fail',
+							})}>
+							{nonText.aa}
+						</p>
+					</div>
+				</div>
+				<Box color={foregroundColor} backgroundColor={backgroundColor}>
+					<div
+						style={{
+							height: '20px',
+							width: '40px',
+							backgroundColor: foregroundColor,
+							margin: '20px 30px',
+							borderRadius: '3px',
+						}}></div>
 				</Box>
 			</div>
 		</div>
