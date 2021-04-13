@@ -4,8 +4,7 @@ import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 import BaseColorPicker from '../../components/colors/BaseColorPicker';
 import ColorSwatch from '../../components/colors/ColorSwatch';
-
-import {generateColorRange} from '../../lib/color-generator/generateColorsP';
+import {generateColorScale} from '../../lib/color-generator/generateColorsP';
 
 const path = [
 	{id: 'colors', href: '/colors', label: 'Colors'},
@@ -22,7 +21,7 @@ const renderGeneratedColors = (
 	darkPercentage,
 	darkSaturation
 ) => {
-	const colors = generateColorRange({
+	const colors = generateColorScale({
 		color: baseColor,
 		lightVariations: Number(lightVariations),
 		lightPercentage: Number(lightPercentage),
