@@ -25,7 +25,7 @@ function Button({children, size = 'md', onClick = () => {}}) {
 Button.propTypes = {
 	size: PropTypes.oneOf(['md', 'lg']),
 	onClick: PropTypes.func,
-	children: PropTypes.element,
+	children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 };
 
 export default Button;
