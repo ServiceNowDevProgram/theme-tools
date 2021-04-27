@@ -3,14 +3,22 @@ import PropTypes from 'prop-types';
 import cx from '../lib/cx';
 import Spinner from './Spinner';
 
-function Button({children, size = 'md', onClick = () => {}, loading = false}) {
+function Button({
+	children,
+	size = 'md',
+	variant = 'primary',
+	onClick = () => {},
+	loading = false,
+}) {
 	return (
 		<button
 			className={cx({
-				'bg-blue-500': true,
-				'hover:bg-blue-700': true,
-				'text-white': true,
-				'font-bold': true,
+				'bg-blue-500': variant === 'primary',
+				'hover:bg-blue-700': variant === 'primary',
+				'text-white': variant === 'primary',
+				'bg-gray-300': variant === 'secondary',
+				'hover:bg-gray-400': variant === 'secondary',
+				'text-black': variant === 'secondary',
 				'py-1': size === 'md',
 				'px-2': size === 'md',
 				'py-2': size === 'lg',
@@ -28,6 +36,7 @@ function Button({children, size = 'md', onClick = () => {}, loading = false}) {
 
 Button.propTypes = {
 	size: PropTypes.oneOf(['md', 'lg']),
+	variant: PropTypes.oneOf(['primary', 'secondary']),
 	onClick: PropTypes.func,
 	loading: PropTypes.bool,
 	children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),

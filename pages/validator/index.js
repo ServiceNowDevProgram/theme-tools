@@ -9,6 +9,9 @@ import jsonAst from '../../lib/jsonAst';
 import cx from '../../lib/cx';
 import tippy from 'tippy.js';
 import {runRules} from '../../lib/validateRules';
+import {useRouter} from 'next/router';
+import {toast} from 'react-toastify';
+import {copyText} from '../../lib/common/copy';
 
 /**
  * @param {Object} props
@@ -86,7 +89,9 @@ export default function ValidatorPage({data}) {
 	const path = [{id: 'validator', href: '/validator', label: 'Validator'}];
 	const selectedPath = 'validator';
 
+	const router = useRouter();
 	const [showSpinner, setShowSpinner] = useState(false);
+	const [queryExtracted, setQueryExtracted] = useState(false);
 	const [state, setState] = useState({
 		commitCount: 0,
 		currentCode: fakeData,
@@ -98,6 +103,14 @@ export default function ValidatorPage({data}) {
 	const [selectedRelease, setSelectedRelease] = useState(
 		data.releases.slice(-1)[0]
 	);
+
+	useEffect(() => {
+		if (!router.isReady || queryExtracted) return;
+		setQueryExtracted(true);
+		if (router.query.code && !jsonAst.invalid(router.query.code)) {
+			commitCode(router.query.code);
+		}
+	}, [router.query, router.isReady]);
 
 	useEffect(() => {
 		if (editor) {
@@ -177,10 +190,25 @@ export default function ValidatorPage({data}) {
 			syntaxError: null,
 			lintErrors: [],
 		}));
-		if (!showSpinner) {
-			setShowSpinner(true);
-			setTimeout(() => setShowSpinner(false), 350);
+	}
+
+	function shareCode(value) {
+		if (jsonAst.invalid(value)) {
+			// TODO: Show toast with invalid value
+			toast.error(`Invalid JSON, could not copy shareable link`);
+			return;
 		}
+		commitCode(value);
+		const inlineCode = JSON.stringify(JSON.parse(value), null, '');
+		router
+			.push({
+				pathname: router.pathname,
+				query: {code: inlineCode},
+			})
+			.then(() => {
+				copyText(window.location.href);
+				toast.success(`Shareable link copied to clipboard and updated in URL`);
+			});
 	}
 
 	function applyFix(entry) {
@@ -296,12 +324,25 @@ export default function ValidatorPage({data}) {
 								/>
 							</div>
 
+							<span className="mr-2">
+								<Button
+									onClick={() => {
+										commitCode(state.currentCode);
+										if (!showSpinner) {
+											setShowSpinner(true);
+											setTimeout(() => setShowSpinner(false), 350);
+										}
+									}}
+									size="md"
+									loading={showSpinner}>
+									Validate
+								</Button>
+							</span>
 							<Button
-								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-								onClick={() => commitCode(state.currentCode)}
+								onClick={() => shareCode(state.currentCode)}
 								size="md"
-								loading={showSpinner}>
-								Validate
+								variant="secondary">
+								Share
 							</Button>
 						</div>
 					</div>
