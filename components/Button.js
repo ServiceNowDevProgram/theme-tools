@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from '../lib/cx';
+import Spinner from './Spinner';
 
-function Button({children, size = 'md', onClick = () => {}}) {
+function Button({children, size = 'md', onClick = () => {}, loading = false}) {
 	return (
 		<button
 			className={cx({
@@ -15,8 +16,11 @@ function Button({children, size = 'md', onClick = () => {}}) {
 				'py-2': size === 'lg',
 				'px-4': size === 'lg',
 				rounded: true,
+				flex: true,
+				'items-center': true,
 			})}
 			onClick={onClick}>
+			{loading && <Spinner variant="reverse" />}
 			{children}
 		</button>
 	);
@@ -25,6 +29,7 @@ function Button({children, size = 'md', onClick = () => {}}) {
 Button.propTypes = {
 	size: PropTypes.oneOf(['md', 'lg']),
 	onClick: PropTypes.func,
+	loading: PropTypes.bool,
 	children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 };
 

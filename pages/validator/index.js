@@ -76,10 +76,17 @@ function pad(string, n, char = ' ') {
 	return string + Array(n).fill(char).join('');
 }
 
+const USER_STATUS = {
+	INITIAL: 'INITIAL',
+	EDITING: 'EDITING',
+	REVIEWING_RESULT: 'REVIEWING_RESULT',
+};
+
 export default function ValidatorPage({data}) {
 	const path = [{id: 'validator', href: '/validator', label: 'Validator'}];
 	const selectedPath = 'validator';
 
+	const [showSpinner, setShowSpinner] = useState(false);
 	const [state, setState] = useState({
 		commitCount: 0,
 		currentCode: fakeData,
@@ -102,12 +109,13 @@ export default function ValidatorPage({data}) {
 		// First check if new code is valid JSON, aka if we can even parse it
 		const syntaxError = jsonAst.invalid(state.committedCode);
 		if (syntaxError) {
-			setState({
+			setState((current) => ({
+				commitCount: current.commitCount,
 				currentCode: state.currentCode,
 				committedCode: state.currentCode,
 				syntaxError,
 				lintErrors: [],
-			});
+			}));
 			return;
 		}
 		// Then pretty print the JSON
@@ -118,12 +126,13 @@ export default function ValidatorPage({data}) {
 		);
 		// Finally run the lint rules
 		const result = runRules(formattedCode, {release: selectedRelease}, data);
-		setState({
+		setState((current) => ({
+			commitCount: current.commitCount,
 			currentCode: formattedCode,
 			committedCode: formattedCode,
 			syntaxError: null,
 			lintErrors: result.errors,
-		});
+		}));
 	}, [state.committedCode, state.commitCount]);
 
 	useEffect(() => {
@@ -162,12 +171,16 @@ export default function ValidatorPage({data}) {
 
 	function commitCode(value) {
 		setState((current) => ({
-			commitCount: current.count + 1,
+			commitCount: current.commitCount + 1,
 			currentCode: value,
 			committedCode: value,
 			syntaxError: null,
 			lintErrors: [],
 		}));
+		if (!showSpinner) {
+			setShowSpinner(true);
+			setTimeout(() => setShowSpinner(false), 350);
+		}
 	}
 
 	function applyFix(entry) {
@@ -193,13 +206,13 @@ export default function ValidatorPage({data}) {
 			}
 		}
 		const printedNewCode = JSON.stringify(newCode, null, '  ');
-		setState({
-			commitCount: 0,
+		setState((current) => ({
+			commitCount: current.commitCount + 1,
 			currentCode: printedNewCode,
 			committedCode: printedNewCode,
 			syntaxError: null,
 			lintErrors: [],
-		});
+		}));
 	}
 
 	function applyAutoFixes() {
@@ -228,13 +241,24 @@ export default function ValidatorPage({data}) {
 			}
 		}
 		const printedNewCode = JSON.stringify(newCode, null, '  ');
-		setState({
-			commitCount: 0,
+		setState((current) => ({
+			commitCount: current.commitCount + 1,
 			currentCode: printedNewCode,
 			committedCode: printedNewCode,
 			syntaxError: null,
 			lintErrors: [],
-		});
+		}));
+	}
+
+	let userStatus = null;
+	if (state.commitCount === 0) {
+		userStatus = USER_STATUS.INITIAL;
+	} else {
+		if (state.committedCode === state.currentCode) {
+			userStatus = USER_STATUS.REVIEWING_RESULT;
+		} else {
+			userStatus = USER_STATUS.EDITING;
+		}
 	}
 
 	return (
@@ -275,7 +299,8 @@ export default function ValidatorPage({data}) {
 							<Button
 								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 								onClick={() => commitCode(state.currentCode)}
-								size="md">
+								size="md"
+								loading={showSpinner}>
 								Validate
 							</Button>
 						</div>
@@ -319,6 +344,15 @@ export default function ValidatorPage({data}) {
 							</div>
 						</div>
 					)}
+					{!state.syntaxError &&
+						state.lintErrors.length === 0 &&
+						userStatus !== USER_STATUS.INITIAL && (
+							<div className="text-green-600">
+								<div className="flex items-center">
+									<p className="font-semibold">No errors found</p>
+								</div>
+							</div>
+						)}
 					{state.lintErrors.length > 0 && (
 						<div className="text-red-800">
 							<div className="flex items-center">
