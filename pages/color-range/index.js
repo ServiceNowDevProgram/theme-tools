@@ -100,9 +100,6 @@ const ColorRange = () => {
 		isReverse,
 	]);
 
-	console.log(typeof isReverse);
-	console.log('1111', isReverse);
-
 	return (
 		<Fragment>
 			<PageHeader
