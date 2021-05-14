@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
+import Toggle from '../../components/Toggle';
 import BaseColorPicker from '../../components/colors/BaseColorPicker';
 import ColorSwatch from '../../components/colors/ColorSwatch';
 import {generateColorScale} from '../../lib/color-generator/generateColorsP';
@@ -19,7 +20,8 @@ const renderGeneratedColors = (
 	lightSaturation,
 	darkVariations,
 	darkPercentage,
-	darkSaturation
+	darkSaturation,
+	isReverse
 ) => {
 	const colors = generateColorScale({
 		color: baseColor,
@@ -29,6 +31,7 @@ const renderGeneratedColors = (
 		darkVariations: Number(darkVariations),
 		darkPercentage: Number(darkPercentage),
 		darkSaturation: Number(darkSaturation),
+		isDark: isReverse,
 	});
 
 	return <ColorSwatch items={colors} />;
@@ -42,6 +45,7 @@ const ColorRange = () => {
 	const [darkVariations, setDarkVariations] = useState('9');
 	const [darkPercentage, setDarkPercentage] = useState('.9');
 	const [darkSaturation, setDarkSaturation] = useState('1');
+	const [isReverse, setReverse] = useState(false);
 
 	useEffect(() => {
 		const urlParams = new URLSearchParams(window.location.search);
@@ -52,8 +56,9 @@ const ColorRange = () => {
 		const darkV = urlParams.get('darkVariations');
 		const darkP = urlParams.get('darkPercentage');
 		const darkS = urlParams.get('darkSaturation');
+		const rev = urlParams.get('reverse');
 
-		if (base && lightV && lightP && lightS && darkV && darkP && darkS) {
+		if (base && lightV && lightP && lightS && darkV && darkP && darkS && rev) {
 			setBaseColor(base);
 			setLightVariations(lightV);
 			setLightPercentage(lightP);
@@ -61,6 +66,7 @@ const ColorRange = () => {
 			setDarkVariations(darkV);
 			setDarkPercentage(darkP);
 			setDarkSaturation(darkS);
+			setReverse(Boolean(String(rev) === 'true'));
 		}
 	}, []);
 
@@ -73,6 +79,7 @@ const ColorRange = () => {
 		searchParams.set('darkVariations', darkVariations);
 		searchParams.set('darkPercentage', darkPercentage);
 		searchParams.set('darkSaturation', darkSaturation);
+		searchParams.set('reverse', isReverse);
 
 		let newurl =
 			window.location.protocol +
@@ -90,7 +97,11 @@ const ColorRange = () => {
 		darkVariations,
 		darkPercentage,
 		darkSaturation,
+		isReverse,
 	]);
+
+	console.log(typeof isReverse);
+	console.log('1111', isReverse);
 
 	return (
 		<Fragment>
@@ -109,10 +120,11 @@ const ColorRange = () => {
 						lightSaturation,
 						darkVariations,
 						darkPercentage,
-						darkSaturation
+						darkSaturation,
+						isReverse
 					)}
 				</div>
-				<div className="grid grid-cols-7 gap-4">
+				<div className="grid grid-cols-8 gap-3">
 					<div>
 						<Input
 							label="Light Variations"
@@ -201,6 +213,11 @@ const ColorRange = () => {
 							onChange={(e) => setDarkSaturation(e.target.value)}
 						/>
 					</div>
+					<Toggle
+						label="Reverse"
+						checked={isReverse}
+						onChange={() => setReverse(!isReverse)}
+					/>
 				</div>
 			</Page>
 		</Fragment>
