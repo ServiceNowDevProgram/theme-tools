@@ -1,17 +1,10 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import Page from '../../components/Page';
-import PageHeader from '../../components/PageHeader';
-import Input from '../../components/Input';
-import Toggle from '../../components/Toggle';
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 import BaseColorPicker from '../../components/colors/BaseColorPicker';
 import ColorSwatch from '../../components/colors/ColorSwatch';
+import Input from '../../components/Input';
+import Toggle from '../../components/Toggle';
 import {generateColorScale} from '../../lib/color-generator/generateColorsP';
-
-const path = [
-	{id: 'colors', href: '/colors', label: 'Colors'},
-	{id: 'color-range', href: `/color-range`, label: 'Color Range'},
-];
-const selectedPath = 'color-range';
 
 const renderGeneratedColors = (
 	baseColor,
@@ -21,7 +14,10 @@ const renderGeneratedColors = (
 	darkVariations,
 	darkPercentage,
 	darkSaturation,
-	isReverse
+	isReverse,
+	startIndex,
+	includeEnds,
+	hook
 ) => {
 	const colors = generateColorScale({
 		color: baseColor,
@@ -32,63 +28,42 @@ const renderGeneratedColors = (
 		darkPercentage: Number(darkPercentage),
 		darkSaturation: Number(darkSaturation),
 		isDark: isReverse,
+		startIndex: startIndex,
+		includeEnds: includeEnds,
+		hook,
 	});
 
 	return <ColorSwatch items={colors} />;
 };
 
-const ColorRange = () => {
-	const [baseColor, setBaseColor] = useState('#4F5664');
-	const [lightVariations, setLightVariations] = useState('10');
-	const [lightPercentage, setLightPercentage] = useState('.95');
-	const [lightSaturation, setLightSaturation] = useState('1');
-	const [darkVariations, setDarkVariations] = useState('9');
-	const [darkPercentage, setDarkPercentage] = useState('.9');
-	const [darkSaturation, setDarkSaturation] = useState('1');
+const ColorRangeGenerator = (props) => {
+	const [baseColor, setBaseColor] = useState(props.baseColor);
+	const [lightVariations, setLightVariations] = useState(props.lightVariations);
+	const [lightPercentage, setLightPercentage] = useState(props.lightPercentage);
+	const [lightSaturation, setLightSaturation] = useState(
+		props.lightSaturation || '0'
+	);
+	const [darkVariations, setDarkVariations] = useState(props.darkVariations);
+	const [darkPercentage, setDarkPercentage] = useState(props.darkPercentage);
+	const [darkSaturation, setDarkSaturation] = useState(
+		props.darkSaturation || '0'
+	);
 	const [isReverse, setReverse] = useState(false);
+	const [showAdvanced, setAdvanced] = useState(false);
 
 	useEffect(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-		const base = urlParams.get('baseColor');
-		const lightV = urlParams.get('lightVariations');
-		const lightP = urlParams.get('lightPercentage');
-		const lightS = urlParams.get('lightSaturation');
-		const darkV = urlParams.get('darkVariations');
-		const darkP = urlParams.get('darkPercentage');
-		const darkS = urlParams.get('darkSaturation');
-		const rev = urlParams.get('reverse');
-
-		if (base && lightV && lightP && lightS && darkV && darkP && darkS && rev) {
-			setBaseColor(base);
-			setLightVariations(lightV);
-			setLightPercentage(lightP);
-			setLightSaturation(lightS);
-			setDarkVariations(darkV);
-			setDarkPercentage(darkP);
-			setDarkSaturation(darkS);
-			setReverse(Boolean(String(rev) === 'true'));
-		}
-	}, []);
-
-	useEffect(() => {
-		const searchParams = new URLSearchParams();
-		searchParams.set('baseColor', baseColor);
-		searchParams.set('lightVariations', lightVariations);
-		searchParams.set('lightPercentage', lightPercentage);
-		searchParams.set('lightSaturation', lightSaturation);
-		searchParams.set('darkVariations', darkVariations);
-		searchParams.set('darkPercentage', darkPercentage);
-		searchParams.set('darkSaturation', darkSaturation);
-		searchParams.set('reverse', isReverse);
-
-		let newurl =
-			window.location.protocol +
-			'//' +
-			window.location.host +
-			window.location.pathname +
-			'?' +
-			searchParams.toString();
-		window.history.replaceState({path: newurl}, '', newurl);
+		props.onChange(props.label, {
+			baseColor,
+			lightVariations,
+			lightPercentage,
+			lightSaturation,
+			darkVariations,
+			darkPercentage,
+			darkSaturation,
+			isReverse,
+			startIndex: props.startIndex,
+			includeEnds: props.includeEnds || false,
+		});
 	}, [
 		baseColor,
 		lightVariations,
@@ -101,27 +76,32 @@ const ColorRange = () => {
 	]);
 
 	return (
-		<Fragment>
-			<PageHeader
-				label="Color Range"
-				path={path}
-				selectedPath={selectedPath}
-				wide
-			/>
-			<Page wide>
-				<div className="mb-8">
-					{renderGeneratedColors(
-						baseColor,
-						lightVariations,
-						lightPercentage,
-						lightSaturation,
-						darkVariations,
-						darkPercentage,
-						darkSaturation,
-						isReverse
-					)}
+		<div>
+			<div className="mb-8">
+				<p>{props.label}</p>
+				{renderGeneratedColors(
+					baseColor,
+					lightVariations,
+					lightPercentage,
+					lightSaturation,
+					darkVariations,
+					darkPercentage,
+					darkSaturation,
+					isReverse,
+					props.startIndex,
+					props.includeEnds,
+					props.hook
+				)}
+				<div className="flex flex-row-reverse">
+					<small>
+						<a role="button" onClick={() => setAdvanced(!showAdvanced)}>
+							{!showAdvanced ? 'Edit' : 'Hide'}
+						</a>
+					</small>
 				</div>
-				<div className="grid grid-cols-7 gap-3">
+			</div>
+			{showAdvanced ? (
+				<div className="grid grid-cols-7 gap-3 mb-12">
 					<div>
 						<Input
 							label="Light Variations"
@@ -216,9 +196,24 @@ const ColorRange = () => {
 						onChange={() => setReverse(!isReverse)}
 					/>
 				</div>
-			</Page>
-		</Fragment>
+			) : null}
+		</div>
 	);
 };
 
-export default ColorRange;
+ColorRangeGenerator.propTypes = {
+	label: PropTypes.string,
+	baseColor: PropTypes.string,
+	lightVariations: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	lightPercentage: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	lightSaturation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	darkVariations: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	darkPercentage: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	darkSaturation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	startIndex: PropTypes.number,
+	includeEnds: PropTypes.bool,
+	reverse: PropTypes.bool,
+	onChange: PropTypes.func,
+};
+
+export default ColorRangeGenerator;

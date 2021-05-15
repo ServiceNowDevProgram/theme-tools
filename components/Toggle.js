@@ -12,14 +12,14 @@ function Toggle({label, checked = false, onChange = () => {}}) {
 	};
 
 	return (
-		<label htmlFor={label} className="flex items-center cursor-pointer">
+		<label className="flex items-center cursor-pointer">
 			<a
 				role="button"
 				tabIndex="0"
 				className="relative"
 				onKeyPress={onKeyPress}>
 				<input
-					id={label}
+					name={label}
 					type="checkbox"
 					className="hidden"
 					onChange={() => {

@@ -12,6 +12,7 @@ const links = [
 	{label: 'Contrast Checker', href: '/contrast-checker'},
 	{label: 'Theme Generator', href: '/color-generator'},
 	{label: 'Theme Generator P', href: '/color-generator-p'},
+	{label: 'Theme Generator Advanced (BETA)', href: '/color-generator-advanced'},
 ];
 
 const ColorTools = () => {
