@@ -30,7 +30,7 @@ const path = [
 	{
 		id: 'color-generator-p',
 		href: '/color-generator-p',
-		label: 'Theme Generator P',
+		label: 'Color Generator P',
 	},
 ];
 const selectedPath = 'color-generator-p';
@@ -488,7 +488,7 @@ class ColorGeneratorP extends Component {
 					[styles.dark]: isDark,
 				})}>
 				<PageHeader
-					label="Theme Generator P"
+					label="Color Generator P"
 					path={path}
 					selectedPath={selectedPath}
 					wide

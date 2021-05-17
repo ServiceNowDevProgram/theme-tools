@@ -12,6 +12,84 @@ export const colorFormulas = [
 			darkSaturation: 1,
 			startIndex: 0,
 			includeEnds: true,
+			derived: [
+				{
+					group: [
+						{
+							label: 'Text Primary',
+							hook: '--now-color_text--primary',
+							color: '--now-color--neutral-18',
+						},
+						{
+							label: 'Text Secondary',
+							hook: '--now-color_text--secondary',
+							color: '--now-color--neutral-12',
+						},
+						{
+							label: 'Text Tertiary',
+							hook: '--now-color_text--tertiary',
+							color: '--now-color--neutral-9',
+						},
+					],
+				},
+				{
+					group: [
+						{
+							label: 'Background Primary',
+							hook: '--now-color_background--primary',
+							color: '--now-color--neutral-18',
+						},
+						{
+							label: 'Background Secondary',
+							hook: '--now-color_background--secondary',
+							color: '--now-color--neutral-12',
+						},
+						{
+							label: 'Background Tertiary',
+							hook: '--now-color_background--tertiary',
+							color: '--now-color--neutral-9',
+						},
+					],
+				},
+				{
+					group: [
+						{
+							label: 'Border Primary',
+							hook: '--now-color_border--primary',
+							color: '--now-color--neutral-7',
+						},
+						{
+							label: 'Border Secondary',
+							hook: '--now-color_border--secondary',
+							color: '--now-color--neutral-5',
+						},
+						{
+							label: 'Border Tertiary',
+							hook: '--now-color_border--tertiary',
+							color: '--now-color--neutral-3',
+						},
+					],
+				},
+				{
+					group: [
+						{
+							label: 'Divider Primary',
+							hook: '--now-color_divider--primary',
+							color: '--now-color--neutral-7',
+						},
+						{
+							label: 'Divider Secondary',
+							hook: '--now-color_divider--secondary',
+							color: '--now-color--neutral-5',
+						},
+						{
+							label: 'Divider Tertiary',
+							hook: '--now-color_divider--tertiary',
+							color: '--now-color--neutral-3',
+						},
+					],
+				},
+			],
 		},
 	},
 	{

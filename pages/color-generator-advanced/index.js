@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 import Toggle from '../../components/Toggle';
-import {INITIAL_THEME, DEFAULT_POLARIS_THEME} from '../../data/themes';
 import {generateColorScale} from '../../lib/color-generator/generateColorsP';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
@@ -15,7 +14,7 @@ const path = [
 	{
 		id: 'color-generator-advanced',
 		href: '/color-generator-advanced',
-		label: 'Theme Generator Advanced (BETA)',
+		label: 'Color Generator Advanced (BETA)',
 	},
 ];
 const selectedPath = 'color-generator-advanced';
@@ -48,31 +47,16 @@ class ColorGeneratorAdvanced extends Component {
 			newColor.forEach((c) => {
 				out[c.name] = c.rgb;
 			});
+			if (color.light.derived && color.light.derived.length) {
+				color.light.derived.forEach((c) => {
+					c.group.forEach((group) => {
+						out[group.hook] = group.color;
+					});
+				});
+			}
 		});
 
 		copyObject(out);
-	};
-
-	generateDarkTheme = () => {
-		const {selectedColors} = this.state;
-		if (selectedColors.neutrals) {
-			this.setState({
-				isDark: !this.state.isDark,
-			});
-		}
-	};
-
-	updateBaseColor = (id, value) => {
-		this.setState({
-			selectedColors: {
-				...this.state.selectedColors,
-				[id]: value,
-			},
-		});
-	};
-
-	setDefaultTheme = () => {
-		this.setState({selectedColors: {...DEFAULT_POLARIS_THEME}});
 	};
 
 	updateColors = (id, newColorObj) => {
@@ -97,7 +81,7 @@ class ColorGeneratorAdvanced extends Component {
 					[styles.dark]: isDark,
 				})}>
 				<PageHeader
-					label="Theme Generator Advanced (BETA)"
+					label="Color Generator Advanced (BETA)"
 					path={path}
 					selectedPath={selectedPath}
 					wide
@@ -136,6 +120,7 @@ class ColorGeneratorAdvanced extends Component {
 										startIndex={color.light.startIndex}
 										includeEnds={color.light.includeEnds}
 										onChange={this.updateColors}
+										derived={color.light.derived}
 									/>
 								</div>
 							);

@@ -10,9 +10,9 @@ const links = [
 	{label: 'Color Range', href: '/color-range'},
 	{label: 'Complimentary Colors', href: '/complimentary-colors'},
 	{label: 'Contrast Checker', href: '/contrast-checker'},
-	{label: 'Theme Generator', href: '/color-generator'},
-	{label: 'Theme Generator P', href: '/color-generator-p'},
-	{label: 'Theme Generator Advanced (BETA)', href: '/color-generator-advanced'},
+	{label: 'Color Generator', href: '/color-generator'},
+	{label: 'Color Generator P', href: '/color-generator-p'},
+	{label: 'Color Generator Advanced (BETA)', href: '/color-generator-advanced'},
 ];
 
 const ColorTools = () => {
