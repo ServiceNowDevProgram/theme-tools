@@ -58,7 +58,7 @@ const ColorRange = () => {
 		const darkS = urlParams.get('darkSaturation');
 		const rev = urlParams.get('reverse');
 
-		if (base && lightV && lightP && lightS && darkV && darkP && darkS && rev) {
+		if (base && lightV && lightP && lightS && darkV && darkP && darkS) {
 			setBaseColor(base);
 			setLightVariations(lightV);
 			setLightPercentage(lightP);
