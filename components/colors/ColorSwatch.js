@@ -2,19 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CopyValue from '../CopyValue';
 
-const ColorSwatch = ({items}) => {
+const ColorSwatch = ({items, hideName}) => {
 	return (
 		<div className="flex">
 			{items && items.length ? (
 				items.map((color) => {
-					let name = color.name.split('--');
+					let name = color.name.split('-');
 					name = name[name.length - 1];
 					return (
 						<div className="flex-1" title={color.name} key={color.name}>
 							<div style={{height: '80px', backgroundColor: color.hex}}></div>
-							<CopyValue value={color.name}>
-								<small style={{fontSize: '10px'}}>{name}</small>
-							</CopyValue>
+							{!hideName ? (
+								<CopyValue value={color.name}>
+									<small style={{fontSize: '10px'}}>{name}</small>
+								</CopyValue>
+							) : null}
 							<CopyValue value={color.hex}>
 								<small style={{fontSize: '10px'}}>{color.hex}</small>
 							</CopyValue>
@@ -37,6 +39,7 @@ ColorSwatch.propTypes = {
 			hex: PropTypes.string,
 		})
 	),
+	hideName: PropTypes.string,
 };
 
 export default ColorSwatch;

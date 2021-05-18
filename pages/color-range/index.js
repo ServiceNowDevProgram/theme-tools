@@ -34,7 +34,7 @@ const renderGeneratedColors = (
 		isDark: isReverse,
 	});
 
-	return <ColorSwatch items={colors} />;
+	return <ColorSwatch items={colors} hideName />;
 };
 
 const ColorRange = () => {
