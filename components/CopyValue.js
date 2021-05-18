@@ -34,6 +34,7 @@ export default class CopyValue extends Component {
 							fontSize: '8px',
 							width: '72px',
 							borderRadius: '2px',
+							zIndex: '100',
 						}}>
 						CLICK TO COPY
 					</div>

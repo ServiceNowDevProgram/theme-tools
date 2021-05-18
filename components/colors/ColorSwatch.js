@@ -7,9 +7,14 @@ const ColorSwatch = ({items}) => {
 		<div className="flex">
 			{items && items.length ? (
 				items.map((color) => {
+					let name = color.name.split('--');
+					name = name[name.length - 1];
 					return (
 						<div className="flex-1" title={color.name} key={color.name}>
 							<div style={{height: '80px', backgroundColor: color.hex}}></div>
+							<CopyValue value={color.name}>
+								<small style={{fontSize: '10px'}}>{name}</small>
+							</CopyValue>
 							<CopyValue value={color.hex}>
 								<small style={{fontSize: '10px'}}>{color.hex}</small>
 							</CopyValue>
