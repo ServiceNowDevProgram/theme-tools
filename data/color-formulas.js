@@ -1,5 +1,26 @@
 export const colorFormulas = [
 	{
+		label: 'Brand Primary',
+		hook: '--now-color_brand--primary',
+		light: {
+			color: '#4F52BD',
+		},
+	},
+	{
+		label: 'Brand Secondary',
+		hook: '--now-color_brand--secondary',
+		light: {
+			color: '#302F4B',
+		},
+	},
+	{
+		label: 'Brand Neutral',
+		hook: '--now-color_brand--neutral',
+		light: {
+			color: '#4F5664',
+		},
+	},
+	{
 		label: 'Neutrals',
 		hook: 'now-color--neutral',
 		light: {
@@ -223,6 +244,66 @@ export const colorFormulas = [
 			darkPercentage: 0.63,
 			darkVariations: 0,
 			startIndex: 1,
+		},
+	},
+	{
+		label: 'Surface Brand',
+		hook: 'now-color_surface--brand',
+		light: {
+			color: '#007B58',
+			lightPercentage: 0.9,
+			lightVariations: 5,
+			darkPercentage: 0.5,
+			darkVariations: 0,
+			startIndex: 1,
+		},
+	},
+	{
+		label: 'Surface Neutral',
+		hook: 'now-color_surface--neutral',
+		light: {
+			color: '#C0C5CD',
+			lightPercentage: 0.95,
+			lightVariations: 6,
+			darkPercentage: 0.81,
+			darkVariations: 0,
+			startIndex: 1,
+			removeEnd: true,
+		},
+	},
+	{
+		label: 'Surface Divider',
+		hook: 'now-color_surface--divider',
+		light: {
+			color: '#7d8592',
+			lightPercentage: 0.9,
+			lightVariations: 6,
+			darkPercentage: 0,
+			darkVariations: 0,
+			startIndex: 1,
+			removeEnd: true,
+		},
+	},
+	{
+		label: 'Chrome Brand',
+		hook: 'now-color_chrome--brand',
+		light: {
+			color: '#302F4B',
+			lightPercentage: 0.85,
+			lightVariations: 5,
+			darkPercentage: 0.5,
+			darkVariations: 5,
+		},
+	},
+	{
+		label: 'Chrome Divider',
+		hook: 'now-color_chrome--divider',
+		light: {
+			color: '#2A2941',
+			lightPercentage: 0.6,
+			lightVariations: 5,
+			darkPercentage: 0.8,
+			darkVariations: 5,
 		},
 	},
 	{

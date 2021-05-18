@@ -43,6 +43,7 @@ class ColorGeneratorAdvanced extends Component {
 				isDark: color.light.isReverse,
 				startIndex: Number(color.light.startIndex),
 				includeEnds: color.light.includeEnds,
+				removeEnd: color.light.removeEnd,
 			});
 			newColor.forEach((c) => {
 				out[c.name] = c.rgb;
@@ -121,6 +122,7 @@ class ColorGeneratorAdvanced extends Component {
 										includeEnds={color.light.includeEnds}
 										onChange={this.updateColors}
 										derived={color.light.derived}
+										removeEnd={color.light.removeEnd}
 									/>
 								</div>
 							);

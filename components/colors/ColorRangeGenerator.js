@@ -17,7 +17,8 @@ const renderGeneratedColors = (
 	isReverse,
 	startIndex,
 	includeEnds,
-	hook
+	hook,
+	removeEnd
 ) => {
 	const colors = generateColorScale({
 		color: baseColor,
@@ -31,6 +32,7 @@ const renderGeneratedColors = (
 		startIndex: startIndex,
 		includeEnds: includeEnds,
 		hook,
+		removeEnd,
 	});
 
 	return <ColorSwatch items={colors} />;
@@ -99,7 +101,8 @@ const ColorRangeGenerator = (props) => {
 					isReverse,
 					props.startIndex,
 					props.includeEnds,
-					props.hook
+					props.hook,
+					props.removeEnd
 				)}
 				<div className="flex flex-row-reverse">
 					<small>
@@ -250,6 +253,7 @@ ColorRangeGenerator.propTypes = {
 	includeEnds: PropTypes.bool,
 	reverse: PropTypes.bool,
 	onChange: PropTypes.func,
+	removeEnd: PropTypes.bool,
 };
 
 export default ColorRangeGenerator;
