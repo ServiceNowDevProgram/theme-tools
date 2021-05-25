@@ -58,17 +58,17 @@ export const colorFormulas = [
 						{
 							label: 'Background Primary',
 							hook: '--now-color_background--primary',
-							color: '--now-color--neutral-18',
+							color: '--now-color--neutral-0',
 						},
 						{
 							label: 'Background Secondary',
 							hook: '--now-color_background--secondary',
-							color: '--now-color--neutral-12',
+							color: '--now-color--neutral-1',
 						},
 						{
 							label: 'Background Tertiary',
 							hook: '--now-color_background--tertiary',
-							color: '--now-color--neutral-9',
+							color: '--now-color--neutral-2',
 						},
 					],
 				},
