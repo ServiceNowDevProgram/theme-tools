@@ -31,7 +31,7 @@ const renderGeneratedColors = (
 		darkVariations: Number(darkVariations),
 		darkPercentage: Number(darkPercentage),
 		darkSaturation: Number(darkSaturation),
-		isDark: isReverse,
+		isReverse,
 	});
 
 	return <ColorSwatch items={colors} hideName />;

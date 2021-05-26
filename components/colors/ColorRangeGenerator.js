@@ -28,7 +28,7 @@ const renderGeneratedColors = (
 		darkVariations: Number(darkVariations),
 		darkPercentage: Number(darkPercentage),
 		darkSaturation: Number(darkSaturation),
-		isDark: isReverse,
+		isReverse,
 		startIndex: startIndex,
 		includeEnds: includeEnds,
 		hook,

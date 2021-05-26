@@ -40,7 +40,7 @@ class ColorGeneratorAdvanced extends Component {
 				darkVariations: Number(color.light.darkVariations),
 				darkPercentage: Number(color.light.darkPercentage),
 				darkSaturation: Number(color.light.darkSaturation),
-				isDark: color.light.isReverse,
+				isReverse: color.light.isReverse,
 				startIndex: Number(color.light.startIndex),
 				includeEnds: color.light.includeEnds,
 				removeEnd: color.light.removeEnd,
