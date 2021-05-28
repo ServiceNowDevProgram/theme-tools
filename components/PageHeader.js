@@ -14,7 +14,7 @@ function NavLink({label, href}) {
 	);
 }
 
-export default function PageHeader({label, path, selectedPath, wide = false}) {
+export default function PageHeader({label, path, selectedPath, size = 'lg'}) {
 	return (
 		<Fragment>
 			<Head>
@@ -42,8 +42,7 @@ export default function PageHeader({label, path, selectedPath, wide = false}) {
 					'p-8': true,
 					'pt-2': true,
 					'm-auto': true,
-					'max-w-screen-lg': !wide,
-					'max-w-screen-xl': wide,
+					[`max-w-screen-${size}`]: true,
 				})}>
 				<h1 className="text-3xl">{label}</h1>
 			</div>

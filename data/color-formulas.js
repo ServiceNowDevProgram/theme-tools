@@ -110,6 +110,77 @@ export const colorFormulas = [
 						},
 					],
 				},
+				{
+					group: [
+						{
+							label: 'Datavis Color Primary',
+							hook: '--now-datavis_color--primary',
+							color: '--now-color--neutral-0',
+						},
+					],
+				},
+				{
+					group: [
+						{
+							label: 'Datavis Color Chart Primary',
+							hook: '--now-datavis_color_chart--primary',
+							color: '--now-color--neutral-2',
+						},
+						{
+							label: 'Datavis Color Chart Secondary',
+							hook: '--now-datavis_color_chart--secondary',
+							color: '--now-color--neutral-4',
+						},
+						{
+							label: 'Datavis Color Chart Tertiary',
+							hook: '--now-datavis_color_chart--tertiary',
+							color: '--now-color--neutral-7',
+						},
+					],
+				},
+				{
+					group: [
+						{
+							label: 'Datavis Color Label Primary',
+							hook: '--now-datavis_color_label--primary',
+							color: '--now-color--neutral-18',
+						},
+						{
+							label: 'Datavis Color Label Secondary',
+							hook: '--now-datavis_color_label--secondary',
+							color: '--now-color--neutral-9',
+						},
+						{
+							label: 'Datavis Color Label Tertiary',
+							hook: '--now-datavis_color_label--tertiary',
+							color: '--now-color--neutral-5',
+						},
+					],
+				},
+				{
+					group: [
+						{
+							label: 'Datavis Color Layer Primary',
+							hook: '--now-datavis_color_layer--primary',
+							color: '--now-color--neutral-2',
+						},
+						{
+							label: 'Datavis Color Layer Secondary',
+							hook: '--now-datavis_color_layer--secondary',
+							color: '--now-color--neutral-4',
+						},
+						{
+							label: 'Datavis Color Layer Tertiary',
+							hook: '--now-datavis_color_layer--tertiary',
+							color: '--now-color--neutral-5',
+						},
+						{
+							label: 'Datavis Color Layer Quad',
+							hook: '--now-datavis_color_layer--quad',
+							color: '--now-color--neutral-20',
+						},
+					],
+				},
 			],
 		},
 	},

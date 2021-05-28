@@ -106,9 +106,9 @@ const ColorRange = () => {
 				label="Color Range"
 				path={path}
 				selectedPath={selectedPath}
-				wide
+				size="xl"
 			/>
-			<Page wide>
+			<Page size="xl">
 				<div className="mb-8">
 					{renderGeneratedColors(
 						baseColor,

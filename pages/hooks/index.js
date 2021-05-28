@@ -496,13 +496,13 @@ export default function HooksPage() {
 		<NoSsr>
 			<Fragment>
 				<PageHeader
-					wide
+					size="xl"
 					label="Hooks"
 					path={path}
 					selectedPath={selectedPath}
 				/>
 
-				<Page wide>
+				<Page size="xl">
 					<div className="mb-4 flex justify-between">
 						<TextFilter
 							label="Search"

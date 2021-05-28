@@ -22,9 +22,9 @@ const ColorTools = () => {
 				label="Color Tools"
 				path={path}
 				selectedPath={selectedPath}
-				wide
+				size="xl"
 			/>
-			<Page wide>
+			<Page size="xl">
 				<ul className="list-disc">
 					{links.map((link) => {
 						return (

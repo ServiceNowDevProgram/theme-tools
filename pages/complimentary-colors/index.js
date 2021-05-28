@@ -75,9 +75,9 @@ const ComplimentaryColors = () => {
 				label="Complimentary Colors"
 				path={path}
 				selectedPath={selectedPath}
-				wide
+				size="xl"
 			/>
-			<Page wide>
+			<Page size="xl">
 				<div className="grid grid-cols-4 gap-4 mb-5">
 					<BaseColorPicker
 						value={baseColor}

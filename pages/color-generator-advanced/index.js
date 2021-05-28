@@ -25,6 +25,7 @@ class ColorGeneratorAdvanced extends Component {
 		this.state = {
 			isDark: false,
 			colors: [...colorFormulas],
+			a11yCheckColors: [],
 		};
 	}
 
@@ -70,12 +71,56 @@ class ColorGeneratorAdvanced extends Component {
 			}
 			return color;
 		});
-		this.setState({colors: newColorFormulas});
+
+		// CRAZY HACK FOR THE A11Y CHECKS
+
+		if (id === 'Neutrals') {
+			let derived = [];
+			const neutrals = generateColorScale({
+				hook: 'now-color--neutral',
+				color: newColorObj.baseColor,
+				lightVariations: Number(newColorObj.lightVariations),
+				lightPercentage: Number(newColorObj.lightPercentage),
+				lightSaturation: Number(newColorObj.lightSaturation),
+				darkVariations: Number(newColorObj.darkVariations),
+				darkPercentage: Number(newColorObj.darkPercentage),
+				darkSaturation: Number(newColorObj.darkSaturation),
+				isReverse: newColorObj.isReverse,
+				startIndex: Number(newColorObj.startIndex),
+				includeEnds: newColorObj.includeEnds,
+				removeEnd: newColorObj.removeEnd,
+			});
+
+			let neutralMapper = {};
+			neutrals.forEach((color) => {
+				neutralMapper[color.name] = color.hex;
+			});
+
+			newColorObj.derived.forEach((color) => {
+				color.group.forEach((item) => {
+					derived.push({
+						id: item.hook,
+						label: item.hook.split('_')[1],
+						hook: item.hook,
+						color: neutralMapper[item.color],
+					});
+				});
+			});
+
+			this.setState({
+				a11yCheckColors: derived,
+				colors: newColorFormulas,
+			});
+			// END OF CRAZY HACK FOR THE A11Y CHECKS
+		} else {
+			this.setState({
+				colors: newColorFormulas,
+			});
+		}
 	};
 
 	render() {
-		const {isDark} = this.state;
-
+		const {isDark, a11yCheckColors} = this.state;
 		return (
 			<div
 				className={cx({
@@ -85,9 +130,9 @@ class ColorGeneratorAdvanced extends Component {
 					label="Color Generator Advanced (BETA)"
 					path={path}
 					selectedPath={selectedPath}
-					wide
+					size="2xl"
 				/>
-				<Page wide>
+				<Page size="2xl">
 					<div className="mb-8 flex flex-row-reverse items-center">
 						<div>
 							<button
@@ -123,6 +168,7 @@ class ColorGeneratorAdvanced extends Component {
 										onChange={this.updateColors}
 										derived={color.light.derived}
 										removeEnd={color.light.removeEnd}
+										a11yCheckColors={a11yCheckColors}
 									/>
 								</div>
 							);

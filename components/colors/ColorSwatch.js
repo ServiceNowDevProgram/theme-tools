@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CopyValue from '../CopyValue';
+import A11ySelect from '../A11ySelect';
 
-const ColorSwatch = ({items, hideName}) => {
+const ColorSwatch = ({
+	items,
+	hideName,
+	a11yCheckColors = [],
+	hideA11yCheckColors,
+}) => {
 	return (
 		<div className="flex">
 			{items && items.length ? (
 				items.map((color) => {
 					let name = color.name.split('-');
 					name = name[name.length - 1];
+
 					return (
 						<div className="flex-1" title={color.name} key={color.name}>
 							<div style={{height: '80px', backgroundColor: color.hex}}></div>
@@ -20,6 +27,9 @@ const ColorSwatch = ({items, hideName}) => {
 							<CopyValue value={color.hex}>
 								<small style={{fontSize: '10px'}}>{color.hex}</small>
 							</CopyValue>
+							{!hideA11yCheckColors ? (
+								<A11ySelect items={a11yCheckColors} baseColor={color.hex} />
+							) : null}
 						</div>
 					);
 				})
@@ -39,7 +49,9 @@ ColorSwatch.propTypes = {
 			hex: PropTypes.string,
 		})
 	),
-	hideName: PropTypes.string,
+	hideName: PropTypes.bool,
+	a11yCheckColors: PropTypes.array,
+	hideA11yCheckColors: PropTypes.bool,
 };
 
 export default ColorSwatch;

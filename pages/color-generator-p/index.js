@@ -491,9 +491,9 @@ class ColorGeneratorP extends Component {
 					label="Color Generator P"
 					path={path}
 					selectedPath={selectedPath}
-					wide
+					size="xl"
 				/>
-				<Page wide>
+				<Page size="xl">
 					{this.renderDefaultThemeAlert()}
 					<div className="flex flex-row-reverse mb-5">
 						<div className="flex-initial">

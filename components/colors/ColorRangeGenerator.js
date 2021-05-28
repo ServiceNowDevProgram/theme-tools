@@ -18,7 +18,8 @@ const renderGeneratedColors = (
 	startIndex,
 	includeEnds,
 	hook,
-	removeEnd
+	removeEnd,
+	a11yCheckColors
 ) => {
 	const colors = generateColorScale({
 		color: baseColor,
@@ -33,9 +34,16 @@ const renderGeneratedColors = (
 		includeEnds: includeEnds,
 		hook,
 		removeEnd,
+		a11yCheckColors,
 	});
 
-	return <ColorSwatch items={colors} />;
+	return (
+		<ColorSwatch
+			items={colors}
+			a11yCheckColors={a11yCheckColors}
+			hideA11yCheckColors={Boolean(hook === 'now-color--neutral')}
+		/>
+	);
 };
 
 const ColorRangeGenerator = (props) => {
@@ -102,7 +110,8 @@ const ColorRangeGenerator = (props) => {
 					props.startIndex,
 					props.includeEnds,
 					props.hook,
-					props.removeEnd
+					props.removeEnd,
+					props.a11yCheckColors
 				)}
 				<div className="flex flex-row-reverse">
 					<small>
@@ -215,7 +224,7 @@ const ColorRangeGenerator = (props) => {
 							<div className="grid grid-cols-4 gap-3 mb-12">
 								{derived.map((derive, deriveIndex) => {
 									return (
-										<div key={deriveIndex}>
+										<div key={deriveIndex} className="mb-8">
 											{derive.group.map((group, groupIndex) => {
 												return (
 													<Input
@@ -254,6 +263,7 @@ ColorRangeGenerator.propTypes = {
 	reverse: PropTypes.bool,
 	onChange: PropTypes.func,
 	removeEnd: PropTypes.bool,
+	a11yCheckColors: PropTypes.array,
 };
 
 export default ColorRangeGenerator;
