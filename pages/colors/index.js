@@ -12,7 +12,8 @@ const links = [
 	{label: 'Contrast Checker', href: '/contrast-checker'},
 	{label: 'Color Generator', href: '/color-generator'},
 	{label: 'Color Generator P', href: '/color-generator-p'},
-	{label: 'Color Generator Advanced (BETA)', href: '/color-generator-advanced'},
+	{label: 'Color Generator Advanced', href: '/color-generator-advanced'},
+	{label: 'Compare Color JSON', href: '/compare-colors'},
 ];
 
 const ColorTools = () => {
