@@ -43,7 +43,9 @@
 				"textTertiary",
 				"borderPrimary",
 				"borderSecondary",
-				"borderTertiary"
+				"borderTertiary",
+				"focusRingShadow",
+				"focusRing"
 			]
 		},
 		"alert": {
@@ -374,6 +376,18 @@
 			"id": "borderTertiary",
 			"label": "Border Tertiary",
 			"notes": "Disabled: Generated from neutrals",
+			"disabled": true
+		},
+		"focusRingShadow": {
+			"id": "focusRingShadow",
+			"label": "Focus Ring Shadow",
+			"notes": "Disabled: Generated from neutrals",
+			"disabled": true
+		},
+		"focusRing": {
+			"id": "focusRing",
+			"label": "Focus Ring",
+			"notes": "Disabled: Generated from focus",
 			"disabled": true
 		}
 	}

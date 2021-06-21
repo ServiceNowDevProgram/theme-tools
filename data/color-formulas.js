@@ -113,6 +113,15 @@ export const colorFormulas = [
 				{
 					group: [
 						{
+							label: 'Focus Ring Shadow',
+							hook: '--now-color_focus-ring_shadow',
+							color: '--now-color--neutral-0',
+						},
+					],
+				},
+				{
+					group: [
+						{
 							label: 'Datavis Color Primary',
 							hook: '--now-datavis_color--primary',
 							color: '--now-color--neutral-0',
@@ -306,6 +315,17 @@ export const colorFormulas = [
 			darkPercentage: 0.63,
 			darkVariations: 1,
 			startIndex: 1,
+			derived: [
+				{
+					group: [
+						{
+							label: 'Focus Ring',
+							hook: '--now-color_focus-ring',
+							color: '--now-color--focus-2',
+						},
+					],
+				},
+			],
 		},
 		dark: {
 			color: '#3C59E7',
