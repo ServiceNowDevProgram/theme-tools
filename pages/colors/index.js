@@ -10,8 +10,9 @@ const links = [
 	{label: 'Color Range', href: '/color-range'},
 	{label: 'Complimentary Colors', href: '/complimentary-colors'},
 	{label: 'Contrast Checker', href: '/contrast-checker'},
-	{label: 'Color Generator', href: '/color-generator'},
-	{label: 'Color Generator P', href: '/color-generator-p'},
+	// commenting this page out for now until i know for sure we dont need this anymore
+	// {label: 'Color Generator', href: '/color-generator'},
+	{label: 'Color Generator', href: '/color-generator-p'},
 	{label: 'Color Generator Advanced', href: '/color-generator-advanced'},
 	{label: 'Compare Color JSON', href: '/compare-colors'},
 ];
