@@ -564,12 +564,23 @@ class ColorGeneratorP extends Component {
 					{this.renderDefaultThemeAlert()}
 
 					{compact && (
-						<div>
+						<div
+							style={{
+								display: 'grid',
+								gridTemplateColumns: '1fr 1fr 1fr',
+								gridTemplateRows: 'auto',
+								gridGap: '1rem',
+							}}>
 							{Object.values(DATA.colors).map((color) => (
 								<div
-									className={`${pageStyles.swatch_group} mb-6 pt-2 border-t border-gray-600`}
-									key={color.id}>
-									<div className="">
+									className="p-4 border border-gray-300"
+									key={color.id}
+									style={
+										generatedColors[color.id].length > 15
+											? {gridColumn: 'span 3'}
+											: {}
+									}>
+									<div className="mb-2">
 										<div>{color.label}</div>
 										{/* <div className="mt-2 text-sm text-gray-600">
 											Sed ut perspiciatis unde omnis iste natus error sit
