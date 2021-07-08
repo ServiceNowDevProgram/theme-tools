@@ -26,8 +26,8 @@ function ColorCircle({color, index}) {
 				<p className="text-2xs uppercase opacity-75 pb-1 mt-3">
 					CSS Custom Property
 				</p>
-				<CopyValue withButton value={color.name}>
-					<p>{color.name}</p>
+				<CopyValue withButton value={color.customProperty}>
+					<p>{color.customProperty}</p>
 				</CopyValue>
 
 				<p className="text-2xs uppercase opacity-75 pb-1 mt-3">Hex Color</p>
