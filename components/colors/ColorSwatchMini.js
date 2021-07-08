@@ -13,7 +13,7 @@ function getOnColor(baseColor) {
 	}
 }
 
-function ColorCircle({color, index}) {
+function ColorCircle({color}) {
 	const tooltip = (
 		<div>
 			<div className="w-full h-20" style={{backgroundColor: color.hex}}></div>
@@ -69,7 +69,7 @@ function ColorCircle({color, index}) {
 	);
 }
 
-const ColorSwatchMini = ({name, description, items}) => {
+const ColorSwatchMini = ({items}) => {
 	return (
 		<div className="flex flex-wrap">
 			{items.map((color, index) => (
