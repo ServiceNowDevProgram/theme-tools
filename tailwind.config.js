@@ -8,6 +8,9 @@ module.exports = {
 	purge: [],
 	theme: {
 		extend: {
+			fontSize: {
+				'2xs': '0.625rem',
+			},
 			colors: {
 				primary: colors.purple,
 			},

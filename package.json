@@ -23,7 +23,8 @@
 		"react-color": "2.19.3",
 		"react-dom": "16.13.1",
 		"react-toastify": "6.1.0",
-		"tippy.js": "6.2.7"
+		"tippy.js": "6.2.7",
+		"@tippyjs/react": "4.2.0"
 	},
 	"devDependencies": {
 		"gray-matter": "^4.0.2",

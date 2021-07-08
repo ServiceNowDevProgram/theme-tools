@@ -34,6 +34,19 @@ a {
 	flex: 1 0 auto;
 }
 
+/***** TIPPY *****/
+
+.tippy-box[data-theme='colorbox'] {
+	background-color: white;
+	color: black;
+	box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+	box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+}
+
+.tippy-box[data-theme='colorbox'] .tippy-content {
+	padding: 0;
+}
+
 /***** MAKRDOWN ******/
 
 /* purgecss start ignore */

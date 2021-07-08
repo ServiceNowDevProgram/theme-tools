@@ -14,7 +14,13 @@ function NavLink({label, href}) {
 	);
 }
 
-export default function PageHeader({label, path, selectedPath, size = 'lg'}) {
+export default function PageHeader({
+	label,
+	path,
+	selectedPath,
+	size = 'lg',
+	toolbarContent,
+}) {
 	return (
 		<Fragment>
 			<Head>
@@ -30,15 +36,29 @@ export default function PageHeader({label, path, selectedPath, size = 'lg'}) {
 				<NavLink href="/themes" label="Themes" />
 			</div>
 
-			<div className="mb-6 bg-gray-300 p-4 text-sm">
+			<div className="bg-gray-300 p-4 text-sm">
 				<Breadcrumbs
 					items={[{id: 'home', label: 'Home', href: '/'}, ...path]}
 					selected={selectedPath}
 				/>
 			</div>
 
+			{toolbarContent && (
+				<div
+					className="border-b border-gray-500 bg-white"
+					style={{
+						position: 'sticky',
+						top: '0px',
+						left: '0px',
+						zIndex: '9999',
+					}}>
+					{toolbarContent}
+				</div>
+			)}
+
 			<div
 				className={cx({
+					'mt-6': true,
 					'p-8': true,
 					'pt-2': true,
 					'm-auto': true,
