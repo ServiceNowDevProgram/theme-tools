@@ -50,7 +50,7 @@ export default function PageHeader({
 						position: 'sticky',
 						top: '0px',
 						left: '0px',
-						zIndex: '9999',
+						zIndex: '2',
 					}}>
 					{toolbarContent}
 				</div>
