@@ -23,7 +23,9 @@ import {getThemes} from '../api/themes';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
 import styles from '../../styles/Home.module.css';
+import pageStyles from './styles.module.css';
 import ColorSwatch from '../../components/colors/ColorSwatch';
+import ColorSwatchMini from '../../components/colors/ColorSwatchMini';
 
 const path = [
 	{id: 'colors', href: '/colors', label: 'Colors'},
@@ -44,6 +46,7 @@ class ColorGeneratorP extends Component {
 			},
 			selectedColorGroup: 'base',
 			isDark: false,
+			compact: false,
 			openSmartGenModal: false,
 			openA11yModal: false,
 			autoGenBrandNeutral: '',
@@ -473,6 +476,7 @@ class ColorGeneratorP extends Component {
 		const {
 			selectedColors,
 			isDark,
+			compact,
 			openSmartGenModal,
 			autoGenBrandNeutral,
 			autoGenBrandPrimary,
@@ -492,59 +496,109 @@ class ColorGeneratorP extends Component {
 					path={path}
 					selectedPath={selectedPath}
 					size="xl"
+					toolbarContent={
+						<section
+							className={cx({
+								flex: true,
+								'items-center': true,
+								'p-4': true,
+								'bg-gray-900': isDark,
+							})}>
+							<div className="flex-initial mr-4">
+								<Select
+									layout="horizontal"
+									label="Themes"
+									items={themes.map((x) => ({id: x.sys_id, label: x.name}))}
+									unsetLabel="Select a theme"
+									selected={selectedTheme.sys_id || ''}
+									onSelect={(id) => {
+										const theme = this.state.themes.filter(
+											(theme) => theme.sys_id === id
+										)[0];
+										this.onThemeSelect(theme);
+									}}
+								/>
+							</div>
+							<div className="ml-auto flex">
+								<button
+									className="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-1 px-2 rounded ml-auto"
+									onClick={() =>
+										this.setState({
+											selectedColors: {...INITIAL_THEME},
+											selectedTheme: {},
+										})
+									}>
+									Clear
+								</button>
+								<button
+									className="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-1 px-2 rounded ml-3"
+									onClick={() => this.setState({openSmartGenModal: true})}>
+									Auto Generate
+								</button>
+								<button
+									className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded ml-3"
+									onClick={this.copyColors}>
+									Copy JSON
+								</button>
+								<div className="flex items-center ml-5">
+									<Toggle
+										label="Dark"
+										onChange={() =>
+											this.setState({isDark: !isDark, isHighContrast: false})
+										}
+										checked={isDark}
+									/>
+								</div>
+								<div className="flex items-center ml-5">
+									<Toggle
+										label="Compact"
+										onChange={() => this.setState({compact: !compact})}
+										checked={compact}
+									/>
+								</div>
+							</div>
+						</section>
+					}
 				/>
 				<Page size="xl">
 					{this.renderDefaultThemeAlert()}
-					<div className="flex flex-row-reverse mb-5">
-						<div className="flex-initial">
-							<Select
-								layout="horizontal"
-								label="Themes"
-								items={themes.map((x) => ({id: x.sys_id, label: x.name}))}
-								unsetLabel="Select a theme"
-								selected={selectedTheme.sys_id || ''}
-								onSelect={(id) => {
-									const theme = this.state.themes.filter(
-										(theme) => theme.sys_id === id
-									)[0];
-									this.onThemeSelect(theme);
-								}}
-							/>
+
+					{compact && (
+						<div
+							style={{
+								display: 'grid',
+								gridTemplateColumns: '1fr 1fr 1fr',
+								gridTemplateRows: 'auto',
+								gridGap: '1rem',
+							}}>
+							{Object.values(DATA.colors).map((color) => (
+								<div
+									className="p-4 border border-gray-300"
+									key={color.id}
+									style={
+										generatedColors[color.id].length > 15
+											? {gridColumn: 'span 3'}
+											: {}
+									}>
+									<div className="mb-2">
+										<div>{color.label}</div>
+										{/* <div className="mt-2 text-sm text-gray-600">
+											Sed ut perspiciatis unde omnis iste natus error sit
+											voluptatem accusantium doloremque laudantium, totam rem
+											aperiam.
+										</div> */}
+									</div>
+									<ColorSwatchMini items={generatedColors[color.id]} />
+								</div>
+							))}
 						</div>
+					)}
+
+					{!compact && <div className="mb-8">{this.renderTabs()}</div>}
+
+					<div>
+						{!compact && this.renderColorGroups(generatedColors, isDark)}
 					</div>
-					<div className="mb-8 flex justify-between items-center">
-						<div>{this.renderTabs()}</div>
-						<div>
-							<button
-								className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3 mb-2"
-								onClick={() =>
-									this.setState({
-										selectedColors: {...INITIAL_THEME},
-										selectedTheme: {},
-									})
-								}>
-								Clear All
-							</button>
-							<button
-								className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded ml-auto mr-3 mb-2"
-								onClick={() => this.setState({openSmartGenModal: true})}>
-								Auto Generate
-							</button>
-							<button
-								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-auto mb-2"
-								onClick={this.copyColors}>
-								Copy Colors Json
-							</button>
-							<Toggle
-								label="Dark Mode"
-								onChange={() =>
-									this.setState({isDark: !isDark, isHighContrast: false})
-								}
-								checked={isDark}
-							/>
-						</div>
-					</div>
-					<div>{this.renderColorGroups(generatedColors, isDark)}</div>
 				</Page>
 
 				<Modal open={openSmartGenModal}>

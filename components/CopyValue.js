@@ -8,9 +8,28 @@ export default class CopyValue extends Component {
 		super(props);
 		this.state = {hover: false};
 	}
+
+	copyValue = () => {
+		const {value} = this.props;
+		copyText(value);
+		toast.success(`Copied to clipboard: ${value}`);
+	};
+
 	render() {
-		const {value, children} = this.props;
+		const {value, withButton, children} = this.props;
 		const {hover} = this.state;
+		if (withButton) {
+			return (
+				<div className="flex">
+					<div className="pr-4">{children}</div>
+					<button
+						className="ml-auto text-2xs uppercase bg-black text-white rounded font-semibold py-1 px-2"
+						onClick={this.copyValue}>
+						Copy
+					</button>
+				</div>
+			);
+		}
 		return (
 			<div
 				className={cx({
@@ -34,7 +53,6 @@ export default class CopyValue extends Component {
 							fontSize: '8px',
 							width: '72px',
 							borderRadius: '2px',
-							zIndex: '100',
 						}}>
 						CLICK TO COPY
 					</div>

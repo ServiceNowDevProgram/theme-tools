@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CopyValue from '../CopyValue';
 import A11ySelect from '../A11ySelect';
+import ColorInfoPopup from './ColorInfoPopup';
 
 const ColorSwatch = ({
 	items,
@@ -13,15 +14,20 @@ const ColorSwatch = ({
 		<div className="flex">
 			{items && items.length ? (
 				items.map((color) => {
-					let name = color.name.split('-');
-					name = name[name.length - 1];
-
 					return (
 						<div className="flex-1" title={color.name} key={color.name}>
-							<div style={{height: '80px', backgroundColor: color.hex}}></div>
+							<ColorInfoPopup color={color}>
+								<button
+									style={{
+										display: 'block',
+										height: '80px',
+										width: '100%',
+										backgroundColor: color.hex,
+									}}></button>
+							</ColorInfoPopup>
 							{!hideName ? (
 								<CopyValue value={color.name}>
-									<small style={{fontSize: '10px'}}>{name}</small>
+									<small style={{fontSize: '10px'}}>{color.index}</small>
 								</CopyValue>
 							) : null}
 							<CopyValue value={color.hex}>
