@@ -41,8 +41,13 @@ const renderColors = (json1, json2) => {
 	let colors = [];
 	const parsedJson1 = JSON.parse(json1);
 	const parsedJson2 = JSON.parse(json2);
+	let errors = 0;
 
 	for (let i in parsedJson1) {
+		if (parsedJson1[i] !== parsedJson2[i]) {
+			errors += 1;
+		}
+
 		colors.push({
 			name: i,
 			color1: parsedJson1[i],
@@ -51,57 +56,60 @@ const renderColors = (json1, json2) => {
 	}
 
 	return (
-		<div className="flex">
-			<div className="flex-1">
-				{colors.map((color) => {
-					return (
-						<div
-							key={color.name}
-							className="flex flex-row-reverse items-center">
+		<Fragment>
+			<div className="text-red-600">Errors: {errors}</div>
+			<div className="flex">
+				<div className="flex-1">
+					{colors.map((color) => {
+						return (
 							<div
-								style={{
-									backgroundColor: `RGB(${color.color1})`,
-									width: '300px',
-									height: '100px',
-								}}
-								className="ml-8"></div>
-							<div className="flex flex-col">
-								<p>{color.name}</p>
-								<p style={{textAlign: 'right'}}>{color.color1}</p>
+								key={color.name}
+								className="flex flex-row-reverse items-center">
+								<div
+									style={{
+										backgroundColor: `RGB(${color.color1})`,
+										width: '100px',
+										height: '100px',
+									}}
+									className="ml-8"></div>
+								<div className="flex flex-col">
+									<p>{color.name}</p>
+									<p style={{textAlign: 'right'}}>{color.color1}</p>
+								</div>
 							</div>
-						</div>
-					);
-				})}
-			</div>
+						);
+					})}
+				</div>
 
-			<div className="flex-1">
-				{colors.map((color) => {
-					return (
-						<div key={color.name} className="flex items-center">
-							<div
-								style={{
-									backgroundColor: `rgb(${color.color2})`,
-									width: '300px',
-									height: '100px',
-								}}
-								className="mr-8"></div>
-							<div>
-								<p>{color.name}</p>
-								<p>{color.color2}</p>
-								{color.color1 !== color.color2 ? (
-									<div
-										style={{
-											width: '300px',
-											height: '3px',
-											backgroundColor: 'red',
-										}}></div>
-								) : null}
+				<div className="flex-1">
+					{colors.map((color) => {
+						return (
+							<div key={color.name} className="flex items-center">
+								<div
+									style={{
+										backgroundColor: `rgb(${color.color2})`,
+										width: '100px',
+										height: '100px',
+									}}
+									className="mr-8"></div>
+								<div>
+									<p>{color.name}</p>
+									<p>{color.color2}</p>
+									{color.color1 !== color.color2 ? (
+										<div
+											style={{
+												width: '300px',
+												height: '3px',
+												backgroundColor: 'red',
+											}}></div>
+									) : null}
+								</div>
 							</div>
-						</div>
-					);
-				})}
+						);
+					})}
+				</div>
 			</div>
-		</div>
+		</Fragment>
 	);
 };
 
@@ -121,35 +129,40 @@ const CompareColors = () => {
 			<Page size="xxl">
 				<Fragment>
 					{CodeMirror && (
-						<div className="flex">
-							<CodeMirror
-								className="flex-1 mr-4 mb-16"
-								value={json1}
-								options={{
-									mode: 'application/json',
-									theme: 'material',
-									lineNumbers: true,
-									gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
-								}}
-								smartIndent
-								onBeforeChange={(editor, data, value) => {
-									setJson1(value);
-								}}
-							/>
-							<CodeMirror
-								className="flex-1"
-								value={json2}
-								options={{
-									mode: 'application/json',
-									theme: 'material',
-									lineNumbers: true,
-									gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
-								}}
-								smartIndent
-								onBeforeChange={(editor, data, value) => {
-									setJson2(value);
-								}}
-							/>
+						<div style={{display: 'flex'}}>
+							<div style={{width: '50%'}}>
+								JSON 1
+								<CodeMirror
+									className="mb-4 mr-4"
+									value={json1}
+									options={{
+										mode: 'application/json',
+										theme: 'material',
+										lineNumbers: true,
+										gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
+									}}
+									smartIndent
+									onBeforeChange={(editor, data, value) => {
+										setJson1(value);
+									}}
+								/>
+							</div>
+							<div style={{width: '50%'}}>
+								JSON 2
+								<CodeMirror
+									value={json2}
+									options={{
+										mode: 'application/json',
+										theme: 'material',
+										lineNumbers: true,
+										gutters: ['CodeMirror-linenumbers', 'codelinemarkers'],
+									}}
+									smartIndent
+									onBeforeChange={(editor, data, value) => {
+										setJson2(value);
+									}}
+								/>
+							</div>
 						</div>
 					)}
 
