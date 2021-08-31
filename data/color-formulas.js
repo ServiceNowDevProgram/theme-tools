@@ -359,7 +359,7 @@ export const colorFormulas = [
 			darkPercentage: 0.81,
 			darkVariations: 0,
 			startIndex: 1,
-			removeEnd: true,
+			removeBase: true,
 		},
 	},
 	{
@@ -372,7 +372,7 @@ export const colorFormulas = [
 			darkPercentage: 0,
 			darkVariations: 0,
 			startIndex: 1,
-			removeEnd: true,
+			removeBase: true,
 		},
 	},
 	{

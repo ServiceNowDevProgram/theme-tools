@@ -44,7 +44,7 @@ class ColorGeneratorAdvanced extends Component {
 				isReverse: color.light.isReverse,
 				startIndex: Number(color.light.startIndex),
 				includeEnds: color.light.includeEnds,
-				removeEnd: color.light.removeEnd,
+				removeBase: color.light.removeBase,
 			});
 			newColor.forEach((c) => {
 				out[c.name] = c.rgb;
@@ -88,7 +88,7 @@ class ColorGeneratorAdvanced extends Component {
 				isReverse: newColorObj.isReverse,
 				startIndex: Number(newColorObj.startIndex),
 				includeEnds: newColorObj.includeEnds,
-				removeEnd: newColorObj.removeEnd,
+				removeBase: newColorObj.removeBase,
 			});
 
 			let neutralMapper = {};
@@ -167,7 +167,7 @@ class ColorGeneratorAdvanced extends Component {
 										includeEnds={color.light.includeEnds}
 										onChange={this.updateColors}
 										derived={color.light.derived}
-										removeEnd={color.light.removeEnd}
+										removeBase={color.light.removeBase}
 										a11yCheckColors={a11yCheckColors}
 									/>
 								</div>
