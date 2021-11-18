@@ -12,4 +12,4 @@ echo "Deploying to theme.deoprototypes.com..."
 printf "\x1b[0m"
 
 echo "Tarballing 'out' folder and uploading to Dokku server, this may take a few minutes"
-touch out_dokku/.static && tar -c --exclude='*.js.map' out_dokku $* | ssh dokku@deoprototypes.com tar:in theme
+touch out_dokku/.static && tar -c --exclude='*.js.map' out_dokku $* | ssh dokku@deoprototypes.com git:from-archive theme --
