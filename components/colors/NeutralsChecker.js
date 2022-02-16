@@ -71,7 +71,7 @@ class NeutralsChecker extends Component {
 					});
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `DARK - text primary ${color.customProperty}`,
+						label: `DARK text primary ${color.customProperty}`,
 						value: `${color.hex}`,
 						order: 22,
 					});
