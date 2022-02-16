@@ -69,6 +69,24 @@ class NeutralsChecker extends Component {
 						value: `${color.hex}`,
 						order: 13,
 					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK - text primary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 22,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK background primary actionable ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 37,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK border primary actionable ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 40,
+					});
 					break;
 				case 1:
 					derived.push({
@@ -98,24 +116,146 @@ class NeutralsChecker extends Component {
 						order: 15,
 					});
 					break;
-				case 18:
+				case 3:
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `background primary actionable ${color.customProperty}`,
+						label: `border tertiary ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 16,
+						order: 9,
 					});
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `border primary actionable ${color.customProperty}`,
+						label: `divider tertiary ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 19,
+						order: 12,
+					});
+					break;
+				case 4:
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK text secondary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 23,
 					});
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `text primary ${color.customProperty}`,
+						label: `DARK background secondary actionable ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 1,
+						order: 38,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK border secondary actionable ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 41,
+					});
+					break;
+				case 5:
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `border secondary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 8,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `divider secondary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 11,
+					});
+					break;
+				case 7:
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `border primary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 7,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `divider primary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 10,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK text tertiary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 24,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK background tertiary actionable ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 39,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK border tertiary actionable ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 42,
+					});
+					break;
+				case 8:
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK border primary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 28,
+					});
+					break;
+				case 10:
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK border secondary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 29,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK divider primary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 31,
+					});
+					break;
+				case 12:
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `background tertiary actionable ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 18,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `border tertiary actionable ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 21,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `text tertiary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 3,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK border tertiary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 30,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK divider secondary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 32,
+					});
+					break;
+				case 14:
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK divider tertiary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 33,
 					});
 					break;
 				case 15:
@@ -138,66 +278,64 @@ class NeutralsChecker extends Component {
 						order: 2,
 					});
 					break;
-				case 12:
+				case 16:
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `background tertiary actionable ${color.customProperty}`,
+						label: `DARK background tertiary ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 18,
+						order: 27,
 					});
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `border tertiary actionable ${color.customProperty}`,
+						label: `DARK text tertiary actionable ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 21,
-					});
-					derived.push({
-						id: Math.random() * Date.now(),
-						label: `text tertiary ${color.customProperty}`,
-						value: `${color.hex}`,
-						order: 3,
+						order: 36,
 					});
 					break;
-				case 7:
+				case 18:
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `border primary ${color.customProperty}`,
+						label: `background primary actionable ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 7,
+						order: 16,
 					});
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `divider primary ${color.customProperty}`,
+						label: `border primary actionable ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 10,
+						order: 19,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `text primary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 1,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK background secondary ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 26,
+					});
+					derived.push({
+						id: Math.random() * Date.now(),
+						label: `DARK text secondary actionable ${color.customProperty}`,
+						value: `${color.hex}`,
+						order: 35,
 					});
 					break;
-				case 5:
+				case 20:
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `border secondary ${color.customProperty}`,
+						label: `DARK background primary ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 8,
+						order: 25,
 					});
 					derived.push({
 						id: Math.random() * Date.now(),
-						label: `divider secondary ${color.customProperty}`,
+						label: `DARK text primary actionable ${color.customProperty}`,
 						value: `${color.hex}`,
-						order: 11,
-					});
-					break;
-				case 3:
-					derived.push({
-						id: Math.random() * Date.now(),
-						label: `border tertiary ${color.customProperty}`,
-						value: `${color.hex}`,
-						order: 9,
-					});
-					derived.push({
-						id: Math.random() * Date.now(),
-						label: `divider tertiary ${color.customProperty}`,
-						value: `${color.hex}`,
-						order: 12,
+						order: 34,
 					});
 					break;
 
@@ -255,6 +393,7 @@ class NeutralsChecker extends Component {
 			darkVariations: Number(darkVariations),
 			darkPercentage: Number(darkPercentage),
 			darkSaturation: Number(darkSaturation),
+			includeEnds: true,
 			hook,
 		});
 
