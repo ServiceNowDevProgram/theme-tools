@@ -15,6 +15,7 @@ const links = [
 	{label: 'Color Generator', href: '/color-generator-p'},
 	{label: 'Color Generator Advanced', href: '/color-generator-advanced'},
 	{label: 'Compare Color JSON', href: '/compare-colors'},
+	{label: 'Neutrals Checker', href: '/color-neutrals-checker'},
 ];
 
 const ColorTools = () => {

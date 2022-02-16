@@ -10,6 +10,7 @@ function Select({
 	selected,
 	onSelect = () => {},
 	unsetLabel,
+	valueKey = 'id',
 }) {
 	return (
 		<div
@@ -39,7 +40,7 @@ function Select({
 					}}>
 					{unsetLabel ? <option value="">{unsetLabel}</option> : null}
 					{items.map((x) => (
-						<option key={x.id} value={x.id}>
+						<option key={x.id} value={x[valueKey]}>
 							{x.label}
 						</option>
 					))}
@@ -67,6 +68,7 @@ Select.propTypes = {
 			fontSize: PropTypes.number,
 		})
 	),
+	valueKey: PropTypes.string,
 	selected: PropTypes.string,
 	onSelect: PropTypes.func,
 	unsetLabel: PropTypes.string,

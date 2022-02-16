@@ -26,7 +26,7 @@ const Box = ({children, color, backgroundColor, size = '14px'}) => {
 	);
 };
 
-const renderRatios = (foregroundColor, backgroundColor) => {
+export const renderRatios = (foregroundColor, backgroundColor) => {
 	const {ratio, normal, large, nonText} = getContrastRatio(
 		foregroundColor,
 		backgroundColor
