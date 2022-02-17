@@ -23,7 +23,6 @@ import {getThemes} from '../api/themes';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
 import styles from '../../styles/Home.module.css';
-import pageStyles from './styles.module.css';
 import ColorSwatch from '../../components/colors/ColorSwatch';
 import ColorSwatchMini from '../../components/colors/ColorSwatchMini';
 
