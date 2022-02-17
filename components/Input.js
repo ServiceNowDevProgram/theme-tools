@@ -50,7 +50,7 @@ Input.propTypes = {
 	type: PropTypes.oneOf(['text', 'number', 'password']),
 	name: PropTypes.string,
 	label: PropTypes.string,
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	onChange: PropTypes.func,
 	placeholder: PropTypes.string,
 	disabled: PropTypes.bool,

@@ -21,12 +21,6 @@ class Neutral {
 		label = 'Neutral',
 		hook = 'now-color--neutral',
 		baseColor = '#4F5664',
-		lightVariations = 10,
-		lightPercentage = 0.95,
-		lightSaturation = 1,
-		darkVariations = 9,
-		darkPercentage = 0.9,
-		darkSaturation = 1,
 		startIndex = 0,
 		includeEnds = true,
 		derived = []
@@ -35,12 +29,6 @@ class Neutral {
 		this.label = label;
 		this.hook = hook;
 		this.baseColor = baseColor;
-		this.lightVariations = lightVariations;
-		this.lightPercentage = lightPercentage;
-		this.lightSaturation = lightSaturation;
-		this.darkVariations = darkVariations;
-		this.darkPercentage = darkPercentage;
-		this.darkSaturation = darkSaturation;
 		this.startIndex = startIndex;
 		this.includeEnds = includeEnds;
 		this.derived = derived;
@@ -54,8 +42,13 @@ class ColorNeutralsChecker extends Component {
 		this.state = {
 			colors: [new Neutral()],
 			isA11yCheckOpen: false,
-			selectedNeutralIndex: -1,
-			a11yIndexToCompare: [2, 12],
+			lightVariations: 10,
+			lightPercentage: 0.95,
+			lightSaturation: 1,
+			darkVariations: 9,
+			darkPercentage: 0.9,
+			darkSaturation: 1,
+			isConfigOpen: false,
 		};
 	}
 
@@ -126,8 +119,112 @@ class ColorNeutralsChecker extends Component {
 		this.setState({colors: [...this.state.colors, new Neutral()]});
 	};
 
+	renderConfig = () => {
+		const {
+			lightVariations,
+			lightPercentage,
+			lightSaturation,
+			darkVariations,
+			darkPercentage,
+			darkSaturation,
+		} = this.state;
+		return (
+			<div className="flex justify-between">
+				<div>
+					<Input
+						label="Light Variations"
+						value={lightVariations}
+						placeholder="3"
+						onChange={(value) => this.setState({lightVariations: value})}
+					/>
+				</div>
+				<div>
+					<Input
+						label="Light Percentage"
+						value={lightPercentage}
+						placeholder=".95"
+						onChange={(value) => this.setState({lightPercentage: value})}
+					/>
+					<input
+						type="range"
+						min="0"
+						max="1"
+						value={lightPercentage}
+						step="0.01"
+						onChange={(e) => this.setState({lightPercentage: e.target.value})}
+					/>
+				</div>
+				<div>
+					<Input
+						label="Light Saturation"
+						value={lightSaturation}
+						placeholder=".95"
+						onChange={(value) => this.setState({lightSaturation: value})}
+					/>
+					<input
+						type="range"
+						min="0"
+						max="1"
+						value={lightSaturation}
+						step="0.01"
+						onChange={(e) => this.setState({lightSaturation: e.target.value})}
+					/>
+				</div>
+				<div>
+					<Input
+						label="Dark Variations"
+						value={darkVariations}
+						placeholder="3"
+						onChange={(value) => this.setState({darkVariations: value})}
+					/>
+				</div>
+				<div>
+					<Input
+						label="Dark Percentage"
+						value={darkPercentage}
+						placeholder=".95"
+						onChange={(value) => this.setState({darkPercentage: value})}
+					/>
+					<input
+						type="range"
+						min="0"
+						max="1"
+						value={darkPercentage}
+						step="0.01"
+						onChange={(e) => this.setState({darkVariations: e.target.value})}
+					/>
+				</div>
+				<div>
+					<Input
+						label="Dark Saturation"
+						value={darkSaturation}
+						placeholder=".95"
+						onChange={(value) => this.setState({darkSaturation: value})}
+					/>
+					<input
+						type="range"
+						min="0"
+						max="1"
+						value={darkSaturation}
+						step="0.01"
+						onChange={(e) => this.setState({darkSaturation: e.target.value})}
+					/>
+				</div>
+			</div>
+		);
+	};
+
 	render() {
-		const {colors} = this.state;
+		const {
+			colors,
+			isConfigOpen,
+			lightVariations,
+			lightPercentage,
+			lightSaturation,
+			darkVariations,
+			darkPercentage,
+			darkSaturation,
+		} = this.state;
 		return (
 			<div>
 				<PageHeader
@@ -137,6 +234,27 @@ class ColorNeutralsChecker extends Component {
 					size="2xl"
 				/>
 				<Page size="2xl">
+					{isConfigOpen ? (
+						<div>
+							<div className="flex justify-end">
+								<button
+									className="bg-blue-500 text-white text-sm font-bold py-1 px-2 rounded"
+									onClick={() => this.setState({isConfigOpen: !isConfigOpen})}>
+									Close config
+								</button>
+							</div>
+							{this.renderConfig()}
+						</div>
+					) : (
+						<div className="flex justify-end">
+							<button
+								className="bg-blue-500 text-white text-sm font-bold py-1 px-2 rounded"
+								onClick={() => this.setState({isConfigOpen: !isConfigOpen})}>
+								Open config
+							</button>
+						</div>
+					)}
+
 					<div>
 						{colors.map((color, index) => {
 							return (
@@ -144,12 +262,12 @@ class ColorNeutralsChecker extends Component {
 									key={`Neutrals ${index}`}
 									label={`Neutrals ${index}`}
 									baseColor={color.baseColor}
-									lightVariations={color.lightVariations}
-									lightPercentage={color.lightPercentage}
-									lightSaturation={color.lightSaturation}
-									darkVariations={color.darkVariations}
-									darkPercentage={color.darkPercentage}
-									darkSaturation={color.darkSaturation}
+									lightVariations={lightVariations}
+									lightPercentage={lightPercentage}
+									lightSaturation={lightSaturation}
+									darkVariations={darkVariations}
+									darkPercentage={darkPercentage}
+									darkSaturation={darkSaturation}
 									hook={color.hook}
 									startIndex={0}
 									includeEnds={true}

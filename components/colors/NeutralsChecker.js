@@ -28,6 +28,22 @@ class NeutralsChecker extends Component {
 			selectedA11yColor: '',
 			selectedA11yColor2: '#000000',
 		};
+
+		// this.state = {
+		// 	label: props.label,
+		// 	baseColor: props.baseColor,
+		// 	lightVariations: 10,
+		// 	lightPercentage: 0.95,
+		// 	lightSaturation: 1,
+		// 	darkVariations: 9,
+		// 	darkPercentage: 0.9,
+		// 	darkSaturation: 1,
+		// 	hook: props.hook,
+		// 	newBaseColor: getNeutralBaseColorFromColor(props.baseColor),
+		// 	isA11yCheckOpen: false,
+		// 	selectedA11yColor: '',
+		// 	selectedA11yColor2: '#000000',
+		// };
 	}
 
 	onBrandColorChange = (color) => {
@@ -387,12 +403,12 @@ class NeutralsChecker extends Component {
 
 		const colors = generateColorScale({
 			color: newBaseColor,
-			lightVariations: Number(lightVariations),
-			lightPercentage: Number(lightPercentage),
-			lightSaturation: Number(lightSaturation),
-			darkVariations: Number(darkVariations),
-			darkPercentage: Number(darkPercentage),
-			darkSaturation: Number(darkSaturation),
+			lightVariations: this.props.lightVariations,
+			lightPercentage: this.props.lightPercentage,
+			lightSaturation: this.props.lightSaturation,
+			darkVariations: this.props.darkVariations,
+			darkPercentage: this.props.darkPercentage,
+			darkSaturation: this.props.darkSaturation,
 			includeEnds: true,
 			hook,
 		});
@@ -401,7 +417,7 @@ class NeutralsChecker extends Component {
 			<Fragment>
 				<div className="flex">
 					<div className="flex-1">
-						<div className="flex items-end mb-3">
+						<div className="flex mb-3">
 							<BaseColorPicker
 								label="Brand Neutral"
 								value={baseColor}
