@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import Input from '../Input';
-import {SketchPicker} from 'react-color';
+import {ChromePicker} from 'react-color';
 import reactCSS from 'reactcss';
 import PropTypes from 'prop-types';
 
@@ -76,7 +76,7 @@ class BaseColorPicker extends Component {
 								style={styles.cover}
 								onClick={() => this.setState({isColorPickerOpen: false})}
 							/>
-							<SketchPicker color={value} onChange={(c) => onChange(c.hex)} />
+							<ChromePicker color={value} onChange={(c) => onChange(c.hex)} />
 						</div>
 					) : null}
 				</Fragment>

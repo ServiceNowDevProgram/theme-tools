@@ -23,10 +23,10 @@ class Neutral {
 		baseColor = '#4F5664',
 		lightVariations = 10,
 		lightPercentage = 0.95,
-		lightSaturation = 0,
+		lightSaturation = 1,
 		darkVariations = 9,
 		darkPercentage = 0.9,
-		darkSaturation = 0,
+		darkSaturation = 1,
 		startIndex = 0,
 		includeEnds = true,
 		derived = []
