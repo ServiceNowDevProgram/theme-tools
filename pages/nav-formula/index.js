@@ -5,8 +5,10 @@ import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 import ColorSwatch from '../../components/colors/ColorSwatch';
+import BaseColorPicker from '../../components/colors/BaseColorPicker';
 
 import {
+	getContrastRatio,
 	getNavHooksFromBrandPrimary,
 	isHex,
 } from '../../lib/color-generator/generateColorsP';
@@ -26,7 +28,10 @@ const path = [
 ];
 
 const selectedPath = 'nav-formula';
-const INITIAL_COLORS = {chromeBrand: [], chromeDivider: []};
+const INITIAL_COLORS = {
+	colorGroups: {neutrals: [], chromeBrand: [], chromeDivider: []},
+	json: {},
+};
 
 const NavFormula = () => {
 	const [brandPrimary, setBrandPrimary] = useState('');
@@ -40,17 +45,6 @@ const NavFormula = () => {
 		}
 	}, [brandPrimary]);
 
-	const json = {
-		...colors.chromeBrand.reduce((acc, val) => {
-			acc[val.name] = val.hex;
-			return acc;
-		}, {}),
-		...colors.chromeDivider.reduce((acc, val) => {
-			acc[val.name] = val.hex;
-			return acc;
-		}, {}),
-	};
-
 	return (
 		<Fragment>
 			<PageHeader
@@ -61,20 +55,24 @@ const NavFormula = () => {
 			/>
 			<Page size="xl">
 				<div>
-					<Input
-						placeholder="Brand Primary"
-						value={brandPrimary}
-						onChange={(value) => setBrandPrimary(value)}
-					/>
+					<div style={{width: '300px'}}>
+						<BaseColorPicker
+							value={brandPrimary}
+							onChange={(value) => setBrandPrimary(value)}
+							position="middle"
+						/>
+					</div>
+					<p className="mt-8">Neutrals</p>
+					<ColorSwatch items={colors.colorGroups.neutrals} />
 					<p className="mt-8">Chrome Brand</p>
-					<ColorSwatch items={colors.chromeBrand} />
+					<ColorSwatch items={colors.colorGroups.chromeBrand} />
 					<p className="mt-8">Chrome Divider</p>
-					<ColorSwatch items={colors.chromeDivider} />
+					<ColorSwatch items={colors.colorGroups.chromeDivider} />
 
 					{CodeMirror && (
 						<CodeMirror
 							className="mt-8"
-							value={JSON.stringify(json, ' ', 4)}
+							value={JSON.stringify(colors.json, ' ', 4)}
 							options={{
 								mode: 'application/json',
 								theme: 'material',
