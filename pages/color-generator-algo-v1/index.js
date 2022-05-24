@@ -18,7 +18,7 @@ import {
 	HSLToHex,
 	getBaseColors,
 	getContrastRatio,
-} from '../../lib/color-generator/generateColorsP';
+} from '../../lib/color-generator/generateColorsS';
 import {getThemes} from '../api/themes';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
@@ -29,13 +29,13 @@ import ColorSwatchMini from '../../components/colors/ColorSwatchMini';
 const path = [
 	{id: 'colors', href: '/colors', label: 'Colors'},
 	{
-		id: 'color-generator-p',
-		href: '/color-generator-p',
-		label: 'Color Generator',
+		id: 'color-generator-algo-v1',
+		href: '/color-generator-algo-v1',
+		label: 'Color Generator Algo v1',
 	},
 ];
-const selectedPath = 'color-generator-p';
-class ColorGeneratorP extends Component {
+const selectedPath = 'color-generator-algo-v1';
+class ColorGeneratorAlgo1 extends Component {
 	constructor(props) {
 		super(props);
 
@@ -122,7 +122,6 @@ class ColorGeneratorP extends Component {
 		const {selectedColors, isDark} = this.state;
 		const generatedColors = getColors(selectedColors, isDark);
 		const out = {};
-		console.log({generatedColors});
 		for (const [colorId, color] of Object.entries(DATA.colors)) {
 			const colors = generatedColors[colorId];
 			if (colors) {
@@ -542,15 +541,6 @@ class ColorGeneratorP extends Component {
 								</button>
 								<div className="flex items-center ml-5">
 									<Toggle
-										label="Dark"
-										onChange={() =>
-											this.setState({isDark: !isDark, isHighContrast: false})
-										}
-										checked={isDark}
-									/>
-								</div>
-								<div className="flex items-center ml-5">
-									<Toggle
 										label="Compact"
 										onChange={() => this.setState({compact: !compact})}
 										checked={compact}
@@ -773,4 +763,4 @@ class ColorGeneratorP extends Component {
 	}
 }
 
-export default ColorGeneratorP;
+export default ColorGeneratorAlgo1;
