@@ -360,6 +360,24 @@
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
+		"textPrimaryActionable": {
+			"id": "textPrimaryActionable",
+			"label": "Text Primary Actionable",
+			"notes": "Disabled: Generated from neutrals",
+			"disabled": true
+		},
+		"textSecondaryActionable": {
+			"id": "textSecondaryActionable",
+			"label": "Text Secondary Actionable",
+			"notes": "Disabled: Generated from neutrals",
+			"disabled": true
+		},
+		"textTertiaryActionable": {
+			"id": "textTertiaryActionable",
+			"label": "Text Tertiary Actionable",
+			"notes": "Disabled: Generated from neutrals",
+			"disabled": true
+		},
 		"borderPrimary": {
 			"id": "borderPrimary",
 			"label": "Border Primary",

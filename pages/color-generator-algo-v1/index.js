@@ -5,7 +5,6 @@ import Page from '../../components/Page';
 import Modal from '../../components/Modal';
 import BaseColorPicker from '../../components/colors/BaseColorPicker';
 import BrandColorPicker from '../../components/colors/BrandColorPicker';
-import Select from '../../components/Select';
 import Toggle from '../../components/Toggle';
 import shallowEqual from '../../lib/common/shallowEqual';
 import DATA from '../../data/color-generator/colors.json';
@@ -16,10 +15,9 @@ import {
 	getNeutralBaseColorsFromBrandPrimaryHex,
 	hexToHSL,
 	HSLToHex,
-	getBaseColors,
 	getContrastRatio,
+	getNavHooks,
 } from '../../lib/color-generator/generateColorsS';
-import {getThemes} from '../api/themes';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
 import styles from '../../styles/Home.module.css';
@@ -51,7 +49,6 @@ class ColorGeneratorAlgo1 extends Component {
 			autoGenBrandNeutral: '',
 			autoGenBrandPrimary: '',
 			autoGenBrandSecondary: '',
-			themes: [],
 			selectedTheme: {},
 			selectedA11yColors: [],
 		};
@@ -67,7 +64,6 @@ class ColorGeneratorAlgo1 extends Component {
 			}
 		}
 		this.setState({selectedColors: newSelectedColors});
-		this.getThemes();
 	}
 
 	componentDidUpdate(prevProps, props) {
@@ -100,24 +96,6 @@ class ColorGeneratorAlgo1 extends Component {
 		}
 	}
 
-	getThemes = async () => {
-		const params = {
-			deleted: 'false',
-			sysparm_query: 'ORDERBYname',
-		};
-
-		try {
-			const themes = await getThemes(params);
-			this.setState({
-				themes,
-			});
-		} catch (err) {
-			toast.error(
-				'There was an error getting themes. Please contact #theming.'
-			);
-		}
-	};
-
 	copyColors = () => {
 		const {selectedColors, isDark} = this.state;
 		const generatedColors = getColors(selectedColors, isDark);
@@ -130,7 +108,10 @@ class ColorGeneratorAlgo1 extends Component {
 				});
 			}
 		}
-		copyObject(out);
+
+		const navHooks = getNavHooks(out);
+
+		copyObject({...out, ...navHooks});
 	};
 
 	generateDarkTheme = () => {
@@ -294,33 +275,6 @@ class ColorGeneratorAlgo1 extends Component {
 		this.setState({selectedColors: {...DEFAULT_POLARIS_THEME}});
 	};
 
-	renderDefaultThemeAlert = () => {
-		const anyBaseColorDefined = Object.values(this.state.selectedColors).some(
-			(x) => !!x
-		);
-
-		if (!anyBaseColorDefined) {
-			return (
-				<button
-					className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none rounded-md flex w-full mb-4"
-					onClick={(e) => {
-						e.preventDefault();
-						this.setDefaultTheme();
-					}}>
-					<span className="font-semibold mr-2 text-left flex-auto">
-						Not sure where to start? Try the Workspace Default Theme palette
-					</span>
-					<svg
-						className="fill-current opacity-75 h-4 w-4"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20">
-						<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z" />
-					</svg>
-				</button>
-			);
-		}
-	};
-
 	renderInsertPolarisAlert = () => {
 		const {
 			autoGenBrandNeutral,
@@ -369,7 +323,11 @@ class ColorGeneratorAlgo1 extends Component {
 
 			const brandPrimaryHSL = hexToHSL(autoGenBrandPrimary);
 			const brandSecondaryHSL = hexToHSL(autoGenBrandSecondary);
-			const selectionSecondary = HSLToHex(brandSecondaryHSL.h, 11, 85);
+			const selectionSecondary = HSLToHex(
+				brandSecondaryHSL.h,
+				brandSecondaryHSL.s,
+				85
+			);
 			const chromeDivider = HSLToHex(brandPrimaryHSL.h, brandPrimaryHSL.s, 37);
 
 			this.setState({
@@ -440,21 +398,6 @@ class ColorGeneratorAlgo1 extends Component {
 		});
 	};
 
-	onThemeSelect = (theme) => {
-		if (!theme) {
-			this.setState({selectedColors: {}});
-		} else if (theme) {
-			const colors = getBaseColors(JSON.parse(theme.theme));
-			this.setState({
-				selectedColors: colors,
-				selectedTheme: theme,
-				autoGenBrandNeutral: '',
-				autoGenBrandPrimary: '',
-				autoGenBrandSecondary: '',
-			});
-		}
-	};
-
 	renderContrastChecker = (color1, color2) => {
 		const contrasts = getContrastRatio(color1, color2);
 		return (
@@ -480,18 +423,18 @@ class ColorGeneratorAlgo1 extends Component {
 			autoGenBrandNeutral,
 			autoGenBrandPrimary,
 			autoGenBrandSecondary,
-			themes,
-			selectedTheme,
 		} = this.state;
 
 		const generatedColors = getColors(selectedColors, isDark);
+
+		console.log(generatedColors);
 		return (
 			<div
 				className={cx({
 					[styles.dark]: isDark,
 				})}>
 				<PageHeader
-					label="Color Generator"
+					label="Color Generator Algo V1"
 					path={path}
 					selectedPath={selectedPath}
 					size="xl"
@@ -503,21 +446,6 @@ class ColorGeneratorAlgo1 extends Component {
 								'p-4': true,
 								'bg-gray-900': isDark,
 							})}>
-							<div className="flex-initial mr-4">
-								<Select
-									layout="horizontal"
-									label="Themes"
-									items={themes.map((x) => ({id: x.sys_id, label: x.name}))}
-									unsetLabel="Select a theme"
-									selected={selectedTheme.sys_id || ''}
-									onSelect={(id) => {
-										const theme = this.state.themes.filter(
-											(theme) => theme.sys_id === id
-										)[0];
-										this.onThemeSelect(theme);
-									}}
-								/>
-							</div>
 							<div className="ml-auto flex">
 								<button
 									className="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-1 px-2 rounded ml-auto"
@@ -551,8 +479,6 @@ class ColorGeneratorAlgo1 extends Component {
 					}
 				/>
 				<Page size="xl">
-					{this.renderDefaultThemeAlert()}
-
 					{compact && (
 						<div
 							style={{
