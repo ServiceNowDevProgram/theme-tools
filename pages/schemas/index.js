@@ -19,9 +19,7 @@ export default function SchemasIndex({schemas}) {
 				<ul className="list-disc">
 					{schemas.map((x) => (
 						<li key={x.id}>
-							<Link href={`/schema/${x.id}`}>
-								<a>{x.id}</a>
-							</Link>
+							<Link href={`/schema/${x.id}`}>{x.id}</Link>
 						</li>
 					))}
 				</ul>

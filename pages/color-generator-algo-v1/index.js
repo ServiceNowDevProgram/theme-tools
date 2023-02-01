@@ -16,8 +16,11 @@ import {
 	hexToHSL,
 	HSLToHex,
 	getContrastRatio,
-	getNavHooks,
-} from '../../lib/color-generator/generateColorsS';
+} from '../../lib/generate-colors-s/index';
+import {
+	getL1Hooks,
+	getUnifiedNavHooks,
+} from '../../lib/dynamic-color-mapping/index';
 import {copyObject} from '../../lib/common/copy';
 import cx from '../../lib/cx';
 import styles from '../../styles/Home.module.css';
@@ -39,7 +42,7 @@ class ColorGeneratorAlgo1 extends Component {
 
 		this.state = {
 			selectedColors: {
-				...INITIAL_THEME,
+				...DEFAULT_POLARIS_THEME,
 			},
 			selectedColorGroup: 'base',
 			isDark: false,
@@ -109,9 +112,14 @@ class ColorGeneratorAlgo1 extends Component {
 			}
 		}
 
-		const navHooks = getNavHooks(out);
+		const L1Hooks = getL1Hooks(out);
+		const unifiedNavHooks = getUnifiedNavHooks(out);
 
-		copyObject({...out, ...navHooks});
+		copyObject({
+			...out,
+			...L1Hooks,
+			...unifiedNavHooks,
+		});
 	};
 
 	generateDarkTheme = () => {
@@ -424,10 +432,8 @@ class ColorGeneratorAlgo1 extends Component {
 			autoGenBrandPrimary,
 			autoGenBrandSecondary,
 		} = this.state;
-
 		const generatedColors = getColors(selectedColors, isDark);
 
-		console.log(generatedColors);
 		return (
 			<div
 				className={cx({

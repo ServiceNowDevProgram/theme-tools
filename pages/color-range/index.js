@@ -5,7 +5,7 @@ import Input from '../../components/Input';
 import Toggle from '../../components/Toggle';
 import BaseColorPicker from '../../components/colors/BaseColorPicker';
 import ColorSwatch from '../../components/colors/ColorSwatch';
-import {generateColorScale} from '../../lib/color-generator/generateColorsP';
+import {generateColorScale} from '../../lib/generate-colors-s';
 
 const path = [
 	{id: 'colors', href: '/colors', label: 'Colors'},

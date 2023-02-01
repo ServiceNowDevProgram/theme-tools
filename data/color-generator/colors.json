@@ -234,6 +234,19 @@
 			"hook": "now-color_chrome--divider",
 			"baseColorConfigurable": true
 		},
+		"secondaryNavBrand": {
+			"id": "secondaryNavBrand",
+			"label": "Secondary Nav Brand",
+			"hook": "now-color_secondary-nav--brand",
+			"a11y": true,
+			"baseColorConfigurable": true
+		},
+		"secondaryNavDivider": {
+			"id": "secondaryNavDivider",
+			"label": "Secondary Nav Divider",
+			"hook": "now-color_secondary-nav--divider",
+			"baseColorConfigurable": true
+		},
 		"groupedBlue": {
 			"id": "groupedBlue",
 			"label": "Grouped Blue",
@@ -327,36 +340,42 @@
 		"dividerPrimary": {
 			"id": "dividerPrimary",
 			"label": "Divider Primary",
+			"hook": "now-color_divider--primary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"dividerSecondary": {
 			"id": "dividerSecondary",
 			"label": "Divider Secondary",
+			"hook": "now-color_divider--secondary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"dividerTertiary": {
 			"id": "dividerTertiary",
 			"label": "Divider Tertiary",
+			"hook": "now-color_divider--tertiary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"textPrimary": {
 			"id": "textPrimary",
 			"label": "Text Primary",
+			"hook": "now-color_text--primary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"textSecondary": {
 			"id": "textSecondary",
 			"label": "Text Secondary",
+			"hook": "now-color_text--secondary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"textTertiary": {
 			"id": "textTertiary",
 			"label": "Text Tertiary",
+			"hook": "now-color_text--tertiary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
@@ -381,30 +400,35 @@
 		"borderPrimary": {
 			"id": "borderPrimary",
 			"label": "Border Primary",
+			"hook": "now-color_border--primary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"borderSecondary": {
 			"id": "borderSecondary",
 			"label": "Border Secondary",
+			"hook": "now-color_border--secondary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"borderTertiary": {
 			"id": "borderTertiary",
 			"label": "Border Tertiary",
+			"hook": "now-color_boarder--tertiary",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"focusRingShadow": {
 			"id": "focusRingShadow",
 			"label": "Focus Ring Shadow",
+			"hook": "now-color_focus-ring_shadow",
 			"notes": "Disabled: Generated from neutrals",
 			"disabled": true
 		},
 		"focusRing": {
 			"id": "focusRing",
 			"label": "Focus Ring",
+			"hook": "now-color_focus-ring",
 			"notes": "Disabled: Generated from focus",
 			"disabled": true
 		}

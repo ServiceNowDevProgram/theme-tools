@@ -15,9 +15,7 @@ export default function ReleasesIndex({releases}) {
 				<ul className="list-disc">
 					{releases.map((x) => (
 						<li key={x}>
-							<Link href={`/release/${x}`}>
-								<a>{x}</a>
-							</Link>
+							<Link href={`/release/${x}`}>{x}</Link>
 						</li>
 					))}
 				</ul>

@@ -485,10 +485,6 @@ export default function HooksPage() {
 
 	const releaseOptions = React.useMemo(() => [...exportData.releases], []);
 
-	// console.log(filters);
-	// console.log(filteredData);
-	// console.log(selectedRelease);
-
 	const path = [{id: 'hooks', href: '/hooks', label: 'Hooks'}];
 	const selectedPath = 'hooks';
 

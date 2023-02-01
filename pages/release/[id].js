@@ -4,11 +4,7 @@ import PageHeader from '../../components/PageHeader';
 import Page from '../../components/Page';
 
 function printHookLink({uid, id}) {
-	return (
-		<Link href={`/hook/${uid}`}>
-			<a>{id}</a>
-		</Link>
-	);
+	return <Link href={`/hook/${uid}`}>{id}</Link>;
 }
 
 function SimpleTable({columns, data}) {

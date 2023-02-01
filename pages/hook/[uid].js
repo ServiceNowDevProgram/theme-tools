@@ -90,7 +90,7 @@ export default function HooksPage({uid, releases, definitions, metadata}) {
 								label: 'Added in release',
 								value: (
 									<Link href={`/release/${metadata.added}`}>
-										<a>{metadata.added}</a>
+										{metadata.added}
 									</Link>
 								),
 							},
@@ -99,7 +99,7 @@ export default function HooksPage({uid, releases, definitions, metadata}) {
 								label: 'Removed in release',
 								value: metadata.removed ? (
 									<Link href={`/release/${metadata.removed}`}>
-										<a>{metadata.removed}</a>
+										{metadata.removed}
 									</Link>
 								) : (
 									'N/A, still active and not removed'

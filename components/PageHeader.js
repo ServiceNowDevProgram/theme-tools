@@ -6,10 +6,10 @@ import cx from '../lib/cx';
 
 function NavLink({label, href}) {
 	return (
-		<Link href={href}>
-			<a className="no-underline text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out mr-4">
-				{label}
-			</a>
+		<Link
+			href={href}
+			className="no-underline text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out mr-4">
+			{label}
 		</Link>
 	);
 }
