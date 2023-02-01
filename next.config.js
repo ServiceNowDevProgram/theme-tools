@@ -2,7 +2,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const dokku = process.env.DEPLOY_TARGET === 'dokku';
 
 module.exports = {
-	basePath: !dev && !dokku ? '/theme-tools' : '',
+	basePath: '',
 	trailingSlash: dokku ? true : undefined,
 	async redirects() {
 		return [
