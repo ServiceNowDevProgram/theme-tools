@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fhook\u002F[uid]","\u002Frelease\u002F[id]","\u002Freleases","\u002Fschema\u002F[id]","\u002Fschemas","\u002Fvalidator"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
