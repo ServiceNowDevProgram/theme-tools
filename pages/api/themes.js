@@ -13,6 +13,7 @@ function getHeaders(username, password) {
 	};
 }
 
+// Removing for direct loading of themes via JSON
 // export async function getThemes(params) {
 // 	const headers = getHeaders('demo-safe', 'demo-safe');
 
