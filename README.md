@@ -15,7 +15,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 After merging changes to the master branch run:
 
 ```bash
-npm run build
+npm run deploy
 ```
 
 Commit all the changes to the `out/` directory and push to Github master branch.
@@ -25,7 +25,7 @@ Commit all the changes to the `out/` directory and push to Github master branch.
 After merging changes to the master branch run:
 
 ```bash
-npm run deploy
+npm run dokku-deploy
 ```
 
 The command will take a little while. Once it is done you won't have anything to commit — the updated site will be available on http://theme.deoprototypes.com.
