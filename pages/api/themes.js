@@ -30,7 +30,6 @@ function getHeaders(username, password) {
 // }
 
 export async function getThemes(params) {
-	console.log(POLARIS);
 	return [
 		{
 			name: 'Initial',
